@@ -2,17 +2,7 @@
 <html lang="vi">
 
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MD49VEG5FP"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-    gtag("js", new Date());
-
-    gtag("config", "G-MD49VEG5FP");
-  </script>
+  <script src="blogs-data.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Margin AI</title>
@@ -677,6 +667,154 @@
         </div>
       </div>
     </section>
+
+    <!-- Project -->
+    <section id="projects" class="py-16 md:py-24 bg-[#050e13] relative overflow-hidden">
+      <div class="container mx-auto px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-serif font-bold mb-4">Featured Projects</h2>
+          <p class="text-lg text-gray-400">Latest work and insights on AI implementation</p>
+        </div>
+
+        <div class="relative max-w-6xl mx-auto group">
+          <!-- Slider -->
+          <div class="overflow-hidden">
+            <div id="project-track" class="flex transition-transform duration-500"></div>
+          </div>
+
+          <!-- Navigation -->
+          <button onclick="slideProject(-1)"
+            class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-black/80 hover:bg-blue-600 text-white w-12 h-12 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button onclick="slideProject(1)"
+            class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-black/80 hover:bg-blue-600 text-white w-12 h-12 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+
+          <!-- Dots -->
+          <div id="project-dots" class="flex justify-center gap-2 mt-8"></div>
+        </div>
+
+        <!-- View All -->
+        <div class="text-center mt-12">
+          <a href="projects.html"
+            class="inline-flex items-center gap-2 px-8 py-3 border-2 border-blue-500 text-blue-400 hover:bg-blue-500 hover:text-white rounded-lg transition-all font-semibold group">
+            View All Projects
+            <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      .project-card {
+        min-width: 100%;
+        background: linear-gradient(135deg, #0f1419 0%, #1a1f2e 100%);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        transition: all 0.3s;
+      }
+
+      .project-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15);
+      }
+
+      .project-card img {
+        transition: transform 0.5s;
+      }
+
+      .project-card:hover img {
+        transform: scale(1.05);
+      }
+
+      .project-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .project-dot.active {
+        background: #3b82f6;
+        width: 24px;
+        border-radius: 5px;
+      }
+
+      @media (min-width: 768px) {
+        .project-card {
+          min-width: calc(50% - 1rem);
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .project-card {
+          min-width: calc(33.333% - 1.333rem);
+        }
+      }
+    </style>
+
+    <script>
+      let projectIndex = 0;
+      const projects = typeof blogs !== 'undefined' ? blogs.slice(0, 3) : [];
+
+      function renderProjects() {
+        const track = document.getElementById('project-track');
+        const dots = document.getElementById('project-dots');
+
+        track.innerHTML = projects.map(p => `
+          <a href="blog-detail.html?slug=${p.slug}" class="project-card rounded-2xl overflow-hidden block mx-2">
+            <div class="aspect-video overflow-hidden">
+              <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-xs px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400">${p.category}</span>
+                <span class="text-xs text-gray-500">${p.readTime}</span>
+              </div>
+              <h3 class="text-2xl font-serif font-bold mb-3 hover:text-blue-400 transition-colors line-clamp-2">${p.title}</h3>
+              <p class="text-gray-400 text-sm line-clamp-2">${p.excerpt}</p>
+            </div>
+          </a>
+        `).join('');
+
+        dots.innerHTML = projects.map((_, i) =>
+          `<button class="project-dot ${i === 0 ? 'active' : ''}" onclick="goToProject(${i})"></button>`
+        ).join('');
+      }
+
+      function slideProject(dir) {
+        projectIndex = (projectIndex + dir + projects.length) % projects.length;
+        updateSlider();
+      }
+
+      function goToProject(i) {
+        projectIndex = i;
+        updateSlider();
+      }
+
+      function updateSlider() {
+        const track = document.getElementById('project-track');
+        const offset = window.innerWidth >= 1024 ? -(projectIndex * 33.333) :
+          window.innerWidth >= 768 ? -(projectIndex * 50) :
+            -(projectIndex * 100);
+        track.style.transform = `translateX(${offset}%)`;
+
+        document.querySelectorAll('.project-dot').forEach((dot, i) => {
+          dot.classList.toggle('active', i === projectIndex);
+        });
+      }
+
+      // Auto-slide
+      let autoSlide = setInterval(() => slideProject(1), 5000);
+      document.getElementById('project-track').addEventListener('mouseenter', () => clearInterval(autoSlide));
+      document.getElementById('project-track').addEventListener('mouseleave', () => autoSlide = setInterval(() => slideProject(1), 5000));
+
+      // Init
+      if (projects.length) renderProjects();
+    </script>
 
     <!-- Our People -->
     <section class="py-16 md:py-24 bg-[#050e13]" id="our-people">
