@@ -798,34 +798,36 @@
         <script>
             let projectIndex = 0;
             const projects = typeof blogs !== 'undefined' ? blogs.slice(0, 5) : [];
-
+            const dotCount = Math.max(0, projects.length - 2);
             function renderProjects() {
                 const track = document.getElementById('project-track');
                 const dots = document.getElementById('project-dots');
 
                 track.innerHTML = projects.map(p => `
-          <a href="blog-detail.html?slug=${p.slug}" class="project-card rounded-2xl overflow-hidden block mx-2">
-            <div class="aspect-video overflow-hidden">
-              <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover">
-            </div>
-            <div class="p-6">
-              <div class="flex items-center justify-between mb-3">
-                <span class="text-xs px-3 py-1 rounded-full bg-[#FF7E29]/10 border border-[#FF7E29]/30 text-[#FF7E29]">${p.category}</span>
-                <span class="text-xs text-white/50">${p.readTime}</span>
-              </div>
-              <h3 class="text-2xl font-serif font-bold mb-3 text-white hover:text-[#FF7E29] transition-colors line-clamp-2">${p.title}</h3>
-              <p class="text-white/60 text-sm line-clamp-2">${p.excerpt}</p>
-            </div>
-          </a>
+            <a href="blog-detail.html?slug=${p.slug}" class="project-card rounded-2xl overflow-hidden block mx-2">
+                <div class="aspect-video overflow-hidden">
+                    <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover">
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs px-3 py-1 rounded-full bg-[#FF7E29]/10 border border-[#FF7E29]/30 text-[#FF7E29] font-bold uppercase">${p.category}</span>
+                        <span class="text-xs text-white/50">${p.readTime}</span>
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold mb-3 text-white hover:text-[#FF7E29] transition-colors line-clamp-2">${p.title}</h3>
+                    <p class="text-white/60 text-sm line-clamp-2">${p.excerpt}</p>
+                </div>
+            </a>
         `).join('');
 
-                dots.innerHTML = projects.map((_, i) =>
+
+
+                dots.innerHTML = Array.from({ length: dotCount }).map((_, i) =>
                     `<button class="project-dot ${i === 0 ? 'active' : ''}" onclick="goToProject(${i})"></button>`
                 ).join('');
             }
 
             function slideProject(dir) {
-                projectIndex = (projectIndex + dir + projects.length) % projects.length;
+                projectIndex = (projectIndex + dir + dotCount) % dotCount;
                 updateSlider();
             }
 
@@ -847,12 +849,15 @@
             }
 
             let autoSlide = setInterval(() => slideProject(1), 5000);
-            document.getElementById('project-track').addEventListener('mouseenter', () => clearInterval(autoSlide));
-            document.getElementById('project-track').addEventListener('mouseleave', () => autoSlide = setInterval(() => slideProject(1), 5000));
+
+            const trackElement = document.getElementById('project-track');
+            if (trackElement) {
+                trackElement.addEventListener('mouseenter', () => clearInterval(autoSlide));
+                trackElement.addEventListener('mouseleave', () => autoSlide = setInterval(() => slideProject(1), 5000));
+            }
 
             if (projects.length) renderProjects();
         </script>
-
         <!-- Your Companion Section -->
         <section class="py-12 md:py-16 bg-[#111111]" id="our-people">
             <div class="container mx-auto px-4 md:px-8">
