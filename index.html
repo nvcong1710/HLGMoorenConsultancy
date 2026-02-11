@@ -20,13 +20,28 @@
     xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
+    :root {
+      --orange: #FF7E29;
+      --white: #FFFFFF;
+      --black: #111111;
+      --orange-10: rgba(255, 126, 41, 0.10);
+      --orange-20: rgba(255, 126, 41, 0.20);
+      --orange-30: rgba(255, 126, 41, 0.30);
+      --orange-40: rgba(255, 126, 41, 0.40);
+      --white-05: rgba(255, 255, 255, 0.05);
+      --white-10: rgba(255, 255, 255, 0.10);
+      --white-20: rgba(255, 255, 255, 0.20);
+      --white-50: rgba(255, 255, 255, 0.50);
+      --white-70: rgba(255, 255, 255, 0.70);
+    }
+
     body {
-      background-color: #031119;
-      color: #e0e0e0;
+      background-color: var(--black);
+      color: var(--white);
     }
 
     .chat-window-wrapper .chat-window-toggle {
-      background: #0a1f2e00 !important;
+      background: transparent !important;
     }
 
     @media screen and (min-width: 1000px) {
@@ -64,96 +79,303 @@
     }
   </style>
   <link rel="stylesheet" href="assets/css/style.css" />
+  <script>
+    const defaultHeroProjects = [
+      { title: "Fintech Risk Assessment", category: "Finance", image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop", desc: "AI-driven algorithms to predict market volatility." },
+      { title: "Healthcare Diagnostics", category: "Healthcare", image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2070&auto=format&fit=crop", desc: "Imaging processing for early detection." },
+      { title: "Automated Supply Chain", category: "Logistics", image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=2070&auto=format&fit=crop", desc: "Optimizing routes with predictive machine learning." },
+      { title: "Conversational CRM", category: "Customer Service", image: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?q=80&w=2006&auto=format&fit=crop", desc: "Natural language processing for client retention." },
+      { title: "Smart Energy Grid", category: "Energy", image: "https://images.unsplash.com/photo-1473341304170-5799ed149cb7?q=80&w=2069&auto=format&fit=crop", desc: "Balancing load distribution autonomously." }
+    ];
+
+    (function () {
+      const heroProjects = (typeof blogs !== 'undefined' && blogs.length > 0) ? blogs : defaultHeroProjects;
+      let heroTrack;
+      let heroDotsContainer;
+      let heroCurrentIndex = 0;
+      let heroStartX = 0;
+      let heroIsDragging = false;
+
+      const baseHeroClasses = "slide-item shrink-0 relative mx-3 md:mx-5 w-[120px] md:w-[200px] lg:w-[300px] aspect-[4/5] rounded-md overflow-hidden border transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] cursor-pointer group";
+      const inactiveHeroClasses = "opacity-70 scale-85 grayscale-20 brightness-95 border-white/10 z-10";
+      const activeHeroClasses = "!opacity-100 !scale-110 !grayscale-0 !brightness-100 !border-[#FF7E29] shadow-[0_0_40px_rgba(255,126,41,0.3)] z-30";
+
+      function initHeroSlider() {
+        heroTrack = document.getElementById('hero-slider-track');
+        heroDotsContainer = document.getElementById('hero-dots-container');
+
+        if (!heroTrack || !heroDotsContainer) {
+          console.warn('Hero slider elements not found');
+          return;
+        }
+
+        heroTrack.innerHTML = heroProjects.map((p, index) => `
+                        <div class="slide-item ${baseHeroClasses}" data-index="${index}">
+                            <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-90"></div>
+                            <div class="absolute bottom-0 left-0 w-full p-6 md:p-8 translate-y-4 opacity-0 group-[.active-slide]:translate-y-0 group-[.active-slide]:opacity-100 transition-all duration-500 delay-100">
+                                <span class="text-[#FF7E29] text-xs font-bold uppercase tracking-widest mb-2 block">${p.category}</span>
+                                <a href="blog-detail.html?slug=${p.slug}">
+                                <h3 class="text-l md:text-xl font-serif text-white mb-2 leading-tight line-clamp-2">${p.title}</h3>
+                                </a>
+                            </div>
+                        </div>
+                    `).join('');
+
+        heroDotsContainer.innerHTML = heroProjects.map((_, i) => `
+                        <button type="button" class="dot-indicator h-1.5 rounded-full transition-all duration-300 bg-white/30 hover:bg-[#FF7E29]" data-index="${i}"></button>
+                    `).join('');
+
+        // Thêm click events cho slides
+        const slides = heroTrack.querySelectorAll('.slide-item');
+        slides.forEach((slide, index) => {
+          slide.addEventListener('click', (e) => {
+            goToHeroSlide(index);
+          });
+        });
+
+        // Thêm click events cho dots
+        const dots = heroDotsContainer.querySelectorAll('.dot-indicator');
+        dots.forEach((dot, index) => {
+          dot.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            goToHeroSlide(index);
+          });
+        });
+
+        // Touch events
+        heroTrack.addEventListener('touchstart', handleTouchStart, { passive: true });
+        heroTrack.addEventListener('touchmove', handleTouchMove, { passive: false });
+        heroTrack.addEventListener('touchend', handleTouchEnd, { passive: true });
+
+        // Resize event
+        window.addEventListener('resize', updateHeroSlider);
+
+        // Update slider lần đầu
+        updateHeroSlider();
+      }
+
+      function handleTouchStart(e) {
+        heroStartX = e.touches[0].clientX;
+        heroIsDragging = true;
+      }
+
+      function handleTouchMove(e) {
+        if (!heroIsDragging) return;
+
+        if (Math.abs(heroStartX - e.touches[0].clientX) > 10) {
+          e.preventDefault();
+        }
+      }
+
+      function handleTouchEnd(e) {
+        if (!heroIsDragging) return;
+        heroIsDragging = false;
+        const diff = heroStartX - e.changedTouches[0].clientX;
+        if (diff > 50) nextHeroSlide();
+        else if (diff < -50) prevHeroSlide();
+      }
+
+      function updateHeroSlider() {
+        if (!heroTrack || !heroDotsContainer) return;
+
+        const slides = heroTrack.querySelectorAll('.slide-item');
+        const dots = heroDotsContainer.querySelectorAll('.dot-indicator');
+
+        if (slides.length === 0) return;
+
+        slides.forEach((slide, i) => {
+          slide.className = `${baseHeroClasses} ${i === heroCurrentIndex ? activeHeroClasses : inactiveHeroClasses}`;
+          if (i === heroCurrentIndex) slide.classList.add('active-slide');
+          else slide.classList.remove('active-slide');
+        });
+
+        dots.forEach((dot, i) => {
+          if (i === heroCurrentIndex) {
+            dot.className = "dot-indicator h-1.5 rounded-full transition-all duration-300 bg-[#FF7E29] w-8";
+          } else {
+            dot.className = "dot-indicator h-1.5 rounded-full transition-all duration-300 bg-white/30 w-2 hover:bg-[#FF7E29]/50";
+          }
+        });
+
+        const sliderPerspective = document.querySelector('.slider-perspective');
+        if (!sliderPerspective) return;
+
+        const viewportWidth = sliderPerspective.offsetWidth;
+        const activeSlide = slides[heroCurrentIndex];
+
+        if (activeSlide) {
+          const slideWidth = activeSlide.offsetWidth;
+          const centerPosition = (viewportWidth / 2) - (activeSlide.offsetLeft + slideWidth / 2);
+          heroTrack.style.transform = `translateX(${centerPosition}px)`;
+        }
+      }
+
+      function nextHeroSlide() {
+        heroCurrentIndex = (heroCurrentIndex + 1) % heroProjects.length;
+        console.log("Next Slide:", heroCurrentIndex);
+        updateHeroSlider();
+      }
+
+      function prevHeroSlide() {
+        heroCurrentIndex = (heroCurrentIndex - 1 + heroProjects.length) % heroProjects.length;
+        updateHeroSlider();
+      }
+
+      function goToHeroSlide(index) {
+        heroCurrentIndex = index;
+        updateHeroSlider();
+      }
+
+      // Expose functions to global scope cho onclick attributes
+      window.nextHeroSlide = nextHeroSlide;
+      window.prevHeroSlide = prevHeroSlide;
+      window.goToHeroSlide = goToHeroSlide;
+
+      // Khởi tạo khi DOM ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initHeroSlider);
+      } else {
+        initHeroSlider();
+      }
+    })();
+  </script>
 </head>
 
-<body class="bg-[#050e13] text-gray-200 overflow-x-hidden">
-  <header class="relative h-screen w-full flex flex-col text-white overflow-hidden">
-    <video autoplay loop muted playsinline id="fading-video" class="hero-video">
-      <source src="assets/media/splashvideo.mp4" type="video/mp4" />
-      Trình duyệt của bạn không hỗ trợ thẻ video.
-    </video>
+<body class="bg-[#111111] text-white overflow-x-hidden">
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
 
-    <div class="relative z-10 flex flex-col flex-grow">
-      <nav id="main-nav" class="container mx-auto px-6 py-4 lg:px-8">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center space-x-4">
-            <a href="#" class="flex items-center space-x-2">
-              <img src="assets/media/MARGIN AI.png" alt="Logo" class="h-8 w-8" />
-              <span class="text-md font-semibold leading-tight">Margin AI</span>
-            </a>
-          </div>
-          <div class="hidden lg:flex items-center space-x-6 text-sm">
-            <a href="#" class="hover:text-blue-400">Overview</a>
-            <a href="#our-approach" class="hover:text-blue-400">Our Approach</a>
-            <a href="#our-offer" class="hover:text-blue-400">Our Offer</a>
-            <a href="projects.html" class="hover:text-blue-400">Our Projects</a>
-            <a href="#contact-us" class="hover:text-blue-400">Contact Us</a>
-          </div>
-          <button id="mobile-menu-button" class="lg:hidden text-white focus:outline-none">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-            </svg>
-          </button>
-        </div>
-      </nav>
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
 
-      <div id="mobile-menu" class="hidden lg:hidden bg-[#050e13] bg-opacity-90 absolute top-16 left-0 w-full z-20">
-        <div class="container mx-auto px-6 py-4 flex flex-col space-y-4 text-center">
-          <a href="#" class="hover:text-blue-400">Overview</a>
-          <a href="#our-approach" class="hover:text-blue-400">Our Approach</a>
-          <a href="#our-offer" class="hover:text-blue-400">Our Offer</a>
-          <a href="#contact-us" class="hover:text-blue-400">Contact Us</a>
+    ::-webkit-scrollbar-track {
+      background: #111;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #333;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #FF7E29;
+    }
+
+    .slider-perspective {
+      perspective: 1000px;
+    }
+
+    .chat-window-wrapper {
+      z-index: 9999 !important;
+    }
+  </style>
+
+  <section class="relative w-full min-h-screen flex flex-col pb-20 overflow-x-hidden bg-[#111]">
+    <nav id="main-nav" class="container mx-auto px-6 py-4 lg:px-8">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-4">
+          <a href="#" class="flex items-center space-x-2">
+            <img src="assets/media/MARGIN AI.png" alt="Logo" class="h-8 w-8" />
+            <span class="text-md font-semibold leading-tight text-white">Margin AI</span>
+          </a>
         </div>
+        <div class="hidden lg:flex items-center space-x-6 text-sm">
+          <a href="#" class="text-white hover:text-[#FF7E29] transition-colors">Overview</a>
+          <a href="#our-approach" class="text-white hover:text-[#FF7E29] transition-colors">Our
+            Approach</a>
+          <a href="#our-offer" class="text-white hover:text-[#FF7E29] transition-colors">Our Offer</a>
+          <a href="projects.html" class="text-white hover:text-[#FF7E29] transition-colors">Our
+            Projects</a>
+          <a href="#contact-us" class="text-white hover:text-[#FF7E29] transition-colors">Contact Us</a>
+        </div>
+        <button id="mobile-menu-button" class="lg:hidden text-white focus:outline-none">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+          </svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Main Content Wrapper -->
+    <div class="relative  flex flex-col justify-center flex-grow w-full -mt-8">
+
+      <!-- Hero Text -->
+      <div class="container mx-auto px-6 text-center">
+        <div
+          class="inline-block mb-4 px-4 py-1.5 rounded-full border border-[#FF7E29]/30 bg-[#FF7E29]/10 backdrop-blur-sm">
+          <span class="text-[#FF7E29] text-xs font-bold tracking-[0.2em] uppercase">Artificial Intelligence
+            Solutions</span>
+        </div>
+
+        <h1 class="text-2xl md:text-3xl lg:text-4xl font-serif font-medium leading-tight text-white">
+          Your AI Service <br>
+          <span class="italic text-white/90">Companion & Beyond</span>
+        </h1>
       </div>
 
-      <div class="flex-grow flex items-center justify-center text-center">
-        <div class="container mx-auto px-6">
-          <h1 class="text-5xl md:text-3xl lg:text-7xl font-serif font-bold">
-            Your AI Service Companion & Beyond
-          </h1>
-          <p class="mt-4 text-lg md:text-xl max-w-2xl mx-auto">
-            We build intelligent AI solutions to optimize your business,
-            simplified so you can better serve your clients
-          </p>
-          <a href="#contact-us"
-            class="inline-block mt-8 px-6 py-3 border border-white hover:bg-white hover:text-black transition-colors duration-300">
-            Learn more →
-          </a>
+      <!-- Hero Slider (3D Effect) -->
+      <div class="relative w-full z-30 ">
+        <div class="max-w-[90%] mx-auto overflow-hidden">
+          <div class="slider-perspective w-full overflow-visible ">
+            <div id="hero-slider-track"
+              class="flex items-center py-10 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] will-change-transform">
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Controls -->
+        <div class="absolute left-1/2 -translate-x-1/2 flex items-center gap-6 z-50">
+          <button type="button" onclick="prevHeroSlide()"
+            class="w-12 h-12 rounded-full border border-white/10 bg-[#111]/80 backdrop-blur text-white flex items-center justify-center hover:bg-[#FF7E29] hover:border-[#FF7E29] transition-all group shadow-lg cursor-pointer">
+            <i class="fa-solid fa-arrow-left group-hover:-translate-x-1 transition-transform"></i>
+          </button>
+          <div class="flex gap-2" id="hero-dots-container"></div>
+          <button type="button" onclick="nextHeroSlide()"
+            class="w-12 h-12 rounded-full border border-white/10 bg-[#111]/80 backdrop-blur text-white flex items-center justify-center hover:bg-[#FF7E29] hover:border-[#FF7E29] transition-all group shadow-lg cursor-pointer">
+            <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+          </button>
         </div>
       </div>
     </div>
-  </header>
+  </section>
 
   <main>
+    <!-- Common Thread Section -->
     <section class="py-16 px-4 md:py-24 relative" style="
           background-image: url('assets/media/bg.jpg');
           background-size: cover;
           background-position: center;
         ">
+      <div class="absolute inset-0 bg-[#111111]/80"></div>
       <div class="container mx-auto px-4 md:px-8 max-w-6xl text-center relative">
-        <h2 class="text-3xl md:text-4xl font-serif leading-tight text-white">
+        <h2 class="text-3xl md:text-4xl font-serif leading-tight text-[#FF7E29]">
           The Common Thread
         </h2>
         <div class="mt-8 md:text-lg text-white text-justify">
-          <p class="text-xl">
+          <p class="text-xl text-white/90">
             Our first dream, an EdTech startup, ended in failure, scattering
             our team into the worlds of marketing, code, and strategy. Years
             later, AI brought us back together. What started as simply helping
             friends integrate new tools quickly revealed our true purpose: the
             real power of technology isn't in the code, but in the human
             connection and relief it brings. We now return not as engineers,
-            but as companions. If you’re looking for allies who truly
-            understand the journey, join us. Let’s build something meaningful,
+            but as companions. If you're looking for allies who truly
+            understand the journey, join us. Let's build something meaningful,
             together.
           </p>
         </div>
       </div>
     </section>
 
-    <section id="our-approach" class="py-16 px-4 md:px-16 lg:px-32 xl:px-32 md:py-24 bg-[#0c141a]">
+    <!-- Our Approach Section -->
+    <section id="our-approach" class="py-16 px-4 md:px-16 lg:px-32 xl:px-32 md:py-24 bg-[#111111]">
       <div class="relative container mx-auto px-4 md:px-8">
-        <h2 class="text-3xl md:text-4xl font-serif leading-tight text-center pb-8">
+        <h2 class="text-3xl md:text-4xl font-serif leading-tight text-center pb-8 text-[#FF7E29]">
           Our Approach
         </h2>
 
@@ -164,7 +386,7 @@
                 class="w-full h-80 rounded-lg mb-4 object-cover object-center" />
             </div>
             <div>
-              <p class="text-gray-300 text-xl mb-4 p-2 text-justify">
+              <p class="text-white/80 text-xl mb-4 p-2 text-justify">
                 We believe the blueprint for your growth already exists within
                 your business. We start by pinpointing what makes you win - your
                 unique market edge or your operational mastery. Then, we
@@ -180,259 +402,259 @@
       </div>
     </section>
 
+    <!-- What We Offer Section -->
     <section id="our-offer" class="py-16 px-4 md:px-16 lg:px-32 relative" style="
           background-image: url('assets/media/Intro to AI Agents and Architectures.jpg');
           background-size: cover;
           background-position: center;
         ">
-      <div class="absolute inset-0 bg-black opacity-65"></div>
+      <div class="absolute inset-0 bg-[#111111] opacity-80"></div>
       <div class="mx-auto max-w-7xl text-center relative">
-        <h2 class="text-3xl md:text-4xl font-serif leading-tight text-center mb-12 text-white">
+        <h2 class="text-3xl md:text-4xl font-serif leading-tight text-center mb-12 text-[#FF7E29]">
           What We Offer
         </h2>
 
-        <div class="mt-12 grid grid-cols-1 sm:grid-cols-3 md:grid-cods-3 lg:grid-cols-3 xl:grid-cols-5 gap-2 text-left">
+        <div class="mt-12 grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-5 gap-2 text-left">
+          <!-- LMS Operation -->
           <article
-            class="group rounded-2xl bg-black ring-1 ring-white/10 p-6 shadow-lg transition hover:-translate-y-1 hover:shadow-2xl">
+            class="group rounded-2xl bg-[#111111] ring-1 ring-white/10 p-6 shadow-lg transition hover:-translate-y-1 hover:shadow-2xl hover:ring-[#FF7E29]/40">
             <div class="flex items-center gap-3 mb-3">
-              <div
-                class="h-9 px-3 rounded-xl grid place-items-center bg-gradient-to-br from-amber-400/30 to-amber-400/10 ring-1 ring-amber-400/30">
-                <span class="font-bold tracking-wide text-amber-300">
+              <div class="h-9 px-3 rounded-xl grid place-items-center bg-[#FF7E29]/10 ring-1 ring-[#FF7E29]/30">
+                <span class="font-bold tracking-wide text-[#FF7E29]">
                   LMS Operation
                 </span>
               </div>
             </div>
-
-            <p class="text-sm text-slate-400 mb-4">
+            <p class="text-sm text-white/60 mb-4">
               Build, launch and operate online teaching with LMS - simple, scalable, affordable.
             </p>
-
             <ul class="space-y-2 text-sm">
               <li class="flex gap-2">
                 <span
-                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-amber-400/40 bg-amber-400/10">
-                  <svg class="h-3.5 w-3.5 text-amber-300" stroke-linecap="round" stroke-linejoin="round"
+                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-[#FF7E29]/40 bg-[#FF7E29]/10">
+                  <svg class="h-3.5 w-3.5 text-[#FF7E29]" stroke-linecap="round" stroke-linejoin="round"
                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                     <path d="M20 6 9 17l-5-5" />
                   </svg>
                 </span>
-                <span>LMS setup & operations</span>
+                <span class="text-white">LMS setup & operations</span>
               </li>
-
               <li class="flex gap-2">
                 <span
-                  class="mt-1 shrink-0 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-amber-400/40 bg-amber-400/10">
-                  <svg class="h-3.5 w-3.5 text-amber-300" stroke-linecap="round" stroke-linejoin="round"
+                  class="mt-1 shrink-0 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-[#FF7E29]/40 bg-[#FF7E29]/10">
+                  <svg class="h-3.5 w-3.5 text-[#FF7E29]" stroke-linecap="round" stroke-linejoin="round"
                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                     <path d="M20 6 9 17l-5-5" />
                   </svg>
                 </span>
-                <span>Course & content management</span>
+                <span class="text-white">Course & content management</span>
               </li>
-
               <li class="flex gap-2">
                 <span
-                  class="mt-1 shrink-0 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-amber-400/40 bg-amber-400/10">
-                  <svg class="h-3.5 w-3.5 text-amber-300" stroke-linecap="round" stroke-linejoin="round"
+                  class="mt-1 shrink-0 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-[#FF7E29]/40 bg-[#FF7E29]/10">
+                  <svg class="h-3.5 w-3.5 text-[#FF7E29]" stroke-linecap="round" stroke-linejoin="round"
                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                     <path d="M20 6 9 17l-5-5" />
                   </svg>
                 </span>
-                <span>Enrollment & student automation</span>
+                <span class="text-white">Enrollment & student automation</span>
               </li>
-
               <li class="flex gap-2">
                 <span
-                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-amber-400/40 bg-amber-400/10">
-                  <svg class="h-3.5 w-3.5 text-amber-300" stroke-linecap="round" stroke-linejoin="round"
+                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-[#FF7E29]/40 bg-[#FF7E29]/10">
+                  <svg class="h-3.5 w-3.5 text-[#FF7E29]" stroke-linecap="round" stroke-linejoin="round"
                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                     <path d="M20 6 9 17l-5-5" />
                   </svg>
                 </span>
-                <span>Analytics & retention</span>
+                <span class="text-white">Analytics & retention</span>
               </li>
             </ul>
           </article>
 
+          <!-- Web Development -->
           <article
-            class="group rounded-2xl bg-black ring-1 ring-white/10 p-6 shadow-lg transition hover:-translate-y-1 hover:shadow-2xl">
+            class="group rounded-2xl bg-[#111111] ring-1 ring-white/10 p-6 shadow-lg transition hover:-translate-y-1 hover:shadow-2xl hover:ring-[#FF7E29]/40">
             <div class="flex items-center gap-3 mb-3">
-              <div
-                class="h-9 px-3 rounded-xl grid place-items-center bg-gradient-to-br from-sky-400/30 to-sky-400/10 ring-1 ring-sky-400/30">
-                <span class="font-bold tracking-wide text-sky-300">Web Development</span>
+              <div class="h-9 px-3 rounded-xl grid place-items-center bg-[#FF7E29]/10 ring-1 ring-[#FF7E29]/30">
+                <span class="font-bold tracking-wide text-[#FF7E29]">Web Development</span>
               </div>
             </div>
-            <p class="text-sm text-slate-400 mb-4">
+            <p class="text-sm text-white/60 mb-4">
               Modern web with strategy, automation, and an all‑in‑one stack.
             </p>
             <ul class="space-y-2 text-sm">
               <li class="flex gap-2">
                 <span
-                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-sky-400/40 bg-sky-400/10"><svg
-                    class="h-3.5 w-3.5 text-sky-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-[#FF7E29]/40 bg-[#FF7E29]/10">
+                  <svg class="h-3.5 w-3.5 text-[#FF7E29]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M20 6 9 17l-5-5" />
-                  </svg></span><span>Strategic Web Design</span>
+                  </svg>
+                </span><span class="text-white">Strategic Web Design</span>
               </li>
               <li class="flex gap-2">
                 <span
-                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-sky-400/40 bg-sky-400/10"><svg
-                    class="h-3.5 w-3.5 text-sky-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-[#FF7E29]/40 bg-[#FF7E29]/10">
+                  <svg class="h-3.5 w-3.5 text-[#FF7E29]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M20 6 9 17l-5-5" />
-                  </svg></span><span>AI‑Powered Automation</span>
+                  </svg>
+                </span><span class="text-white">AI‑Powered Automation</span>
               </li>
               <li class="flex gap-2">
                 <span
-                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-sky-400/40 bg-sky-400/10"><svg
-                    class="h-3.5 w-3.5 text-sky-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-[#FF7E29]/40 bg-[#FF7E29]/10">
+                  <svg class="h-3.5 w-3.5 text-[#FF7E29]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M20 6 9 17l-5-5" />
-                  </svg></span><span>All‑in‑One Solution</span>
+                  </svg>
+                </span><span class="text-white">All‑in‑One Solution</span>
               </li>
             </ul>
           </article>
+
+          <!-- Support -->
           <article
-            class="group rounded-2xl bg-black ring-1 ring-white/10 p-6 shadow-lg transition hover:-translate-y-1 hover:shadow-2xl">
+            class="group rounded-2xl bg-[#111111] ring-1 ring-white/10 p-6 shadow-lg transition hover:-translate-y-1 hover:shadow-2xl hover:ring-[#FF7E29]/40">
             <div class="flex items-center gap-3 mb-3">
-              <div
-                class="h-9 px-3 rounded-xl grid place-items-center bg-gradient-to-br from-cyan-400/30 to-cyan-400/10 ring-1 ring-cyan-400/30">
-                <span class="font-bold tracking-wide text-cyan-300">Support</span>
+              <div class="h-9 px-3 rounded-xl grid place-items-center bg-[#FF7E29]/10 ring-1 ring-[#FF7E29]/30">
+                <span class="font-bold tracking-wide text-[#FF7E29]">Support</span>
               </div>
             </div>
-            <p class="text-sm text-slate-400 mb-4">
+            <p class="text-sm text-white/60 mb-4">
               From strategy to hands-on implementation tailored to your stack.
             </p>
             <ul class="space-y-2 text-sm">
               <li class="flex gap-2">
                 <span
-                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-cyan-400/40 bg-cyan-400/10">
-                  <svg class="h-3.5 w-3.5 text-cyan-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-[#FF7E29]/40 bg-[#FF7E29]/10">
+                  <svg class="h-3.5 w-3.5 text-[#FF7E29]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M20 6 9 17l-5-5" />
                   </svg>
                 </span>
-                <span>AI Consulting</span>
+                <span class="text-white">AI Consulting</span>
               </li>
               <li class="flex gap-2">
                 <span
-                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-cyan-400/40 bg-cyan-400/10">
-                  <svg class="h-3.5 w-3.5 text-cyan-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-[#FF7E29]/40 bg-[#FF7E29]/10">
+                  <svg class="h-3.5 w-3.5 text-[#FF7E29]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M20 6 9 17l-5-5" />
                   </svg>
                 </span>
-                <span>AI Chatbot</span>
+                <span class="text-white">AI Chatbot</span>
               </li>
               <li class="flex gap-2">
                 <span
-                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-cyan-400/40 bg-cyan-400/10">
-                  <svg class="h-3.5 w-3.5 text-cyan-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-[#FF7E29]/40 bg-[#FF7E29]/10">
+                  <svg class="h-3.5 w-3.5 text-[#FF7E29]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M20 6 9 17l-5-5" />
                   </svg>
                 </span>
-                <span>Internal Wiki</span>
+                <span class="text-white">Internal Wiki</span>
               </li>
               <li class="flex gap-2">
                 <span
-                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-cyan-400/40 bg-cyan-400/10">
-                  <svg class="h-3.5 w-3.5 text-cyan-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-[#FF7E29]/40 bg-[#FF7E29]/10">
+                  <svg class="h-3.5 w-3.5 text-[#FF7E29]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M20 6 9 17l-5-5" />
                   </svg>
                 </span>
-                <span>HR</span>
+                <span class="text-white">HR</span>
               </li>
             </ul>
           </article>
 
+          <!-- Sales -->
           <article
-            class="group rounded-2xl bg-black ring-1 ring-white/10 p-6 shadow-lg transition hover:-translate-y-1 hover:shadow-2xl">
+            class="group rounded-2xl bg-[#111111] ring-1 ring-white/10 p-6 shadow-lg transition hover:-translate-y-1 hover:shadow-2xl hover:ring-[#FF7E29]/40">
             <div class="flex items-center gap-3 mb-3">
-              <div
-                class="h-9 px-3 rounded-xl grid place-items-center bg-gradient-to-br from-emerald-400/30 to-emerald-400/10 ring-1 ring-emerald-400/30">
-                <span class="font-bold tracking-wide text-emerald-300">Sales</span>
+              <div class="h-9 px-3 rounded-xl grid place-items-center bg-[#FF7E29]/10 ring-1 ring-[#FF7E29]/30">
+                <span class="font-bold tracking-wide text-[#FF7E29]">Sales</span>
               </div>
             </div>
-            <p class="text-sm text-slate-400 mb-4">
+            <p class="text-sm text-white/60 mb-4">
               Close more deals with smarter, automated workflows.
             </p>
             <ul class="space-y-2 text-sm">
               <li class="flex gap-2">
                 <span
-                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-emerald-400/40 bg-emerald-400/10">
-                  <svg class="h-3.5 w-3.5 text-emerald-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-[#FF7E29]/40 bg-[#FF7E29]/10">
+                  <svg class="h-3.5 w-3.5 text-[#FF7E29]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M20 6 9 17l-5-5" />
                   </svg>
                 </span>
-                <span>CRM Workflow</span>
+                <span class="text-white">CRM Workflow</span>
               </li>
               <li class="flex gap-2">
                 <span
-                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-emerald-400/40 bg-emerald-400/10">
-                  <svg class="h-3.5 w-3.5 text-emerald-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-[#FF7E29]/40 bg-[#FF7E29]/10">
+                  <svg class="h-3.5 w-3.5 text-[#FF7E29]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M20 6 9 17l-5-5" />
                   </svg>
                 </span>
-                <span>Lead Generation</span>
+                <span class="text-white">Lead Generation</span>
               </li>
               <li class="flex gap-2">
                 <span
-                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-emerald-400/40 bg-emerald-400/10">
-                  <svg class="h-3.5 w-3.5 text-emerald-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-[#FF7E29]/40 bg-[#FF7E29]/10">
+                  <svg class="h-3.5 w-3.5 text-[#FF7E29]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M20 6 9 17l-5-5" />
                   </svg>
                 </span>
-                <span>Lead Nurturing</span>
+                <span class="text-white">Lead Nurturing</span>
               </li>
             </ul>
           </article>
 
+          <!-- Marketing -->
           <article
-            class="group rounded-2xl bg-black ring-1 ring-white/10 p-6 shadow-lg transition hover:-translate-y-1 hover:shadow-2xl">
+            class="group rounded-2xl bg-[#111111] ring-1 ring-white/10 p-6 shadow-lg transition hover:-translate-y-1 hover:shadow-2xl hover:ring-[#FF7E29]/40">
             <div class="flex items-center gap-3 mb-3">
-              <div
-                class="h-9 px-3 rounded-xl grid place-items-center bg-gradient-to-br from-fuchsia-400/30 to-fuchsia-400/10 ring-1 ring-fuchsia-400/30">
-                <span class="font-bold tracking-wide text-fuchsia-300">Marketing</span>
+              <div class="h-9 px-3 rounded-xl grid place-items-center bg-[#FF7E29]/10 ring-1 ring-[#FF7E29]/30">
+                <span class="font-bold tracking-wide text-[#FF7E29]">Marketing</span>
               </div>
             </div>
-            <p class="text-sm text-slate-400 mb-4">
+            <p class="text-sm text-white/60 mb-4">
               Data-driven campaigns and always-on content engines.
             </p>
             <ul class="space-y-2 text-sm">
               <li class="flex gap-2">
                 <span
-                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-fuchsia-400/40 bg-fuchsia-400/10">
-                  <svg class="h-3.5 w-3.5 text-fuchsia-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-[#FF7E29]/40 bg-[#FF7E29]/10">
+                  <svg class="h-3.5 w-3.5 text-[#FF7E29]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M20 6 9 17l-5-5" />
                   </svg>
                 </span>
-                <span>Content Creation</span>
+                <span class="text-white">Content Creation</span>
               </li>
               <li class="flex gap-2">
                 <span
-                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-fuchsia-400/40 bg-fuchsia-400/10">
-                  <svg class="h-3.5 w-3.5 text-fuchsia-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-[#FF7E29]/40 bg-[#FF7E29]/10">
+                  <svg class="h-3.5 w-3.5 text-[#FF7E29]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M20 6 9 17l-5-5" />
                   </svg>
                 </span>
-                <span>Market Research</span>
+                <span class="text-white">Market Research</span>
               </li>
               <li class="flex gap-2">
                 <span
-                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-fuchsia-400/40 bg-fuchsia-400/10">
-                  <svg class="h-3.5 w-3.5 text-fuchsia-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-[#FF7E29]/40 bg-[#FF7E29]/10">
+                  <svg class="h-3.5 w-3.5 text-[#FF7E29]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M20 6 9 17l-5-5" />
                   </svg>
                 </span>
-                <span>Social Media</span>
+                <span class="text-white">Social Media</span>
               </li>
             </ul>
           </article>
@@ -440,220 +662,229 @@
       </div>
     </section>
 
-    <section id="plans" class="py-16 md:py-24 relative bg-black">
-      <div class="absolute inset-0 bg-black/70"></div>
-
+    <!-- Plans Section -->
+    <section id="plans" class="py-16 md:py-24 relative bg-[#111111]">
       <div class="relative mx-auto max-w-7xl px-4 md:px-8 text-center">
-        <h2 class="text-3xl md:text-4xl font-serif mb-3 text-white">
+        <h2 class="text-3xl md:text-4xl font-serif mb-3 text-[#FF7E29]">
           Plans that scale with you
         </h2>
-        <p class="text-slate-300">Pick what fits today—grow into tomorrow</p>
+        <p class="text-white/70">Pick what fits today—grow into tomorrow</p>
 
         <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
-          <span class="text-slate-300">All plans include:</span>
-          <span
-            class="inline-flex items-center gap-2 rounded-xl px-3 py-1 ring-1 ring-white/10 bg-white/5 text-slate-200">
-            <i class="fa-solid fa-globe"></i> Custom domain
+          <span class="text-white/70">All plans include:</span>
+          <span class="inline-flex items-center gap-2 rounded-xl px-3 py-1 ring-1 ring-white/10 bg-white/5 text-white">
+            <i class="fa-solid fa-globe text-[#FF7E29]"></i> Custom domain
           </span>
-          <span
-            class="inline-flex items-center gap-2 rounded-xl px-3 py-1 ring-1 ring-white/10 bg-white/5 text-slate-200">
-            <i class="fa-regular fa-hard-drive"></i> Reliable web hosting
+          <span class="inline-flex items-center gap-2 rounded-xl px-3 py-1 ring-1 ring-white/10 bg-white/5 text-white">
+            <i class="fa-regular fa-hard-drive text-[#FF7E29]"></i> Reliable web hosting
           </span>
-          <span
-            class="inline-flex items-center gap-2 rounded-xl px-3 py-1 ring-1 ring-white/10 bg-white/5 text-slate-200">
-            <i class="fa-solid fa-wand-magic-sparkles"></i> AI creation tools
+          <span class="inline-flex items-center gap-2 rounded-xl px-3 py-1 ring-1 ring-white/10 bg-white/5 text-white">
+            <i class="fa-solid fa-wand-magic-sparkles text-[#FF7E29]"></i> AI creation tools
           </span>
-          <span
-            class="inline-flex items-center gap-2 rounded-xl px-3 py-1 ring-1 ring-white/10 bg-white/5 text-slate-200">
-            <i class="fa-solid fa-headset"></i> 24/7 customer care
+          <span class="inline-flex items-center gap-2 rounded-xl px-3 py-1 ring-1 ring-white/10 bg-white/5 text-white">
+            <i class="fa-solid fa-headset text-[#FF7E29]"></i> 24/7 customer care
           </span>
         </div>
 
         <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+          <!-- AI Starter -->
           <article
-            class="group rounded-2xl bg-black/70 ring-1 ring-white/10 p-6 shadow-lg backdrop-blur transition hover:-translate-y-1 hover:shadow-2xl">
+            class="group rounded-2xl bg-[#111111] ring-1 ring-white/10 p-6 shadow-lg transition hover:-translate-y-1 hover:shadow-2xl">
             <div class="flex items-center gap-3 mb-2">
-              <div
-                class="h-9 px-3 rounded-xl grid place-items-center bg-gradient-to-br from-sky-400/30 to-sky-400/10 ring-1 ring-sky-400/30">
-                <span class="font-bold tracking-wide text-sky-300">AI Starter</span>
+              <div class="h-9 px-3 rounded-xl grid place-items-center bg-white/5 ring-1 ring-white/20">
+                <span class="font-bold tracking-wide text-white">AI Starter</span>
               </div>
             </div>
-            <p class="italic text-slate-300 mb-4">
+            <p class="italic text-white/60 mb-4">
               Perfect for getting started
             </p>
             <ul class="space-y-2 text-sm">
               <li class="flex gap-2">
                 <span
-                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-sky-400/40 bg-sky-400/10">
-                  <svg class="h-3.5 w-3.5 text-sky-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-[#FF7E29]/40 bg-[#FF7E29]/10">
+                  <svg class="h-3.5 w-3.5 text-[#FF7E29]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M20 6 9 17l-5-5" />
-                  </svg> </span><span class="text-slate-200">Basic website setup</span>
+                  </svg>
+                </span><span class="text-white">Basic website setup</span>
               </li>
-              <li class="flex gap-2 opacity-70">
-                <span
-                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-slate-400/30 bg-white/5">
-                  <svg class="h-3.5 w-3.5 text-slate-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              <li class="flex gap-2 opacity-50">
+                <span class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-white/20 bg-white/5">
+                  <svg class="h-3.5 w-3.5 text-white/50" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="3">
                     <path d="M5 12h14" />
-                  </svg> </span><span class="text-slate-300">AI automation (optional)</span>
+                  </svg>
+                </span><span class="text-white/70">AI automation (optional)</span>
               </li>
-              <li class="flex gap-2 opacity-70">
-                <span
-                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-slate-400/30 bg-white/5">
-                  <svg class="h-3.5 w-3.5 text-slate-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              <li class="flex gap-2 opacity-50">
+                <span class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-white/20 bg-white/5">
+                  <svg class="h-3.5 w-3.5 text-white/50" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="3">
                     <path d="M5 12h14" />
-                  </svg> </span><span class="text-slate-300">AI consulting (optional)</span>
+                  </svg>
+                </span><span class="text-white/70">AI consulting (optional)</span>
               </li>
               <li class="flex gap-2">
                 <span
-                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-sky-400/40 bg-sky-400/10">
-                  <svg class="h-3.5 w-3.5 text-sky-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-[#FF7E29]/40 bg-[#FF7E29]/10">
+                  <svg class="h-3.5 w-3.5 text-[#FF7E29]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="3">
                     <path d="M20 6 9 17l-5-5" />
-                  </svg> </span><span class="text-slate-200">Standard support</span>
+                  </svg>
+                </span><span class="text-white">Standard support</span>
               </li>
               <li class="flex gap-2">
                 <span
-                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-sky-400/40 bg-sky-400/10">
-                  <svg class="h-3.5 w-3.5 text-sky-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-[#FF7E29]/40 bg-[#FF7E29]/10">
+                  <svg class="h-3.5 w-3.5 text-[#FF7E29]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="3">
                     <path d="M20 6 9 17l-5-5" />
-                  </svg> </span><span class="text-slate-200">Starter templates</span>
+                  </svg>
+                </span><span class="text-white">Starter templates</span>
               </li>
             </ul>
             <a href="#contact-us"
-              class="mt-6 inline-flex justify-center rounded-xl border border-white/20 px-5 py-2.5 text-slate-100 hover:bg-white hover:text-black transition">Choose
+              class="mt-6 inline-flex justify-center rounded-xl border border-white/20 px-5 py-2.5 text-white hover:bg-white hover:text-[#111111] transition">Choose
               plan</a>
           </article>
 
+          <!-- AI Premium (Recommended) -->
           <article
-            class="group relative rounded-2xl bg-black/70 ring-2 ring-emerald-400/60 p-6 shadow-xl backdrop-blur transition hover:-translate-y-1 hover:shadow-2xl">
+            class="group relative rounded-2xl bg-[#111111] ring-2 ring-[#FF7E29] p-6 shadow-xl transition hover:-translate-y-1 hover:shadow-2xl">
             <span
-              class="absolute -top-3 right-6 bg-lime-300 text-lime-900 text-xs font-bold rounded-md px-3 py-1 shadow">
+              class="absolute -top-3 right-6 bg-[#FF7E29] text-[#111111] text-xs font-bold rounded-md px-3 py-1 shadow">
               RECOMMENDED
             </span>
             <div class="flex items-center gap-3 mb-2">
-              <div
-                class="h-9 px-3 rounded-xl grid place-items-center bg-gradient-to-br from-emerald-400/30 to-emerald-400/10 ring-1 ring-emerald-400/30">
-                <span class="font-bold tracking-wide text-emerald-300">AI Premium</span>
+              <div class="h-9 px-3 rounded-xl grid place-items-center bg-[#FF7E29]/20 ring-1 ring-[#FF7E29]/50">
+                <span class="font-bold tracking-wide text-[#FF7E29]">AI Premium</span>
               </div>
             </div>
-            <p class="italic text-slate-300 mb-4">
+            <p class="italic text-white/60 mb-4">
               Scale smarter with automation
             </p>
             <ul class="space-y-2 text-sm">
               <li class="flex gap-2">
                 <span
-                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-emerald-400/40 bg-emerald-400/10">
-                  <svg class="h-3.5 w-3.5 text-emerald-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-[#FF7E29]/40 bg-[#FF7E29]/10">
+                  <svg class="h-3.5 w-3.5 text-[#FF7E29]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="3">
                     <path d="M20 6 9 17l-5-5" />
-                  </svg> </span><span class="text-slate-200">Website + continuous updates &amp; enhancements</span>
+                  </svg>
+                </span><span class="text-white">Website + continuous updates &amp; enhancements</span>
               </li>
               <li class="flex gap-2">
                 <span
-                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-emerald-400/40 bg-emerald-400/10">
-                  <svg class="h-3.5 w-3.5 text-emerald-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-[#FF7E29]/40 bg-[#FF7E29]/10">
+                  <svg class="h-3.5 w-3.5 text-[#FF7E29]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="3">
                     <path d="M20 6 9 17l-5-5" />
-                  </svg> </span><span class="text-slate-200">AI-powered workflows</span>
+                  </svg>
+                </span><span class="text-white">AI-powered workflows</span>
               </li>
               <li class="flex gap-2">
                 <span
-                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-emerald-400/40 bg-emerald-400/10">
-                  <svg class="h-3.5 w-3.5 text-emerald-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-[#FF7E29]/40 bg-[#FF7E29]/10">
+                  <svg class="h-3.5 w-3.5 text-[#FF7E29]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="3">
                     <path d="M20 6 9 17l-5-5" />
-                  </svg> </span><span class="text-slate-200">Strategic AI consulting</span>
+                  </svg>
+                </span><span class="text-white">Strategic AI consulting</span>
               </li>
               <li class="flex gap-2">
                 <span
-                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-emerald-400/40 bg-emerald-400/10">
-                  <svg class="h-3.5 w-3.5 text-emerald-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-[#FF7E29]/40 bg-[#FF7E29]/10">
+                  <svg class="h-3.5 w-3.5 text-[#FF7E29]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="3">
                     <path d="M20 6 9 17l-5-5" />
-                  </svg> </span><span class="text-slate-200">Priority response</span>
+                  </svg>
+                </span><span class="text-white">Priority response</span>
               </li>
               <li class="flex gap-2">
                 <span
-                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-emerald-400/40 bg-emerald-400/10">
-                  <svg class="h-3.5 w-3.5 text-emerald-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-[#FF7E29]/40 bg-[#FF7E29]/10">
+                  <svg class="h-3.5 w-3.5 text-[#FF7E29]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="3">
                     <path d="M20 6 9 17l-5-5" />
-                  </svg> </span><span class="text-slate-200">Premium templates, private projects</span>
+                  </svg>
+                </span><span class="text-white">Premium templates, private projects</span>
               </li>
             </ul>
             <a href="#contact-us"
-              class="mt-6 inline-flex justify-center rounded-xl bg-emerald-500/90 hover:bg-emerald-500 text-black font-semibold px-5 py-2.5 transition">Choose
+              class="mt-6 inline-flex justify-center rounded-xl bg-[#FF7E29] hover:bg-[#ff974f] text-[#111111] font-semibold px-5 py-2.5 transition">Choose
               plan</a>
           </article>
 
+          <!-- AI Enterprise -->
           <article
-            class="group rounded-2xl bg-black/70 ring-1 ring-white/10 p-6 shadow-lg backdrop-blur transition hover:-translate-y-1 hover:shadow-2xl">
+            class="group rounded-2xl bg-[#111111] ring-1 ring-white/10 p-6 shadow-lg transition hover:-translate-y-1 hover:shadow-2xl">
             <div class="flex items-center gap-3 mb-2">
-              <div
-                class="h-9 px-3 rounded-xl grid place-items-center bg-gradient-to-br from-fuchsia-400/30 to-fuchsia-400/10 ring-1 ring-fuchsia-400/30">
-                <span class="font-bold tracking-wide text-fuchsia-300">AI Enterprise</span>
+              <div class="h-9 px-3 rounded-xl grid place-items-center bg-white/5 ring-1 ring-white/20">
+                <span class="font-bold tracking-wide text-white">AI Enterprise</span>
               </div>
             </div>
-            <p class="italic text-slate-300 mb-4">Tailored for enterprises</p>
+            <p class="italic text-white/60 mb-4">Tailored for enterprises</p>
             <ul class="space-y-2 text-sm">
               <li class="flex gap-2">
                 <span
-                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-fuchsia-400/40 bg-fuchsia-400/10">
-                  <svg class="h-3.5 w-3.5 text-fuchsia-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-[#FF7E29]/40 bg-[#FF7E29]/10">
+                  <svg class="h-3.5 w-3.5 text-[#FF7E29]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="3">
                     <path d="M20 6 9 17l-5-5" />
-                  </svg> </span><span class="text-slate-200">Everything from Premium</span>
+                  </svg>
+                </span><span class="text-white">Everything from Premium</span>
               </li>
               <li class="flex gap-2">
                 <span
-                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-fuchsia-400/40 bg-fuchsia-400/10">
-                  <svg class="h-3.5 w-3.5 text-fuchsia-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-[#FF7E29]/40 bg-[#FF7E29]/10">
+                  <svg class="h-3.5 w-3.5 text-[#FF7E29]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="3">
                     <path d="M20 6 9 17l-5-5" />
-                  </svg> </span><span class="text-slate-200">Advanced automation, custom workflows</span>
+                  </svg>
+                </span><span class="text-white">Advanced automation, custom workflows</span>
               </li>
               <li class="flex gap-2">
                 <span
-                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-fuchsia-400/40 bg-fuchsia-400/10">
-                  <svg class="h-3.5 w-3.5 text-fuchsia-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-[#FF7E29]/40 bg-[#FF7E29]/10">
+                  <svg class="h-3.5 w-3.5 text-[#FF7E29]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="3">
                     <path d="M20 6 9 17l-5-5" />
-                  </svg> </span><span class="text-slate-200">Extended AI consulting &amp; Enterprise advisory</span>
+                  </svg>
+                </span><span class="text-white">Extended AI consulting &amp; Enterprise advisory</span>
               </li>
               <li class="flex gap-2">
                 <span
-                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-fuchsia-400/40 bg-fuchsia-400/10">
-                  <svg class="h-3.5 w-3.5 text-fuchsia-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-[#FF7E29]/40 bg-[#FF7E29]/10">
+                  <svg class="h-3.5 w-3.5 text-[#FF7E29]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="3">
                     <path d="M20 6 9 17l-5-5" />
-                  </svg> </span><span class="text-slate-200">Priority response</span>
+                  </svg>
+                </span><span class="text-white">Priority response</span>
               </li>
               <li class="flex gap-2">
                 <span
-                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-fuchsia-400/40 bg-fuchsia-400/10">
-                  <svg class="h-3.5 w-3.5 text-fuchsia-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  class="mt-1 flex h-5 w-5 items-center justify-center rounded-md ring-1 ring-[#FF7E29]/40 bg-[#FF7E29]/10">
+                  <svg class="h-3.5 w-3.5 text-[#FF7E29]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="3">
                     <path d="M20 6 9 17l-5-5" />
-                  </svg> </span><span class="text-slate-200">Custom solutions</span>
+                  </svg>
+                </span><span class="text-white">Custom solutions</span>
               </li>
             </ul>
             <a href="#contact-us"
-              class="mt-6 inline-flex justify-center rounded-xl border border-white/20 px-5 py-2.5 text-slate-100 hover:bg-white hover:text-black transition">Choose
+              class="mt-6 inline-flex justify-center rounded-xl border border-white/20 px-5 py-2.5 text-white hover:bg-white hover:text-[#111111] transition">Choose
               plan</a>
           </article>
         </div>
       </div>
     </section>
 
-    <section id="projects" class="py-8 bg-[#050e13] relative overflow-hidden">
+    <!-- Featured Projects Section -->
+    <section id="projects" class="py-8 bg-[#111111] relative overflow-hidden">
       <div class="container mx-auto px-6 lg:px-8">
         <div class="text-center mb-12">
-          <h2 class="text-3xl md:text-4xl font-serif font-bold mb-4">Featured Projects</h2>
-          <p class="text-lg text-gray-400">Latest work and insights on AI implementation</p>
+          <h2 class="text-3xl md:text-4xl font-serif font-bold mb-4 text-[#FF7E29]">Featured Projects</h2>
+          <p class="text-lg text-white/60">Latest work and insights on AI implementation</p>
         </div>
 
         <div class="relative max-w-6xl mx-auto group">
@@ -662,11 +893,11 @@
           </div>
 
           <button onclick="slideProject(-1)"
-            class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-black/80 hover:bg-blue-600 text-white w-12 h-12 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+            class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-[#111111] hover:bg-[#FF7E29] text-white w-12 h-12 rounded-full opacity-0 group-hover:opacity-100 transition-opacity ring-1 ring-white/20">
             <i class="fas fa-chevron-left"></i>
           </button>
           <button onclick="slideProject(1)"
-            class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-black/80 hover:bg-blue-600 text-white w-12 h-12 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+            class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-[#111111] hover:bg-[#FF7E29] text-white w-12 h-12 rounded-full opacity-0 group-hover:opacity-100 transition-opacity ring-1 ring-white/20">
             <i class="fas fa-chevron-right"></i>
           </button>
 
@@ -675,7 +906,7 @@
 
         <div class="text-center mt-12">
           <a href="projects.html"
-            class="inline-flex items-center gap-2 px-8 py-3 border-2 border-blue-500 text-blue-400 hover:bg-blue-500 hover:text-white rounded-lg transition-all font-semibold group">
+            class="inline-flex items-center gap-2 px-8 py-3 border-2 border-[#FF7E29] text-[#FF7E29] hover:bg-[#FF7E29] hover:text-[#111111] rounded-lg transition-all font-semibold group">
             View All Projects
             <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
           </a>
@@ -686,14 +917,15 @@
     <style>
       .project-card {
         min-width: 100%;
-        background: linear-gradient(135deg, #0f1419 0%, #1a1f2e 100%);
-        border: 1px solid rgba(255, 255, 255, 0.05);
+        background: #111111;
+        border: 1px solid rgba(255, 255, 255, 0.08);
         transition: all 0.3s;
       }
 
       .project-card:hover {
         transform: translateY(-8px);
-        box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15);
+        box-shadow: 0 20px 40px rgba(255, 126, 41, 0.15);
+        border-color: rgba(255, 126, 41, 0.3);
       }
 
       .project-card img {
@@ -714,7 +946,7 @@
       }
 
       .project-dot.active {
-        background: #3b82f6;
+        background: #FF7E29;
         width: 24px;
         border-radius: 5px;
       }
@@ -734,35 +966,37 @@
 
     <script>
       let projectIndex = 0;
-      const projects = typeof blogs !== 'undefined' ? blogs.slice(0, 3) : [];
-
+      const projects = typeof blogs !== 'undefined' ? blogs.slice(0, 5) : [];
+      const dotCount = Math.max(0, projects.length - 2);
       function renderProjects() {
         const track = document.getElementById('project-track');
         const dots = document.getElementById('project-dots');
 
         track.innerHTML = projects.map(p => `
-          <a href="blog-detail.html?slug=${p.slug}" class="project-card rounded-2xl overflow-hidden block mx-2">
-            <div class="aspect-video overflow-hidden">
-              <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover">
-            </div>
-            <div class="p-6">
-              <div class="flex items-center justify-between mb-3">
-                <span class="text-xs px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400">${p.category}</span>
-                <span class="text-xs text-gray-500">${p.readTime}</span>
-              </div>
-              <h3 class="text-2xl font-serif font-bold mb-3 hover:text-blue-400 transition-colors line-clamp-2">${p.title}</h3>
-              <p class="text-gray-400 text-sm line-clamp-2">${p.excerpt}</p>
-            </div>
-          </a>
+            <a href="blog-detail.html?slug=${p.slug}" class="project-card rounded-2xl overflow-hidden block mx-2">
+                <div class="aspect-video overflow-hidden">
+                    <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover">
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs px-3 py-1 rounded-full bg-[#FF7E29]/10 border border-[#FF7E29]/30 text-[#FF7E29] font-bold uppercase">${p.category}</span>
+                        <span class="text-xs text-white/50">${p.readTime}</span>
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold mb-3 text-white hover:text-[#FF7E29] transition-colors line-clamp-2">${p.title}</h3>
+                    <p class="text-white/60 text-sm line-clamp-2">${p.excerpt}</p>
+                </div>
+            </a>
         `).join('');
 
-        dots.innerHTML = projects.map((_, i) =>
+
+
+        dots.innerHTML = Array.from({ length: dotCount }).map((_, i) =>
           `<button class="project-dot ${i === 0 ? 'active' : ''}" onclick="goToProject(${i})"></button>`
         ).join('');
       }
 
       function slideProject(dir) {
-        projectIndex = (projectIndex + dir + projects.length) % projects.length;
+        projectIndex = (projectIndex + dir + dotCount) % dotCount;
         updateSlider();
       }
 
@@ -783,42 +1017,44 @@
         });
       }
 
-
       let autoSlide = setInterval(() => slideProject(1), 5000);
-      document.getElementById('project-track').addEventListener('mouseenter', () => clearInterval(autoSlide));
-      document.getElementById('project-track').addEventListener('mouseleave', () => autoSlide = setInterval(() => slideProject(1), 5000));
 
+      const trackElement = document.getElementById('project-track');
+      if (trackElement) {
+        trackElement.addEventListener('mouseenter', () => clearInterval(autoSlide));
+        trackElement.addEventListener('mouseleave', () => autoSlide = setInterval(() => slideProject(1), 5000));
+      }
 
       if (projects.length) renderProjects();
     </script>
-
-    <section class="py-12 md:py-16 bg-[#050e13]" id="our-people">
+    <!-- Your Companion Section -->
+    <section class="py-12 md:py-16 bg-[#111111]" id="our-people">
       <div class="container mx-auto px-4 md:px-8">
-        <h2 class="text-3xl md:text-4xl font-serif leading-tight text-center mb-12 text-white">
+        <h2 class="text-3xl md:text-4xl font-serif leading-tight text-center mb-12 text-[#FF7E29]">
           Your Companion
         </h2>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 md:gap-10 justify-items-center mb-10">
           <div class="text-center w-full max-w-[350px]">
-            <div class="bg-black rounded-2xl inline-block">
+            <div class="bg-[#111111] rounded-2xl inline-block ring-1 ring-white/10">
               <img src="assets/media/A Hùng.jpg" alt="James Pham" class="rounded-xl object-cover w-[250px] h-[320px]" />
             </div>
             <h4 class="text-2xl font-semibold text-white mt-4">James Pham</h4>
-            <p class="text-gray-400 text-md min-h-12">
+            <p class="text-white/60 text-md min-h-12">
               Co-Founder <br />
-              Dual Master’s in AI & Digital Transformation
+              Dual Master's in AI & Digital Transformation
             </p>
           </div>
 
           <div class="text-center w-full max-w-[350px]">
-            <div class="bg-black rounded-2xl inline-block">
+            <div class="bg-[#111111] rounded-2xl inline-block ring-1 ring-white/10">
               <img src="assets/media/CongNguyen.jpg" alt="Cong Nguyen"
                 class="rounded-xl object-cover w-[250px] h-[320px]" />
             </div>
             <h4 class="text-2xl font-semibold text-white mt-4">
               Cong Nguyen
             </h4>
-            <p class="text-gray-400 text-md h-12">
+            <p class="text-white/60 text-md h-12">
               Co-Founder - Data Scientist <br /> Full-Stack Developer
             </p>
           </div>
@@ -826,45 +1062,45 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 justify-items-center">
           <div class="text-center w-full max-w-[350px]">
-            <div class="bg-black rounded-2xl inline-block">
+            <div class="bg-[#111111] rounded-2xl inline-block ring-1 ring-white/10">
               <img src="assets/media/Vikram Venkatesh.jpeg" alt="Vikram Venkatesh"
                 class="rounded-xl object-cover w-[250px] h-[320px]" />
             </div>
             <h4 class="text-2xl font-semibold text-white mt-4">
               Vikram Venkatesh
             </h4>
-            <p class="text-gray-400 text-md h-12">AI Engineer</p>
-            <p class="text-md">
+            <p class="text-white/60 text-md h-12">AI Engineer</p>
+            <p class="text-md text-white/80">
               Builds scalable AI systems and transforms research into
               real-world applications.
             </p>
           </div>
 
           <div class="text-center w-full max-w-[350px]">
-            <div class="bg-black rounded-2xl inline-block">
+            <div class="bg-[#111111] rounded-2xl inline-block ring-1 ring-white/10">
               <img src="assets/media/Omar Al-Fahim.jpeg" alt="Omar Al-Fahim"
                 class="rounded-xl object-cover w-[250px] h-[320px]" />
             </div>
             <h4 class="text-2xl font-semibold text-white mt-4">
               Omar Al-Fahim
             </h4>
-            <p class="text-gray-400 text-md h-12">Full-Stack Developer</p>
-            <p class="text-md">
+            <p class="text-white/60 text-md h-12">Full-Stack Developer</p>
+            <p class="text-md text-white/80">
               Develops robust full-stack architectures to support AI-powered
               applications.
             </p>
           </div>
 
           <div class="text-center w-full max-w-[350px]">
-            <div class="bg-black rounded-2xl inline-block">
+            <div class="bg-[#111111] rounded-2xl inline-block ring-1 ring-white/10">
               <img src="assets/media/Haikal bin Azman.jpeg" alt="Haikal bin Azman"
                 class="rounded-xl object-cover w-[250px] h-[320px]" />
             </div>
             <h4 class="text-2xl font-semibold text-white mt-4">
               Haikal bin Azman
             </h4>
-            <p class="text-gray-400 text-md h-12">Business Analyst</p>
-            <p class="text-md">
+            <p class="text-white/60 text-md h-12">Business Analyst</p>
+            <p class="text-md text-white/80">
               Aligns business needs with AI capabilities to drive measurable
               transformation.
             </p>
@@ -873,12 +1109,13 @@
       </div>
     </section>
 
-    <section class="py-16 md:py-24 bg-black" id="contact-us">
+    <!-- Contact Us Section -->
+    <section class="py-16 md:py-24 bg-[#111111]" id="contact-us">
       <div class="container mx-auto px-2 lg:px-8">
         <div class="max-w-4xl mx-auto text-center">
-          <h1 class="text-4xl md:text-5xl font-bold mb-4">Contact Us</h1>
-          <p class="text-lg mb-12">
-            We’d love to hear from you. Please fill out the form below to get
+          <h1 class="text-4xl md:text-5xl font-bold mb-4 text-[#FF7E29]">Contact Us</h1>
+          <p class="text-lg mb-12 text-white/80">
+            We'd love to hear from you. Please fill out the form below to get
             in touch.
           </p>
         </div>
@@ -891,47 +1128,49 @@
     </section>
   </main>
 
-  <footer class="bg-[#050e13] text-gray-300 mt-20">
+  <!-- Footer -->
+  <footer class="bg-[#111111] text-white mt-20 border-t border-white/10">
     <div class="container mx-auto px-6 lg:px-8 py-12">
       <div
-        class="flex flex-col md:flex-row justify-between items-start md:items-center gap-10 border-b border-gray-700 pb-8">
+        class="flex flex-col md:flex-row justify-between items-start md:items-center gap-10 border-b border-white/10 pb-8">
         <div class="flex-1">
-          <h3 class="text-3xl font-serif mb-4">
-            Connect with <span class="font-semibold">Margin AI</span>
+          <h3 class="text-3xl font-serif mb-4 text-white">
+            Connect with <span class="font-semibold text-[#FF7E29]">Margin AI</span>
           </h3>
           <div class="flex space-x-2">
             <a href="https://www.tiktok.com/@margin_ai"
-              class="w-8 h-8 bg-gray-700 hover:bg-gray-600 flex items-center justify-center rounded-md transition-colors"><i
+              class="w-8 h-8 bg-white/10 hover:bg-[#FF7E29] hover:text-[#111111] flex items-center justify-center rounded-md transition-colors text-white"><i
                 class="fa-brands fa-tiktok"></i></a>
             <a href="https://x.com/ai_margin"
-              class="w-8 h-8 bg-gray-700 hover:bg-gray-600 flex items-center justify-center rounded-md transition-colors"><i
+              class="w-8 h-8 bg-white/10 hover:bg-[#FF7E29] hover:text-[#111111] flex items-center justify-center rounded-md transition-colors text-white"><i
                 class="fab fa-x-twitter"></i></a>
             <a href="#"
-              class="w-8 h-8 bg-gray-700 hover:bg-gray-600 flex items-center justify-center rounded-md transition-colors"><i
+              class="w-8 h-8 bg-white/10 hover:bg-[#FF7E29] hover:text-[#111111] flex items-center justify-center rounded-md transition-colors text-white"><i
                 class="fab fa-facebook-f"></i></a>
             <a href="https://www.youtube.com/@Margin_AI"
-              class="w-8 h-8 bg-gray-700 hover:bg-gray-600 flex items-center justify-center rounded-md transition-colors"><i
+              class="w-8 h-8 bg-white/10 hover:bg-[#FF7E29] hover:text-[#111111] flex items-center justify-center rounded-md transition-colors text-white"><i
                 class="fab fa-youtube"></i></a>
             <a href="https://substack.com/@marginai"
-              class="w-8 h-8 bg-gray-700 hover:bg-gray-600 flex items-center justify-center rounded-md transition-colors"><i
+              class="w-8 h-8 bg-white/10 hover:bg-[#FF7E29] hover:text-[#111111] flex items-center justify-center rounded-md transition-colors text-white"><i
                 class="bi bi-substack"></i></a>
           </div>
         </div>
         <div class="flex-1 w-full max-w-md">
           <h5 class="font-bold mb-2 text-white">Subscribe</h5>
-          <p class="text-sm text-gray-400 mb-4">
+          <p class="text-sm text-white/60 mb-4">
             Select topics and stay current with our latest insights
           </p>
           <form class="flex items-center">
             <input type="email" placeholder="Email address"
-              class="bg-transparent border border-gray-500 py-2 px-3 w-full focus:outline-none focus:border-white rounded-l-md" />
-            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-r-md">
+              class="bg-transparent border border-white/30 py-2 px-3 w-full focus:outline-none focus:border-[#FF7E29] rounded-l-md text-white placeholder-white/40" />
+            <button type="submit"
+              class="bg-[#FF7E29] hover:bg-[#ff974f] text-[#111111] font-bold py-2 px-6 rounded-r-md transition-colors">
               Submit
             </button>
           </form>
         </div>
       </div>
-      <div class="flex flex-col md:flex-row justify-between items-center text-sm text-gray-400 mt-8">
+      <div class="flex flex-col md:flex-row justify-between items-center text-sm text-white/50 mt-8">
         <div class="text-right mt-4 md:mt-0">
           <p>
             Margin AI is a registered trademark of Margin AI, Inc. All rights
@@ -973,80 +1212,80 @@
   </script>
   <style>
     .chat-window {
-      background-color: #0b0d12 !important;
-      color: #f1f1f1 !important;
+      background-color: #111111 !important;
+      color: #ffffff !important;
     }
 
     .chat-layout,
     .chat-wrapper {
-      background-color: #1a1b25 !important;
-      color: #f1f1f1 !important;
-    }
-
-    .chat-header {
-      background-color: #232533 !important;
-      color: #ff7e29 !important;
-      border-bottom: 1px solid #2e2f3e !important;
-    }
-
-    .chat-header h1 {
-      color: #ff7e29 !important;
-    }
-
-    .chat-header p {
-      color: #b5b8c0 !important;
-    }
-
-    .chat-body {
-      background-color: #1a1b25 !important;
-      color: #f1f1f1 !important;
-    }
-
-    .chat-messages-list {
-      background-color: #1a1b25 !important;
-    }
-
-    .chat-message {
-      color: #f1f1f1 !important;
-    }
-
-    .chat-message-from-bot {
-      background-color: #232533 !important;
-      border: 1px solid #2e2f3e !important;
-    }
-
-    .chat-message-markdown p {
-      color: #f1f1f1 !important;
-    }
-
-    .chat-footer {
-      background-color: #1a1b25 !important;
-      border-top: 1px solid #2e2f3e !important;
-    }
-
-    .chat-input {
-      background-color: #232533 !important;
-      color: #f1f1f1 !important;
-    }
-
-    .chat-inputs textarea {
-      background-color: #232533 !important;
-      color: #f1f1f1 !important;
-      border: 1px solid #2e2f3e !important;
-    }
-
-    .chat-inputs textarea::placeholder {
-      color: #888da1 !important;
-    }
-
-    .chat-input-send-button {
-      background-color: #ff7e29 !important;
+      background-color: #1a1a1a !important;
       color: #ffffff !important;
     }
 
+    .chat-header {
+      background-color: #1a1a1a !important;
+      color: #FF7E29 !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+
+    .chat-header h1 {
+      color: #FF7E29 !important;
+    }
+
+    .chat-header p {
+      color: rgba(255, 255, 255, 0.7) !important;
+    }
+
+    .chat-body {
+      background-color: #1a1a1a !important;
+      color: #ffffff !important;
+    }
+
+    .chat-messages-list {
+      background-color: #1a1a1a !important;
+    }
+
+    .chat-message {
+      color: #ffffff !important;
+    }
+
+    .chat-message-from-bot {
+      background-color: #222222 !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+
+    .chat-message-markdown p {
+      color: #ffffff !important;
+    }
+
+    .chat-footer {
+      background-color: #1a1a1a !important;
+      border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+
+    .chat-input {
+      background-color: #222222 !important;
+      color: #ffffff !important;
+    }
+
+    .chat-inputs textarea {
+      background-color: #222222 !important;
+      color: #ffffff !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+
+    .chat-inputs textarea::placeholder {
+      color: rgba(255, 255, 255, 0.4) !important;
+    }
+
+    .chat-input-send-button {
+      background-color: #FF7E29 !important;
+      color: #111111 !important;
+    }
+
     .chat-input-send-button:disabled {
-      background-color: #444654 !important;
-      color: #888da1 !important;
+      background-color: #333333 !important;
+      color: rgba(255, 255, 255, 0.4) !important;
     }
 
     .chat-input-send-button:hover:not(:disabled) {
@@ -1054,4 +1293,5 @@
     }
   </style>
 </body>
+
 </html>

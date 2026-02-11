@@ -54,6 +54,7 @@ const blogs = [
       "assets/media/blog-img/transforming-agriculture-devida-partnership/1765455659160.jpg",
     date: "2026-02-10",
     readTime: "3 min read",
+    file: "blogs/transforming-agriculture-devida-partnership.md",
   },
   {
     slug: "20th-pum-mission-bangladesh-bakery",
@@ -63,7 +64,7 @@ const blogs = [
       "Celebrating my 20th successful PUM mission with a project in Gaibandha, Bangladesh. Advising the GUK NGO on developing a mid-sized bakery to support local entrepreneurship.",
     category: "Social Impact",
     image:
-      "assets/media/blog-img/20th-pum-mission-bangladesh-bakery/1755346433119.jpg",
+      "assets/media/blog-img/20th-pum-mission-bangladesh-bakery/1755346436311.jpg",
     date: "2026-02-10",
     readTime: "2 min read",
     file: "blogs/20th-pum-mission-bangladesh-bakery.md",
