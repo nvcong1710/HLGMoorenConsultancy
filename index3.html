@@ -5,17 +5,16 @@
     <script src="blogs-data.js"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Margin AI</title>
+    <title>HGL Mooren Consultancy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="canonical" href="https://marginai.co" />
     <link
         href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;700&family=Inter:wght@400;500;700&display=swap"
         rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" />
 
-    <link rel="icon" href="assets/media/MARGIN AI.png" type="image/x-icon" />
+    <link rel="icon" href="assets/media/HGL Mooren Consultancy.png" type="image/x-icon" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -97,7 +96,7 @@
             let heroIsDragging = false;
 
             const baseHeroClasses = "slide-item shrink-0 relative mx-3 md:mx-5 w-[120px] md:w-[200px] lg:w-[300px] aspect-[4/5] rounded-md overflow-hidden border transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] cursor-pointer group";
-            const inactiveHeroClasses = "opacity-70 scale-85 grayscale-20 brightness-95 border-white/10 z-10";
+            const inactiveHeroClasses = "scale-85 grayscale-20 brightness-95 border-white/10 z-10";
             const activeHeroClasses = "!opacity-100 !scale-110 !grayscale-0 !brightness-100 !border-[#FF7E29] shadow-[0_0_40px_rgba(255,126,41,0.3)] z-30";
 
             function initHeroSlider() {
@@ -276,12 +275,16 @@
     </style>
 
     <section class="relative w-full min-h-screen flex flex-col pb-20 overflow-x-hidden bg-[#111]">
+        <video autoplay loop muted playsinline id="fading-video"
+            class="absolute top-0 left-0 w-full h-full object-cover z-0 opacity-50">
+            <source src="assets/media/splashvideo.mp4" type="video/mp4">
+        </video>
         <nav id="main-nav" class="container mx-auto px-6 py-4 lg:px-8">
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-4">
                     <a href="#" class="flex items-center space-x-2">
-                        <img src="assets/media/MARGIN AI.png" alt="Logo" class="h-8 w-8" />
-                        <span class="text-md font-semibold leading-tight text-white">Margin AI</span>
+                        <img src="assets/media/HGL Mooren Consultancy.png" alt="Logo" class="h-8 w-8" />
+                        <span class="text-md font-semibold leading-tight text-white">HGL Mooren Consultancy</span>
                     </a>
                 </div>
                 <div class="hidden lg:flex items-center space-x-6 text-sm">
@@ -305,7 +308,6 @@
 
         <!-- Main Content Wrapper -->
         <div class="relative  flex flex-col justify-center flex-grow w-full -mt-8">
-
             <!-- Hero Text -->
             <div class="container mx-auto px-6 text-center">
                 <div
@@ -323,11 +325,11 @@
             <!-- Hero Slider (3D Effect) -->
             <div class="relative w-full z-30 ">
                 <div class="max-w-[90%] mx-auto overflow-hidden">
-                <div class="slider-perspective w-full overflow-visible ">
-                    <div id="hero-slider-track"
-                        class="flex items-center py-10 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] will-change-transform">
+                    <div class="slider-perspective w-full overflow-visible ">
+                        <div id="hero-slider-track"
+                            class="flex items-center py-10 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] will-change-transform">
+                        </div>
                     </div>
-                </div>
                 </div>
 
                 <!-- Hero Controls -->
@@ -1061,84 +1063,48 @@
             if (projects.length) renderProjects();
         </script>
         <!-- Your Companion Section -->
-        <section class="py-12 md:py-16 bg-[#111111]" id="our-people">
+        <section class="relative min-h-[70vh] flex items-center bg-[#111111] overflow-hidden" id="our-people">
             <div class="container mx-auto px-4 md:px-8">
-                <h2 class="text-3xl md:text-4xl font-serif leading-tight text-center mb-12 text-[#FF7E29]">
-                    Your Companion
-                </h2>
+                <div class="flex flex-col md:flex-row items-stretch min-h-[600px]">
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 md:gap-10 justify-items-center mb-10">
-                    <div class="text-center w-full max-w-[350px]">
-                        <div class="bg-[#111111] rounded-2xl inline-block ring-1 ring-white/10">
-                            <img src="assets/media/A Hùng.jpg" alt="James Pham"
-                                class="rounded-xl object-cover w-[250px] h-[320px]" />
+                    <div class="w-full md:w-1/2 relative group">
+                        <div class="relative h-full min-h-[400px] overflow-hidden">
+                            <img src="assets/media/HugoMooren.jpg" alt="Hugo Mooren"
+                                class="absolute inset-0 w-full h-full object-cover transition duration-700 ease-in-out" />
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-[#111111] via-transparent to-transparent opacity-80">
+                            </div>
+
+                            <div class="absolute bottom-10 left-0 border-l-2 border-[#FF7E29] pl-6">
+                                <p class="text-[#FF7E29] uppercase tracking-[0.2em] text-xs mb-2 font-medium">Interim
+                                    Marketing Consultant</p>
+                                <h3 class="text-white text-4xl md:text-5xl font-serif italic">Hugo Mooren</h3>
+                            </div>
                         </div>
-                        <h4 class="text-2xl font-semibold text-white mt-4">James Pham</h4>
-                        <p class="text-white/60 text-md min-h-12">
-                            Co-Founder <br />
-                            Dual Master's in AI & Digital Transformation
-                        </p>
                     </div>
 
-                    <div class="text-center w-full max-w-[350px]">
-                        <div class="bg-[#111111] rounded-2xl inline-block ring-1 ring-white/10">
-                            <img src="assets/media/CongNguyen.jpg" alt="Cong Nguyen"
-                                class="rounded-xl object-cover w-[250px] h-[320px]" />
-                        </div>
-                        <h4 class="text-2xl font-semibold text-white mt-4">
-                            Cong Nguyen
-                        </h4>
-                        <p class="text-white/60 text-md h-12">
-                            Co-Founder - Data Scientist <br /> Full-Stack Developer
-                        </p>
-                    </div>
-                </div>
+                    <div
+                        class="w-full md:w-1/2 bg-[#0a0a0a]/50 p-8 md:p-16 flex flex-col justify-center border-y md:border-y-0 md:border-r border-white/5">
+                        <div class="max-w-md">
+                            <div class="inline-block border border-[#FF7E29]/30 px-3 py-1 mb-8">
+                                <span class="text-[#FF7E29] text-[10px] uppercase tracking-[0.3em]">Your
+                                    Companion</span>
+                            </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 justify-items-center">
-                    <div class="text-center w-full max-w-[350px]">
-                        <div class="bg-[#111111] rounded-2xl inline-block ring-1 ring-white/10">
-                            <img src="assets/media/Vikram Venkatesh.jpeg" alt="Vikram Venkatesh"
-                                class="rounded-xl object-cover w-[250px] h-[320px]" />
+                            <h2 class="text-white text-5xl md:text-7xl font-serif leading-tight mb-8">
+                                Mastering <br />
+                                <span class="text-[#FF7E29] italic">Digital</span> <br />
+                                Transformation.
+                            </h2>
+
+                            <p class="text-white/60 text-lg leading-relaxed mb-10 font-light">
+                                Where AI precision meets strategic foresight. Hugo provides bespoke digital counsel to
+                                founders
+                                and executives navigating the complexities of modern technological landscapes.
+                            </p>
                         </div>
-                        <h4 class="text-2xl font-semibold text-white mt-4">
-                            Vikram Venkatesh
-                        </h4>
-                        <p class="text-white/60 text-md h-12">AI Engineer</p>
-                        <p class="text-md text-white/80">
-                            Builds scalable AI systems and transforms research into
-                            real-world applications.
-                        </p>
                     </div>
 
-                    <div class="text-center w-full max-w-[350px]">
-                        <div class="bg-[#111111] rounded-2xl inline-block ring-1 ring-white/10">
-                            <img src="assets/media/Omar Al-Fahim.jpeg" alt="Omar Al-Fahim"
-                                class="rounded-xl object-cover w-[250px] h-[320px]" />
-                        </div>
-                        <h4 class="text-2xl font-semibold text-white mt-4">
-                            Omar Al-Fahim
-                        </h4>
-                        <p class="text-white/60 text-md h-12">Full-Stack Developer</p>
-                        <p class="text-md text-white/80">
-                            Develops robust full-stack architectures to support AI-powered
-                            applications.
-                        </p>
-                    </div>
-
-                    <div class="text-center w-full max-w-[350px]">
-                        <div class="bg-[#111111] rounded-2xl inline-block ring-1 ring-white/10">
-                            <img src="assets/media/Haikal bin Azman.jpeg" alt="Haikal bin Azman"
-                                class="rounded-xl object-cover w-[250px] h-[320px]" />
-                        </div>
-                        <h4 class="text-2xl font-semibold text-white mt-4">
-                            Haikal bin Azman
-                        </h4>
-                        <p class="text-white/60 text-md h-12">Business Analyst</p>
-                        <p class="text-md text-white/80">
-                            Aligns business needs with AI capabilities to drive measurable
-                            transformation.
-                        </p>
-                    </div>
                 </div>
             </div>
         </section>
@@ -1170,10 +1136,10 @@
                 class="flex flex-col md:flex-row justify-between items-start md:items-center gap-10 border-b border-white/10 pb-8">
                 <div class="flex-1">
                     <h3 class="text-3xl font-serif mb-4 text-white">
-                        Connect with <span class="font-semibold text-[#FF7E29]">Margin AI</span>
+                        Connect with <span class="font-semibold text-[#FF7E29]">HGL Mooren Consultancy</span>
                     </h3>
                     <div class="flex space-x-2">
-                        <a href="https://www.tiktok.com/@margin_ai"
+                        <!-- <a href="https://www.tiktok.com/@margin_ai"
                             class="w-8 h-8 bg-white/10 hover:bg-[#FF7E29] hover:text-[#111111] flex items-center justify-center rounded-md transition-colors text-white"><i
                                 class="fa-brands fa-tiktok"></i></a>
                         <a href="https://x.com/ai_margin"
@@ -1187,7 +1153,11 @@
                                 class="fab fa-youtube"></i></a>
                         <a href="https://substack.com/@marginai"
                             class="w-8 h-8 bg-white/10 hover:bg-[#FF7E29] hover:text-[#111111] flex items-center justify-center rounded-md transition-colors text-white"><i
-                                class="bi bi-substack"></i></a>
+                                class="bi bi-substack"></i></a> -->
+                        <!-- linkedin -->
+                        <a href="https://www.linkedin.com/in/hugomooren/"
+                            class="w-8 h-8 bg-white/10 hover:bg-[#FF7E29] hover:text-[#111111] flex items-center justify-center rounded-md transition-colors text-white"><i
+                                class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
                 <div class="flex-1 w-full max-w-md">
@@ -1208,7 +1178,7 @@
             <div class="flex flex-col md:flex-row justify-between items-center text-sm text-white/50 mt-8">
                 <div class="text-right mt-4 md:mt-0">
                     <p>
-                        Margin AI is a registered trademark of Margin AI, Inc. All rights
+                        HGL Mooren Consultancy is a registered trademark of HGL Mooren Consultancy, Inc. All rights
                         reserved.
                     </p>
                 </div>
