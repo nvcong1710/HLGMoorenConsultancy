@@ -5052,11 +5052,11 @@ const Ro = {
     defaultLanguage: "en",
     showWelcomeScreen: !1,
     initialMessages: [
-      "Welcome to Margin AI! I am MarginAI Bot, your friendly AI companion, here to help you explore smart solutions to optimize your work and connect with people. Let me know what you need, and let’s build something amazing together! 😊",
+      "Hello! 👋 I'm the virtual assistant of HGL Mooren Consultancy - your bridge from local excellence to global markets in the food industry. How can I assist you today?",
     ],
     i18n: {
       en: {
-        title: "Chat with Margin AI bot",
+        title: "Ask Amber Anything",
         subtitle: "Start a chat. We're here to help you 24/7.",
         footer: "",
         getStarted: "New Conversation",
