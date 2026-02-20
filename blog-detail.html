@@ -311,7 +311,7 @@
     // Initialize
     document.addEventListener('DOMContentLoaded', loadBlogPost);
   </script>
-  <script>
+  <!-- <script>
     window.addEventListener("load", () => {
       setTimeout(() => {
         const toggle = document.querySelector(".chat-window-toggle");
@@ -329,7 +329,7 @@
         }
       }, 50);
     });
-  </script>
+  </script> -->
 
   <style>
     body {
@@ -597,10 +597,35 @@
   </style>
   <script type="module">
     import { createChat } from "/HLGMoorenConsultancy/assets/js/chat.bundle.es.js";
+
     window.addEventListener('blog-loaded', () => {
       createChat({
         webhookUrl: "https://kstgroup-n8n.digitalfactory.vn/webhook/9a991784-0f4b-4a26-aea6-d9d48d5b0bac/chat",
       });
+
+      const observer = new MutationObserver((mutations, obs) => {
+        const toggle = document.querySelector(".chat-window-toggle");
+
+        if (toggle) {
+          const svgs = toggle.querySelectorAll("svg");
+          svgs.forEach((svg) => svg.style.display = "none");
+
+          if (!toggle.querySelector("img.custom-chatbot-icon")) {
+            const img = document.createElement("img");
+            img.src = "assets/media/chatbot-icon.png";
+            img.alt = "Chat";
+            img.width = 260;
+            img.height = 260;
+            img.className = "custom-chatbot-icon";
+            img.style.maxWidth = "none";
+            toggle.appendChild(img);
+          }
+
+          obs.disconnect();
+        }
+      });
+
+      observer.observe(document.body, { childList: true, subtree: true });
     });
   </script>
 </body>
