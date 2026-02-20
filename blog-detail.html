@@ -2,16 +2,6 @@
 <html lang="vi">
 
 <head>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MD49VEG5FP"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-    gtag("js", new Date());
-    gtag("config", "G-MD49VEG5FP");
-  </script>
-
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://cdn.tailwindcss.com"></script>
@@ -291,6 +281,7 @@
         document.querySelectorAll('pre code').forEach((block) => {
           hljs.highlightElement(block);
         });
+        window.dispatchEvent(new Event('blog-loaded'));
 
       } catch (error) {
         console.error('Error loading blog:', error);
@@ -319,15 +310,6 @@
 
     // Initialize
     document.addEventListener('DOMContentLoaded', loadBlogPost);
-  </script>
-
-  <script type="module">
-    import { createChat } from "/HLGMoorenConsultancy/assets/js/chat.bundle.es.js";
-
-    createChat({
-      webhookUrl:
-        "https://kstgroup-n8n.digitalfactory.vn/webhook/9a991784-0f4b-4a26-aea6-d9d48d5b0bac/chat",
-    });
   </script>
   <script>
     window.addEventListener("load", () => {
@@ -613,7 +595,14 @@
       }
     }
   </style>
-
+  <script type="module">
+    import { createChat } from "/HLGMoorenConsultancy/assets/js/chat.bundle.es.js";
+    window.addEventListener('blog-loaded', () => {
+      createChat({
+        webhookUrl: "https://kstgroup-n8n.digitalfactory.vn/webhook/9a991784-0f4b-4a26-aea6-d9d48d5b0bac/chat",
+      });
+    });
+  </script>
 </body>
 
 </html>
