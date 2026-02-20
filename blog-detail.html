@@ -260,6 +260,13 @@
     }
 
     /* ===== CHATBOT STYLES — khớp với trang chủ ===== */
+    .chat-window-wrapper {
+      position: fixed !important;
+      bottom: 2rem !important;
+      right: 2rem !important;
+      z-index: 9999 !important;
+    }
+
     .chat-window-wrapper .chat-window-toggle {
       background: transparent !important;
     }
@@ -273,7 +280,12 @@
 
     .chat-window-wrapper .chat-window {
       height: 550px !important;
+      width: 380px !important;
+      max-width: 400px !important;
       margin-bottom: -60px !important;
+      position: absolute !important;
+      bottom: 100% !important;
+      right: 0 !important;
     }
 
     @media screen and (max-width: 1000px) {
@@ -301,18 +313,26 @@
     .chat-window {
       background-color: #111111 !important;
       color: #ffffff !important;
+      display: flex !important;
+      flex-direction: column !important;
+      overflow: hidden !important;
     }
 
     .chat-layout,
     .chat-wrapper {
       background-color: #1a1a1a !important;
       color: #ffffff !important;
+      display: flex !important;
+      flex-direction: column !important;
+      height: 100% !important;
+      overflow: hidden !important;
     }
 
     .chat-header {
       background-color: #1a1a1a !important;
       color: #FF7E29 !important;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+      flex-shrink: 0 !important;
     }
 
     .chat-header h1 {
@@ -326,6 +346,9 @@
     .chat-body {
       background-color: #1a1a1a !important;
       color: #ffffff !important;
+      flex: 1 1 auto !important;
+      overflow-y: auto !important;
+      min-height: 0 !important;
     }
 
     .chat-messages-list {
@@ -348,6 +371,7 @@
     .chat-footer {
       background-color: #1a1a1a !important;
       border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+      flex-shrink: 0 !important;
     }
 
     .chat-input {
@@ -380,10 +404,6 @@
     }
 
     .chat-window-wrapper {
-      z-index: 9999 !important;
-      position: fixed !important;
-      bottom: 2rem !important;
-      right: 2rem !important;
       z-index: 9999 !important;
     }
   </style>
