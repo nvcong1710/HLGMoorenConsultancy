@@ -1,4 +1,4 @@
-![alt text](../assets/media/blog-img/sustainable-development-coffee-cooperative-peru/1766234449366.jpg)
+![alt text](assets/media/blog-img/sustainable-development-coffee-cooperative-peru/1766234449366.jpg)
 
 I’ve just completed my second PUM assignment in Peru, and I’m grateful for the experience and impact it brought.
 
@@ -14,4 +14,4 @@ I’m inspired by the commitment and ambition of everyone involved, and proud to
 Thank you to all partners and stakeholders for the trust and collaboration. 🌱☕🍫
 Looking forward to seeing Alta Montaña continue to grow its impact.
 
-![alt text](../assets/media/blog-img/sustainable-development-coffee-cooperative-peru/1766234450407.jpg)
+![alt text](assets/media/blog-img/sustainable-development-coffee-cooperative-peru/1766234450407.jpg)
