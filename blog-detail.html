@@ -278,13 +278,13 @@
         </a>
       </div>
       <div class="hidden lg:flex items-center space-x-6 text-sm">
-        <a href="#" class="text-white hover:text-[#FF7E29] transition-colors">Overview</a>
-        <a href="#our-approach" class="text-white hover:text-[#FF7E29] transition-colors">Our
+        <a href="/#" class="text-white hover:text-[#FF7E29] transition-colors">Overview</a>
+        <a href="/#our-approach" class="text-white hover:text-[#FF7E29] transition-colors">Our
           Approach</a>
-        <a href="#our-offer" class="text-white hover:text-[#FF7E29] transition-colors">Our Offer</a>
+        <a href="/#our-offer" class="text-white hover:text-[#FF7E29] transition-colors">Our Offer</a>
         <a href="projects.html" class="text-white hover:text-[#FF7E29] transition-colors">Our
           Projects</a>
-        <a href="#contact-us" class="text-white hover:text-[#FF7E29] transition-colors">Contact Us</a>
+        <a href="/#contact-us" class="text-white hover:text-[#FF7E29] transition-colors">Contact Us</a>
       </div>
       <button id="mobile-menu-button" class="lg:hidden text-white focus:outline-none">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -663,6 +663,23 @@
 
     .chat-input-send-button:hover:not(:disabled) {
       background-color: #ff974f !important;
+    }
+
+    .chat-window {
+      position: fixed !important;
+      bottom: 100px !important;
+      /* Nằm ngay phía trên nút toggle */
+      right: 24px !important;
+      z-index: 99998 !important;
+      background-color: #111111 !important;
+      color: #ffffff !important;
+
+      /* Giới hạn kích thước tránh bị tràn màn hình trên Mobile */
+      max-width: calc(100vw - 48px) !important;
+      max-height: calc(100vh - 140px) !important;
+      border-radius: 12px !important;
+      overflow: hidden !important;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
     }
   </style>
 
