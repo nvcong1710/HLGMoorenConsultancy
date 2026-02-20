@@ -35,270 +35,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
-  <style>
-    body {
-      background-color: #031119;
-      color: #e0e0e0;
-      font-family: 'Inter', sans-serif;
-    }
-
-    .font-serif {
-      font-family: 'EB Garamond', serif;
-    }
-
-    .article-content {
-      max-width: 800px;
-      margin: 0 auto;
-      line-height: 1.8;
-      font-size: 1.125rem;
-    }
-
-    .article-content h1 {
-      font-family: 'EB Garamond', serif;
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-top: 2rem;
-      margin-bottom: 1rem;
-      color: #ffffff;
-    }
-
-    .article-content h2 {
-      font-family: 'EB Garamond', serif;
-      font-size: 2rem;
-      font-weight: 600;
-      margin-top: 2.5rem;
-      margin-bottom: 1rem;
-      color: #f0f0f0;
-      border-bottom: 2px solid rgba(59, 130, 246, 0.3);
-      padding-bottom: 0.5rem;
-    }
-
-    .article-content h3 {
-      font-family: 'EB Garamond', serif;
-      font-size: 1.5rem;
-      font-weight: 600;
-      margin-top: 2rem;
-      margin-bottom: 0.75rem;
-      color: #e0e0e0;
-    }
-
-    .article-content h4 {
-      font-size: 1.25rem;
-      font-weight: 600;
-      margin-top: 1.5rem;
-      margin-bottom: 0.5rem;
-      color: #d0d0d0;
-    }
-
-    .article-content p {
-      margin-bottom: 1.5rem;
-      color: #c0c0c0;
-    }
-
-    .article-content a {
-      color: #FF7E29;
-      text-decoration: underline;
-      transition: color 0.3s;
-    }
-
-    .article-content a:hover {
-      color: #FF7E29DD;
-    }
-
-    .article-content ul,
-    .article-content ol {
-      margin-bottom: 1.5rem;
-      padding-left: 2rem;
-    }
-
-    .article-content li {
-      margin-bottom: 0.5rem;
-      color: #c0c0c0;
-    }
-
-    .article-content blockquote {
-      border-left: 4px solid #3b82f6;
-      padding-left: 1.5rem;
-      margin: 2rem 0;
-      font-style: italic;
-      color: #9ca3af;
-      background: rgba(59, 130, 246, 0.05);
-      padding: 1rem 1.5rem;
-      border-radius: 0.25rem;
-    }
-
-    .article-content img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 0.5rem;
-      margin: 2rem 0;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-    }
-
-    .article-content pre {
-      background: #1e1e1e;
-      border-radius: 0.5rem;
-      padding: 1.5rem;
-      overflow-x: auto;
-      margin: 1.5rem 0;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .article-content code {
-      background: rgba(59, 130, 246, 0.1);
-      padding: 0.2rem 0.4rem;
-      border-radius: 0.25rem;
-      font-size: 0.9em;
-      color: #FF7E29;
-      font-family: 'Courier New', monospace;
-    }
-
-    .article-content pre code {
-      background: transparent;
-      padding: 0;
-      color: #e0e0e0;
-    }
-
-    .article-content table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 2rem 0;
-    }
-
-    .article-content th,
-    .article-content td {
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 0.75rem;
-      text-align: left;
-    }
-
-    .article-content th {
-      background: rgba(59, 130, 246, 0.1);
-      font-weight: 600;
-      color: #FF7E29;
-    }
-
-    .article-content hr {
-      border: none;
-      border-top: 2px solid rgba(255, 255, 255, 0.1);
-      margin: 3rem 0;
-    }
-
-    .hero-image {
-      height: 400px;
-      background-size: cover;
-      background-position: center;
-      position: relative;
-    }
-
-    .hero-image::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, transparent 0%, rgba(5, 14, 19, 0.9) 100%);
-    }
-
-    .category-badge {
-      display: inline-block;
-      padding: 0.25rem 0.75rem;
-      font-size: 0.75rem;
-      font-weight: 600;
-      border-radius: 9999px;
-      background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(59, 130, 246, 0.1));
-      border: 1px solid rgba(59, 130, 246, 0.3);
-      color: #FF7E29;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .loading-spinner {
-      border: 3px solid rgba(255, 255, 255, 0.1);
-      border-top-color: #3b82f6;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    .fade-in {
-      animation: fadeIn 0.8s ease-out;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .share-button {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
-      background: rgba(59, 130, 246, 0.1);
-      border: 1px solid rgba(59, 130, 246, 0.3);
-      color: #FF7E29;
-      transition: all 0.3s;
-      font-size: 0.875rem;
-    }
-
-    .share-button:hover {
-      background: rgba(59, 130, 246, 0.2);
-      transform: translateY(-2px);
-    }
-
-    /* ===== CHATBOT STYLES ===== */
-    .chat-window-wrapper .chat-window-toggle {
-      background: transparent !important;
-    }
-
-    @media screen and (min-width: 1000px) {
-      .chat-window-wrapper {
-        bottom: 4rem !important;
-        right: 4rem !important;
-      }
-    }
-
-    .chat-window-wrapper .chat-window {
-      height: 550px !important;
-      margin-bottom: -60px !important;
-    }
-
-    @media screen and (max-width: 1000px) {
-      .chat-window-wrapper .chat-window {
-        bottom: 0px !important;
-        right: 0px !important;
-      }
-
-      .chat-window-wrapper {
-        bottom: 2rem !important;
-        right: 2rem !important;
-        max-width: 85% !important;
-      }
-
-      .chat-window-toggle img {
-        width: 200px !important;
-        height: 200px !important;
-      }
-
-      .chat-layout .chat-header h1 {
-        font-size: 1.7em !important;
-      }
-    }
-  </style>
 </head>
 
 <body class="bg-[#050e13] text-gray-200">
@@ -612,6 +348,271 @@
       }, 50);
     });
   </script>
+
+  <style>
+    body {
+      background-color: #031119;
+      color: #e0e0e0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .font-serif {
+      font-family: 'EB Garamond', serif;
+    }
+
+    .article-content {
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.8;
+      font-size: 1.125rem;
+    }
+
+    .article-content h1 {
+      font-family: 'EB Garamond', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      color: #ffffff;
+    }
+
+    .article-content h2 {
+      font-family: 'EB Garamond', serif;
+      font-size: 2rem;
+      font-weight: 600;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      color: #f0f0f0;
+      border-bottom: 2px solid rgba(59, 130, 246, 0.3);
+      padding-bottom: 0.5rem;
+    }
+
+    .article-content h3 {
+      font-family: 'EB Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+      color: #e0e0e0;
+    }
+
+    .article-content h4 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: #d0d0d0;
+    }
+
+    .article-content p {
+      margin-bottom: 1.5rem;
+      color: #c0c0c0;
+    }
+
+    .article-content a {
+      color: #FF7E29;
+      text-decoration: underline;
+      transition: color 0.3s;
+    }
+
+    .article-content a:hover {
+      color: #FF7E29DD;
+    }
+
+    .article-content ul,
+    .article-content ol {
+      margin-bottom: 1.5rem;
+      padding-left: 2rem;
+    }
+
+    .article-content li {
+      margin-bottom: 0.5rem;
+      color: #c0c0c0;
+    }
+
+    .article-content blockquote {
+      border-left: 4px solid #3b82f6;
+      padding-left: 1.5rem;
+      margin: 2rem 0;
+      font-style: italic;
+      color: #9ca3af;
+      background: rgba(59, 130, 246, 0.05);
+      padding: 1rem 1.5rem;
+      border-radius: 0.25rem;
+    }
+
+    .article-content img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 0.5rem;
+      margin: 2rem 0;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .article-content pre {
+      background: #1e1e1e;
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .article-content code {
+      background: rgba(59, 130, 246, 0.1);
+      padding: 0.2rem 0.4rem;
+      border-radius: 0.25rem;
+      font-size: 0.9em;
+      color: #FF7E29;
+      font-family: 'Courier New', monospace;
+    }
+
+    .article-content pre code {
+      background: transparent;
+      padding: 0;
+      color: #e0e0e0;
+    }
+
+    .article-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+    }
+
+    .article-content th,
+    .article-content td {
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 0.75rem;
+      text-align: left;
+    }
+
+    .article-content th {
+      background: rgba(59, 130, 246, 0.1);
+      font-weight: 600;
+      color: #FF7E29;
+    }
+
+    .article-content hr {
+      border: none;
+      border-top: 2px solid rgba(255, 255, 255, 0.1);
+      margin: 3rem 0;
+    }
+
+    .hero-image {
+      height: 400px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .hero-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(5, 14, 19, 0.9) 100%);
+    }
+
+    .category-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: 9999px;
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(59, 130, 246, 0.1));
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      color: #FF7E29;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .loading-spinner {
+      border: 3px solid rgba(255, 255, 255, 0.1);
+      border-top-color: #3b82f6;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .share-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      color: #FF7E29;
+      transition: all 0.3s;
+      font-size: 0.875rem;
+    }
+
+    .share-button:hover {
+      background: rgba(59, 130, 246, 0.2);
+      transform: translateY(-2px);
+    }
+
+    /* ===== CHATBOT STYLES ===== */
+    .chat-window-wrapper .chat-window-toggle {
+      background: transparent !important;
+    }
+
+    @media screen and (min-width: 1000px) {
+      .chat-window-wrapper {
+        bottom: 4rem !important;
+        right: 4rem !important;
+      }
+    }
+
+    .chat-window-wrapper .chat-window {
+      height: 550px !important;
+      margin-bottom: -60px !important;
+    }
+
+    @media screen and (max-width: 1000px) {
+      .chat-window-wrapper .chat-window {
+        bottom: 0px !important;
+        right: 0px !important;
+      }
+
+      .chat-window-wrapper {
+        bottom: 2rem !important;
+        right: 2rem !important;
+        max-width: 85% !important;
+      }
+
+      .chat-window-toggle img {
+        width: 200px !important;
+        height: 200px !important;
+      }
+
+      .chat-layout .chat-header h1 {
+        font-size: 1.7em !important;
+      }
+    }
+  </style>
 
 </body>
 
