@@ -1,73 +1,41 @@
 const blogs = [
   {
-    slug: "strategic-consulting-vietnam-turmeric-business",
-    title: "Strategic Insights for Turmeric Production in Vietnam",
+    slug: "anapqui-strategic-transformation",
+    title:
+      "From Raw Material Export to Premium Consumer Brand: ANAPQUI's Journey of Transformation",
     excerpt:
-      "Reflecting on a successful PUM project in Vietnam, supporting a turmeric starch business with strategy development and advising on operational challenges.",
+      "Discover how ANAPQUI escaped the raw material wholesale trap and transformed into a high-value consumer brand through comprehensive strategic consulting from HLG Mooren Consulting.",
     category: "Business Strategy",
-    image:
-      "assets/media/blog-img/strategic-consulting-vietnam-turmeric-business/1769355069218.jpg",
-    date: "2026-02-10",
+    image: "assets/media/blog-img/anapqui-strategic-transformation/cover.png",
+    date: "2026-02-27",
     readTime: "3 min read",
-    file: "blogs/strategic-consulting-vietnam-turmeric-business.md",
+    file: "blogs/anapqui-strategic-transformation.md",
     author: "Hugo Mooren",
   },
   {
-    slug: "empowering-medicinal-mushroom-sme-buon-ma-thuot",
+    slug: "dawn-bread-operations",
     title:
-      "Strengthening Sustainable SMEs: Medicinal Mushrooms in Buon Ma Thuot",
+      "Breaking Space Limits: Supply Chain and Operations Optimization for Dawn Bread",
     excerpt:
-      "A deep dive into optimizing marketing, sales, and production for a local SME. How responsible production creates local impact and sustainable growth.",
-    category: "Sustainable Business",
-    image:
-      "assets/media/blog-img/empowering-medicinal-mushroom-sme-buon-ma-thuot/1768586680260.jpg",
-    date: "2026-02-10",
+      "Discover how HLG Mooren Consulting helped FMCG giant Dawn Bread optimize their supply chain, resolve space bottlenecks, and increase production capacity by 20% without expanding their facility.",
+    category: "Supply Chain Optimization",
+    image: "assets/media/blog-img/dawn-bread-operations/cover.jpg",
+    date: "2026-02-27",
     readTime: "4 min read",
-    file: "blogs/empowering-medicinal-mushroom-sme-buon-ma-thuot.md",
+    file: "blogs/dawn-bread-operations.md",
     author: "Hugo Mooren",
   },
-
   {
-    slug: "sustainable-development-coffee-cooperative-peru",
+    slug: "specialty-coffee-strategy",
     title:
-      "From Illegal Crops to Coffee: Driving Impact in the Peruvian Amazon",
+      "Breaking the Small Scale Trap: Value Chain & Branding Strategy for a Specialty Coffee Business",
     excerpt:
-      "Recap of my second PUM assignment in Mendoza, working with DEVIDA and the Alta Montaña cooperative to build a long-term strategy for smallholder farmers.",
-    category: "Social Impact",
-    image:
-      "assets/media/blog-img/sustainable-development-coffee-cooperative-peru/1766234449366.jpg",
-    date: "2026-02-10",
-    readTime: "5 min read",
-    file: "blogs/sustainable-development-coffee-cooperative-peru.md",
-    author: "Hugo Mooren",
-  },
-
-  /* Bài 4: Project Peru - DEVIDA (Ongoing/Current) */
-  {
-    slug: "transforming-agriculture-devida-partnership",
-    title:
-      "On the Ground in Peru: Partnering with DEVIDA for Sustainable Agriculture",
-    excerpt:
-      "Current insights from the Amazon region, working with cacao (APROCAM) and coffee (ALTA MONTAÑA) cooperatives to strengthen value chains and farmer livelihoods.",
-    category: "International Development",
-    image:
-      "assets/media/blog-img/transforming-agriculture-devida-partnership/1765455659160.jpg",
-    date: "2026-02-10",
-    readTime: "3 min read",
-    file: "blogs/transforming-agriculture-devida-partnership.md",
-  },
-  {
-    slug: "20th-pum-mission-bangladesh-bakery",
-    title:
-      "Milestone Reached: 20th PUM Mission Supporting a Bakery in Bangladesh",
-    excerpt:
-      "Celebrating my 20th successful PUM mission with a project in Gaibandha, Bangladesh. Advising the GUK NGO on developing a mid-sized bakery to support local entrepreneurship.",
-    category: "Social Impact",
-    image:
-      "assets/media/blog-img/20th-pum-mission-bangladesh-bakery/1755346436311.jpg",
-    date: "2026-02-10",
-    readTime: "2 min read",
-    file: "blogs/20th-pum-mission-bangladesh-bakery.md",
+      "How HLG Mooren Consulting helped a South American specialty coffee enterprise standardize its value chain, rebrand, and leverage outsourcing to overcome quality inconsistencies and achieve sustainable growth.",
+    category: "Business Strategy",
+    image: "assets/media/blog-img/specialty-coffee-strategy/cover.jpg",
+    date: "2026-02-27",
+    readTime: "4 min read",
+    file: "blogs/specialty-coffee-strategy.md",
     author: "Hugo Mooren",
   },
 ];
