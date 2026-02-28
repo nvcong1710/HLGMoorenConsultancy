@@ -1,7 +1,5 @@
 # Từ doanh nghiệp gia đình địa phương đến chiến lược tăng trưởng toàn quốc: Hành trình tái cấu trúc của Dulces Flower
 
-===================================================================================================================
-
 Trong ngành thực phẩm, đặc biệt là bakery ingredients, tăng trưởng không chỉ đến từ “sản phẩm ngon”. Nó đến từ chiến lược đúng, tổ chức đúng và kiểm soát chất lượng bài bản.
 
 Dulces Flower là một doanh nghiệp gia đình có hơn 30 năm kinh nghiệm tại Medellin. Nhưng khi thị trường thay đổi, hệ thống siêu thị phát triển mạnh, chuỗi bakery mở rộng nhanh và cạnh tranh ngày càng chuyên nghiệp hơn — mô hình vận hành cũ không còn đủ để đảm bảo vị thế tương lai.

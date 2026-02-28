@@ -169,4 +169,17 @@ const blogs = [
     file: "blogs/pili-eu-strategy.md",
     author: "Hugo Mooren",
   },
+  {
+    slug: "alta-montana-transformation",
+    title:
+      "From Decentralized Cooperative to Controlled Specialty Coffee Model: The Strategic Transformation of Alta Montaña",
+    excerpt:
+      "Discover how HLG Mooren Consulting helped a Peruvian coffee cooperative transition into a data-driven specialty coffee enterprise through process centralization, strict cost control, and origin-based storytelling.",
+    category: "Business Strategy",
+    image: "assets/media/blog-img/alta-montana-transformation/cover.jpg",
+    date: "2026-02-28",
+    readTime: "4 min read",
+    file: "blogs/alta-montana-transformation.md",
+    author: "Hugo Mooren",
+  },
 ];

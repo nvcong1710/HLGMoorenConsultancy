@@ -1,7 +1,5 @@
 # Từ sản xuất thủ công thiếu kiểm soát đến chiến lược tăng trưởng bền vững: Hành trình tái cấu trúc của Dulces Flower y Cia (SOS)
 
-===============================================================================================================================
-
 Khi một doanh nghiệp thực phẩm phụ thuộc 50% doanh thu vào một khách hàng và 90% hoạt động tập trung vào một phân khúc duy nhất, rủi ro không còn là giả định — mà là hiện hữu. Dulces Flower y Cia (SOS) tại Colombia đang tăng trưởng trong thị trường có tiềm năng, nhưng nền tảng vận hành và chiến lược chưa đủ vững để mở rộng quy mô.
 
 Bài toán đặt ra không chỉ là tăng doanh số — mà là xây dựng một cấu trúc tổ chức, hệ thống chất lượng và chiến lược thị trường đủ mạnh để phát triển toàn quốc.

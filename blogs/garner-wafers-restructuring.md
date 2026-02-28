@@ -1,7 +1,5 @@
 # Từ lợi nhuận 1% đến lộ trình EBIT 10%: Hành trình tái cấu trúc toàn diện của Garner Wafers
 
-==========================================================================================
-
 Khi một doanh nghiệp đạt doanh thu tăng trưởng hai chữ số nhưng lợi nhuận ròng chỉ quanh mức 1%, vấn đề không còn nằm ở thị trường — mà nằm ở hệ thống vận hành. Garner Wafers, một nhà sản xuất waffle và ice cream cones tại Nam Phi, đứng trước nghịch lý đó: tăng trưởng 12% nhưng biên lợi nhuận quá thấp để đảm bảo phát triển bền vững.
 
 Bài toán đặt ra không chỉ là “cắt giảm chi phí”, mà là tái cấu trúc toàn diện từ sản xuất, logistics, chất lượng đến chiến lược marketing.

@@ -1,7 +1,5 @@
 # Từ doanh nghiệp địa phương nhỏ lẻ đến thương hiệu nông sản chuẩn hóa: Chiến lược tăng trưởng toàn diện cho Fukia
 
-================================================================================================================
-
 Rất nhiều doanh nghiệp nông sản tại Việt Nam có chung một bài toán: sản phẩm tốt, nguồn nguyên liệu địa phương mạnh, nhưng thiếu chiến lược rõ ràng để tăng trưởng bền vững.
 
 Fukia tại Thanh Bình, Đà Nẵng cũng vậy. Doanh nghiệp có danh mục 23 sản phẩm, kết nối nông dân địa phương, định vị bền vững – nhưng hệ thống quản trị, thương hiệu và chiến lược phân phối chưa đủ mạnh để mở rộng quy mô.
