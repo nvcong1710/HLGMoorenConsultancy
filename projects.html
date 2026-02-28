@@ -5,6 +5,7 @@
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-MD49VEG5FP"></script>
   <script src="blogs-data.js"></script>
+  <script src="assets/js/i18n.js"></script>
   <script>
     const blogs = blogsData;
   </script>
@@ -198,15 +199,26 @@
         </a>
       </div>
       <div class="hidden lg:flex items-center space-x-6 text-sm">
-        <a href="/HLGMoorenConsultancy/" class="text-white hover:text-[#FF7E29] transition-colors">Overview</a>
-        <a href="/HLGMoorenConsultancy/#our-approach" class="text-white hover:text-[#FF7E29] transition-colors">Our
+        <a href="/HLGMoorenConsultancy/" class="text-white hover:text-[#FF7E29] transition-colors"
+          data-i18n="nav.overview">Overview</a>
+        <a href="/HLGMoorenConsultancy/#our-approach" class="text-white hover:text-[#FF7E29] transition-colors"
+          data-i18n="nav.ourApproach">Our
           Approach</a>
-        <a href="/HLGMoorenConsultancy/#our-offer" class="text-white hover:text-[#FF7E29] transition-colors">Our
+        <a href="/HLGMoorenConsultancy/#our-offer" class="text-white hover:text-[#FF7E29] transition-colors"
+          data-i18n="nav.ourOffer">Our
           Offer</a>
-        <a href="/HLGMoorenConsultancy/projects.html" class="text-white hover:text-[#FF7E29] transition-colors">Our
+        <a href="/HLGMoorenConsultancy/projects.html" class="text-white hover:text-[#FF7E29] transition-colors"
+          data-i18n="nav.ourProjects">Our
           Projects</a>
-        <a href="/HLGMoorenConsultancy/#contact-us" class="text-white hover:text-[#FF7E29] transition-colors">Contact
+        <a href="/HLGMoorenConsultancy/#contact-us" class="text-white hover:text-[#FF7E29] transition-colors"
+          data-i18n="nav.contactUs">Contact
           Us</a>
+        <button onclick="window.i18n.toggleLang()"
+          class="flex items-center gap-1 border border-white/20 rounded-full px-3 py-1.5 text-sm hover:border-[#FF7E29]/50 transition-colors">
+          <span id="lang-en" class="font-semibold text-white/40">EN</span>
+          <span class="text-white/30 text-xs">|</span>
+          <span id="lang-vi" class="font-bold text-[#FF7E29]">VI</span>
+        </button>
       </div>
       <button id="mobile-menu-button" class="lg:hidden text-white focus:outline-none">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -230,11 +242,12 @@
   <!-- Hero Section -->
   <section class="hero-gradient py-20 md:py-32 relative overflow-hidden">
     <div class="container mx-auto px-6 lg:px-8 text-center relative z-10">
-      <h1 class="text-5xl md:text-7xl font-serif font-bold mb-6 fade-in">
-        Projects & Insights
+      <h1 class="text-5xl md:text-7xl font-serif font-bold mb-6 fade-in" data-i18n="projects.pageTitle">
+        Projects &amp; Insights
       </h1>
-      <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto fade-in" style="animation-delay: 0.2s;">
-        Explore our latest work, case studies, and insights on AI implementation and digital transformation
+      <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto fade-in" style="animation-delay: 0.2s;"
+        data-i18n="projects.pageSubtitle">
+        Explore our latest work, case studies, and insights on international business consulting
       </p>
     </div>
   </section>
@@ -336,6 +349,9 @@
 
     // Create blog card element
     function createBlogCard(blog, index) {
+      const getLoc = (key) => window.i18n ? window.i18n.getBlogLocalized(blog, key) : (blog[key] || '');
+      const readMore = window.i18n ? window.i18n.getTranslation(window.i18n.getCurrentLang(), 'projects.readMore') : 'Read more';
+
       const card = document.createElement('a');
       card.href = `blog-detail.html?slug=${blog.slug}`;
       card.className = 'blog-card group rounded-2xl overflow-hidden block fade-in';
@@ -345,26 +361,26 @@
         <div class="blog-card-image aspect-video overflow-hidden">
           <img 
             src="${blog.image}" 
-            alt="${blog.title}"
+            alt="${getLoc('title')}"
             class="w-full h-full object-cover"
             loading="lazy"
           />
         </div>
         <div class="p-6">
           <div class="flex items-center justify-between mb-3">
-            <span class="category-badge">${blog.category}</span>
-            <span class="text-xs text-gray-500">${blog.readTime}</span>
+            <span class="category-badge">${getLoc('category')}</span>
+            <span class="text-xs text-gray-500">${window.i18n ? window.i18n.formatReadTime(blog.readTime) : blog.readTime}</span>
           </div>
           <h3 class="text-2xl font-serif font-bold mb-3 group-hover:text-[#FF7E29] transition-colors">
-            ${blog.title}
+            ${getLoc('title')}
           </h3>
           <p class="text-gray-400 mb-4 line-clamp-2">
-            ${blog.excerpt}
+            ${getLoc('excerpt')}
           </p>
           <div class="flex items-center justify-between text-sm text-gray-500">
-            <span>${formatDate(blog.date)}</span>
+            <span>${window.i18n ? window.i18n.formatDate(blog.date) : blog.date}</span>
             <span class="group-hover:text-[#FF7E29] transition-colors flex items-center gap-2">
-              Read more <i class="fas fa-arrow-right"></i>
+              ${readMore} <i class="fas fa-arrow-right"></i>
             </span>
           </div>
         </div>
@@ -373,14 +389,19 @@
       return card;
     }
 
-    // Format date
-    function formatDate(dateString) {
-      const options = { year: 'numeric', month: 'long', day: 'numeric' };
-      return new Date(dateString).toLocaleDateString('en-US', options);
-    }
-
     // Initialize
     document.addEventListener('DOMContentLoaded', loadBlogs);
+
+    // Re-render on language change
+    window.addEventListener('langChange', () => {
+      const blogGrid = document.getElementById('blog-grid');
+      if (!blogGrid.classList.contains('hidden')) {
+        blogGrid.innerHTML = '';
+        blogs.forEach((blog, index) => {
+          blogGrid.appendChild(createBlogCard(blog, index));
+        });
+      }
+    });
   </script>
   <script type="module">
     import { createChat } from "/HLGMoorenConsultancy/assets/js/chat.bundle.es.js";
