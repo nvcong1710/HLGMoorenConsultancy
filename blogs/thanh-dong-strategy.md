@@ -1,7 +1,7 @@
 # Từ 95% dư thừa công suất đến chiến lược tăng trưởng 2026–2030: Bước ngoặt chiến lược của Thanh Dong Mushroom
 
 Một trang trại có năng lực sản xuất lớn nhưng hoạt động dưới công suất 95%. Một thị trường mà nhu cầu vượt cung, nhưng doanh nghiệp vẫn chưa đạt lợi nhuận bền vững. Đây chính là nghịch lý mà Thanh Dong Company tại Buôn Ma Thuột đang đối mặt.
-![alt text](../assets/media/blog-img/thanh-dong-strategy/farm.png)
+![alt text](../HLGMoorenConsultancy/assets/media/blog-img/thanh-dong-strategy/farm.png)
 Bài toán không nằm ở sản phẩm — vì nấm Linh Chi và dược liệu đang tăng trưởng mạnh tại Việt Nam. Vấn đề nằm ở **chiến lược thị trường, cấu trúc kênh phân phối và quản trị lợi nhuận**.
 
 ## Bối cảnh dự án
@@ -9,8 +9,7 @@ Bài toán không nằm ở sản phẩm — vì nấm Linh Chi và dược li�
 - **Địa điểm:** Buôn Ma Thuột, Đắk Lắk, Việt Nam
 - **Ngành:** Nấm dược liệu (Linh Chi, Turkey Tail…)
 - **Mô hình:** Trồng – sấy – đóng gói – B2B & B2C
-- **Vấn đề chính:**
-      *   95% dư thừa công suất trang trại
+- **Vấn đề chính:** \* 95% dư thừa công suất trang trại
 
       *   70% doanh thu phụ thuộc 2 khách hàng B2B
 
@@ -21,7 +20,8 @@ Bài toán không nằm ở sản phẩm — vì nấm Linh Chi và dược li�
       *   Không có phân tích lợi nhuận theo khách hàng / sản phẩm
 
       *   Điều kiện nhà xưởng chưa tối ưu (kiểm soát độ ẩm, truy xuất nguồn gốc)
-  ![alt text](../assets/media/blog-img/thanh-dong-strategy/mushroom.png)
+
+  ![alt text](../HLGMoorenConsultancy/assets/media/blog-img/thanh-dong-strategy/mushroom.png)
 
 Trong khi đó, theo phân tích thị trường:
 
@@ -31,7 +31,7 @@ Trong khi đó, theo phân tích thị trường:
 
 Cơ hội rõ ràng. Nhưng cần chiến lược đúng.
 
-![alt text](../assets/media/blog-img/thanh-dong-strategy/meeting.png)
+![alt text](../HLGMoorenConsultancy/assets/media/blog-img/thanh-dong-strategy/meeting.png)
 
 ## Phương pháp tiếp cận của HLG Mooren Consulting
 
@@ -61,7 +61,7 @@ Phân tích 3 lựa chọn:
 - Focus B2B (volume nhanh, margin thấp hơn)
 - Combination (B2B tài trợ cho B2C)
 
-![alt text](../assets/media/blog-img/thanh-dong-strategy/mr-lr.png)
+![alt text](../HLGMoorenConsultancy/assets/media/blog-img/thanh-dong-strategy/mr-lr.png)
 
 Khuyến nghị chiến lược:
 

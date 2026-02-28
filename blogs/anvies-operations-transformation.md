@@ -1,14 +1,14 @@
 ## Từ Xưởng Chế Biến Địa Phương Đến Hệ Thống Tiêu Chuẩn Hóa: Lộ Trình Lột Xác Của Thương Hiệu Nông Sản Anvies
 
-![alt text](<../assets/media/blog-img/anvies-operations-transformation/Screenshot 2026-02-28 130123.png>)
+![alt text](<../HLGMoorenConsultancy/assets/media/blog-img/anvies-operations-transformation/Screenshot 2026-02-28 130123.png>)
 Sở hữu một sản phẩm chất lượng cao nhưng lại bế tắc trong khâu bán hàng, thiếu hụt hệ thống quản trị chuẩn mực và chưa có các chứng nhận an toàn thực phẩm để thâm nhập thị trường khó tính . Đây là "nỗi đau" chung của rất nhiều doanh nghiệp SME trong ngành F&B, và cũng chính là bài toán đầy thách thức mà Anvies đang phải đối mặt trước khi bắt tay cùng HLG Mooren Consulting.
-![alt text](<../assets/media/blog-img/anvies-operations-transformation/Screenshot 2026-02-28 130242.png>)
+![alt text](<../HLGMoorenConsultancy/assets/media/blog-img/anvies-operations-transformation/Screenshot 2026-02-28 130242.png>)
 **Bối cảnh dự án: Ngọc trong đá cần được mài giũa** Đặt trụ sở tại TP.HCM (Việt Nam), Anvies là một doanh nghiệp tâm huyết hoạt động trong lĩnh vực chế biến rau củ quả và nấm bền vững với đa dạng công nghệ: sấy lạnh, sấy nhiệt và cấp đông . Lợi thế lớn nhất của họ là chất lượng sản phẩm vượt trội và nguồn nguyên liệu được kiểm soát chặt chẽ nhờ vị trí địa lý sát vùng trồng (chỉ cách 2 giờ di chuyển).
 
 Tuy nhiên, bức tranh vận hành nội bộ lại phơi bày nhiều điểm yếu chí mạng: doanh nghiệp không có đội ngũ Sales chuyên trách, quy trình sản xuất chưa đạt chuẩn (không có chứng nhận HACCP, BRC hay ISO) và thiếu vắng hoàn toàn một chiến lược tiếp thị bài bản . Hệ thống dữ liệu tài chính mờ nhạt, không có ERP hay KPI đo lường. Đặc biệt, mảng xuất khẩu của họ đang gánh chịu rủi ro khổng lồ khi chỉ phụ thuộc vào đúng một đối tác tại Mỹ.
 
 **Phương pháp tiếp cận của chúng tôi: "Bắt đầu từ nền tảng để vươn xa"** Dưới sự dẫn dắt của chuyên gia Hugo Mooren, HLG Mooren Consulting không đưa ra những lý thuyết viển vông. Chúng tôi tiến hành "khám sức khỏe" toàn diện cho doanh nghiệp bằng cách phân tích rạch ròi các rào cản nội bộ (SWOT) và đánh giá danh mục sản phẩm qua ma trận BCG . Triết lý tư vấn của chúng tôi rất thực dụng: Anvies không thể bán hàng giá trị cao nếu "buồng phổi" sản xuất bên trong chưa đạt chuẩn quốc tế.
-![alt text](<../assets/media/blog-img/anvies-operations-transformation/Screenshot 2026-02-28 130023.png>)
+![alt text](<../HLGMoorenConsultancy/assets/media/blog-img/anvies-operations-transformation/Screenshot 2026-02-28 130023.png>)
 
 **Giải pháp chiến lược đã triển khai** Chúng tôi đã cùng ban lãnh đạo Anvies tái cấu trúc toàn diện theo các trụ cột cốt lõi:
 

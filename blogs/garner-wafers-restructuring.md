@@ -14,7 +14,7 @@ Bài toán đặt ra không chỉ là “cắt giảm chi phí”, mà là tái 
 - **Doanh thu:** ~39 triệu RH
 - **Lợi nhuận ròng:** ~1,2%
 - **Khách hàng:** chuỗi siêu thị, nhà hàng, cửa hàng kem, hệ thống phân phối
-  ![alt text](../assets/media/blog-img/garner-wafers-restructuring/retail-pr.png)
+  ![alt text](../HLGMoorenConsultancy/assets/media/blog-img/garner-wafers-restructuring/retail-pr.png)
 
 ### Thách thức chính:
 
@@ -41,7 +41,7 @@ Xác định rõ:
 - **Opportunities:** nhu cầu convenience products tăng, mở rộng NPD, tối ưu hóa quy trình
 - **Threats:** cạnh tranh cao, phụ thuộc khách hàng lớn, yêu cầu QA ngày càng khắt khe
 
-![alt text](../assets/media/blog-img/garner-wafers-restructuring/oppotunity.png)
+![alt text](../HLGMoorenConsultancy/assets/media/blog-img/garner-wafers-restructuring/oppotunity.png)
 
 ### 2️⃣ Phân tích vận hành & tài chính theo từng bộ phận
 
@@ -59,7 +59,8 @@ Xác định rõ:
 ## Giải pháp cụ thể đã triển khai
 
 ### 🔹 1. Chuyển từ Produce-to-Order sang Produce-to-Stock
-![alt text](../assets/media/blog-img/garner-wafers-restructuring/structure.png)
+
+![alt text](../HLGMoorenConsultancy/assets/media/blog-img/garner-wafers-restructuring/structure.png)
 
 - Ổn định sản xuất
 - Tăng batch size → giảm cost/unit
@@ -67,7 +68,8 @@ Xác định rõ:
 - Tối ưu capacity utilization
 
 Kết quả kỳ vọng: giảm chi phí lao động, giảm overtime, tăng mức độ phục vụ khách hàng.
-![alt text](../assets/media/blog-img/garner-wafers-restructuring/ice-cream.png)
+![alt text](../HLGMoorenConsultancy/assets/media/blog-img/garner-wafers-restructuring/ice-cream.png)
+
 ### 🔹 2. Tối ưu ERP & KPI Management
 
 - Hoàn thiện dữ liệu sản xuất & product specs

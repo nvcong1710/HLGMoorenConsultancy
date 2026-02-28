@@ -77,9 +77,9 @@ Chuyên môn cốt lõi được highlight trong dự án này:**Marketing Strat
 - Lập kế hoạch ngân sách và báo cáo tháng/quý/năm
 
 <div style="display: flex; gap: 10px;">
-  <img src="../assets/media/blog-img/dulces-flower-restructuring/str1.png" alt="swot 1" style="width: 33%;">
-  <img src="../assets/media/blog-img/dulces-flower-restructuring/str2.png" alt="swot 2" style="width: 34%;">
-  <img src="../assets/media/blog-img/dulces-flower-restructuring/str3.png" alt="swot 2" style="width: 33%;">
+  <img src="../HLGMoorenConsultancy/assets/media/blog-img/dulces-flower-restructuring/str1.png" alt="swot 1" style="width: 33%;">
+  <img src="../HLGMoorenConsultancy/assets/media/blog-img/dulces-flower-restructuring/str2.png" alt="swot 2" style="width: 34%;">
+  <img src="../HLGMoorenConsultancy/assets/media/blog-img/dulces-flower-restructuring/str3.png" alt="swot 2" style="width: 33%;">
 </div>
 
 👉 Chuyển từ mô hình “gia đình vận hành” sang mô hình “quản trị hệ thống”.
@@ -98,7 +98,7 @@ Mục tiêu: mở rộng thị trường nhưng vẫn kiểm soát thương hi�
 ### 3\. Chiến lược Marketing & Product Development
 
 - Chuẩn hóa toàn bộ packaging: một logo, một màu sắc, một nhận diện
-  ![alt text](../assets/media/blog-img/dulces-flower-restructuring/packaging.png)
+  ![alt text](../HLGMoorenConsultancy/assets/media/blog-img/dulces-flower-restructuring/packaging.png)
 - Tạo Dulces Flower Group (holding structure)
 - Phát triển phân khúc mới:
   - Arequipe consumer packaging cho bakery
@@ -122,7 +122,7 @@ Từ một doanh nghiệp sản xuất, Dulces Flower bắt đầu tư duy như 
   - Tạo điều kiện tự động hóa dosing system
 
 Từ batch-based sang system-based production.
-![alt text](../assets/media/blog-img/dulces-flower-restructuring/silo.png)
+![alt text](../HLGMoorenConsultancy/assets/media/blog-img/dulces-flower-restructuring/silo.png)
 
 ### 5\. Chuẩn hóa quy trình thay đổi (Change Management)
 

@@ -24,7 +24,7 @@ Phân tích nội bộ cho thấy:
 - Danh mục sản phẩm rộng nhưng thiếu focus
 - Chưa có chiến lược phân phối B2B/B2C rõ ràng
 
-  ![alt text](../assets/media/blog-img/fukia-growth-strategy/production-area.png)
+  ![alt text](../HLGMoorenConsultancy/assets/media/blog-img/fukia-growth-strategy/production-area.png)
 
 Trong khi đó, thị trường lại mở ra nhiều cơ hội:
 
@@ -37,7 +37,7 @@ Fukia có nền tảng tốt về sourcing địa phương và giá trị bền 
 
 ## Phương pháp tiếp cận của HLG Mooren Consulting
 
-![alt text](../assets/media/blog-img/fukia-growth-strategy/BCG-matrix.png)
+![alt text](../HLGMoorenConsultancy/assets/media/blog-img/fukia-growth-strategy/BCG-matrix.png)
 Chúng tôi triển khai dự án theo 5 trụ cột chiến lược:
 
 ### 1\. Làm rõ Mission – Vision – Values
@@ -81,7 +81,7 @@ Từ “multi-product small batch” → “Focused scalable production”.
 
 ### 3\. Chuẩn hóa bao bì & nhận diện thương hiệu
 
-![alt text](../assets/media/blog-img/fukia-growth-strategy/pkg1.png)
+![alt text](../HLGMoorenConsultancy/assets/media/blog-img/fukia-growth-strategy/pkg1.png)
 
 Hiện trạng:
 
@@ -95,7 +95,7 @@ Giải pháp:
 - Xây dựng một uniform brand
 - Tăng storytelling: origin branding (Vietnam – Da Nang – Thanh Binh – farm specific)
 
-![alt text](../assets/media/blog-img/fukia-growth-strategy/pkg2.png)
+![alt text](../HLGMoorenConsultancy/assets/media/blog-img/fukia-growth-strategy/pkg2.png)
 
 Branding được xây dựng theo nguyên tắc:Trust → Consistency → Transparency → Repeat Buying
 
