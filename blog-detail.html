@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="blogs-data.js"></script>
+  <script src="assets/js/i18n.js"></script>
   <link rel="stylesheet" href="assets/css/style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
@@ -39,15 +40,26 @@
         </a>
       </div>
       <div class="hidden lg:flex items-center space-x-6 text-sm">
-        <a href="/HLGMoorenConsultancy/#" class="text-white hover:text-[#FF7E29] transition-colors">Overview</a>
-        <a href="/HLGMoorenConsultancy/#our-approach" class="text-white hover:text-[#FF7E29] transition-colors">Our
+        <a href="/HLGMoorenConsultancy/#" class="text-white hover:text-[#FF7E29] transition-colors"
+          data-i18n="nav.overview">Overview</a>
+        <a href="/HLGMoorenConsultancy/#our-approach" class="text-white hover:text-[#FF7E29] transition-colors"
+          data-i18n="nav.ourApproach">Our
           Approach</a>
-        <a href="/HLGMoorenConsultancy/#our-offer" class="text-white hover:text-[#FF7E29] transition-colors">Our
+        <a href="/HLGMoorenConsultancy/#our-offer" class="text-white hover:text-[#FF7E29] transition-colors"
+          data-i18n="nav.ourOffer">Our
           Offer</a>
-        <a href="/HLGMoorenConsultancy/projects.html" class="text-white hover:text-[#FF7E29] transition-colors">Our
+        <a href="/HLGMoorenConsultancy/projects.html" class="text-white hover:text-[#FF7E29] transition-colors"
+          data-i18n="nav.ourProjects">Our
           Projects</a>
-        <a href="/HLGMoorenConsultancy/#contact-us" class="text-white hover:text-[#FF7E29] transition-colors">Contact
+        <a href="/HLGMoorenConsultancy/#contact-us" class="text-white hover:text-[#FF7E29] transition-colors"
+          data-i18n="nav.contactUs">Contact
           Us</a>
+        <button onclick="window.i18n.toggleLang()"
+          class="flex items-center gap-1 border border-white/20 rounded-full px-3 py-1.5 text-sm hover:border-[#FF7E29]/50 transition-colors">
+          <span id="lang-en" class="font-semibold text-white/40">EN</span>
+          <span class="text-white/30 text-xs">|</span>
+          <span id="lang-vi" class="font-bold text-[#FF7E29]">VI</span>
+        </button>
       </div>
       <button id="mobile-menu-button" class="lg:hidden text-white focus:outline-none">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -83,7 +95,8 @@
 
         <!-- Back Button -->
         <a href="projects.html"
-          class="inline-flex items-center gap-2 text-[#FF7E29] hover:text-[#FF7E29] mb-8 transition-colors">
+          class="inline-flex items-center gap-2 text-[#FF7E29] hover:text-[#FF7E29] mb-8 transition-colors"
+          data-i18n="blogDetail.backButton">
           <i class="fas fa-arrow-left"></i>
           Back to all posts
         </a>
@@ -110,28 +123,29 @@
 
         <!-- Share Section -->
         <div class="mt-12 pt-8 border-t border-gray-800 fade-in" style="animation-delay: 0.4s;">
-          <h3 class="text-xl font-semibold mb-4">Share this article</h3>
+          <h3 class="text-xl font-semibold mb-4" data-i18n="blogDetail.shareTitle">Share this article</h3>
           <div class="flex flex-wrap gap-3">
             <button onclick="shareOnTwitter()" class="share-button">
               <i class="fab fa-x-twitter"></i>
-              Share on X
+              <span data-i18n="blogDetail.shareX">Share on X</span>
             </button>
             <button onclick="shareOnLinkedIn()" class="share-button">
               <i class="fab fa-linkedin"></i>
-              Share on LinkedIn
+              <span data-i18n="blogDetail.shareLinkedIn">Share on LinkedIn</span>
             </button>
             <button onclick="copyLink()" class="share-button">
               <i class="fas fa-link"></i>
-              Copy Link
+              <span data-i18n="blogDetail.copyLink">Copy Link</span>
             </button>
           </div>
         </div>
 
         <!-- Related Posts -->
         <div class="mt-16 fade-in" style="animation-delay: 0.6s;">
-          <h3 class="text-2xl font-serif font-bold mb-6">More Articles</h3>
+          <h3 class="text-2xl font-serif font-bold mb-6" data-i18n="blogDetail.moreArticles">More Articles</h3>
           <a href="projects.html"
-            class="inline-block px-6 py-3 border border-[#FF7E29] hover:bg-[#FF7E29] hover:text-black rounded-lg transition-colors">
+            class="inline-block px-6 py-3 border border-[#FF7E29] hover:bg-[#FF7E29] hover:text-black rounded-lg transition-colors"
+            data-i18n="blogDetail.viewAllPosts">
             View all posts →
           </a>
         </div>
@@ -242,9 +256,13 @@
         return;
       }
 
+      const lang = window.i18n ? window.i18n.getCurrentLang() : 'vi';
+      const getLoc = (key) => window.i18n ? window.i18n.getBlogLocalized(blog, key) : (blog[key] || '');
+      const blogFile = (blog[lang] && blog[lang].file) ? blog[lang].file : blog.file;
+
       try {
         // Fetch markdown content
-        const response = await fetch(blog.file);
+        const response = await fetch(blogFile);
         if (!response.ok) throw new Error('Failed to load blog content');
 
         const markdown = await response.text();
@@ -265,18 +283,21 @@
         const html = marked.parse(markdown);
 
         // Update page
-        document.getElementById('page-title').textContent = blog.title + ' - HLG Mooren Consultancy';
+        document.getElementById('page-title').textContent = getLoc('title') + ' - HLG Mooren Consultancy';
         document.getElementById('hero-image').style.backgroundImage = `url('${blog.image}')`;
-        document.getElementById('category').textContent = blog.category;
-        document.getElementById('read-time').textContent = blog.readTime;
-        document.getElementById('title').textContent = blog.title;
-        document.getElementById('date').textContent = formatDate(blog.date);
-        document.getElementById('author').textContent = `By ${blog.author}`;
+        document.getElementById('category').textContent = getLoc('category');
+        document.getElementById('read-time').textContent = window.i18n ? window.i18n.formatReadTime(blog.readTime) : blog.readTime;
+        document.getElementById('title').textContent = getLoc('title');
+        document.getElementById('date').textContent = window.i18n ? window.i18n.formatDate(blog.date) : blog.date;
+        document.getElementById('author').textContent = `${window.i18n ? window.i18n.getTranslation(window.i18n.getCurrentLang(), 'blogDetail.by') : 'By'} ${blog.author}`;
         document.getElementById('content').innerHTML = html;
 
         // Show article
         document.getElementById('loading').classList.add('hidden');
         document.getElementById('article').classList.remove('hidden');
+
+        // Apply i18n on static elements
+        if (window.i18n) window.i18n.applyI18n(lang);
 
         // Highlight code blocks
         document.querySelectorAll('pre code').forEach((block) => {
@@ -311,6 +332,16 @@
 
     // Initialize
     document.addEventListener('DOMContentLoaded', loadBlogPost);
+
+    // Re-load article when language changes
+    window.addEventListener('langChange', () => {
+      const article = document.getElementById('article');
+      if (!article.classList.contains('hidden')) {
+        document.getElementById('loading').classList.remove('hidden');
+        article.classList.add('hidden');
+        loadBlogPost();
+      }
+    });
   </script>
   <!-- <script>
     window.addEventListener("load", () => {

@@ -3,6 +3,7 @@
 
 <head>
   <script src="blogs-data.js"></script>
+  <script src="assets/js/i18n.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- set logo with favicon -->
@@ -96,6 +97,7 @@
       let heroCurrentIndex = 2;
       let heroStartX = 0;
       let heroIsDragging = false;
+      let heroInitialized = false;
 
       const baseHeroClasses = "slide-item shrink-0 relative mx-3 md:mx-5 w-[200px] md:w-[220px] lg:w-[300px] aspect-[4/5] rounded-md overflow-hidden border transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] cursor-pointer group";
       const inactiveHeroClasses = "scale-85 grayscale-20 brightness-95 border-white/10 z-10";
@@ -110,18 +112,22 @@
           return;
         }
 
-        heroTrack.innerHTML = heroProjects.map((p, index) => `
+        heroTrack.innerHTML = heroProjects.map((p, index) => {
+          const title = window.i18n ? window.i18n.getBlogLocalized(p, 'title') : (p.title || (p.en && p.en.title) || '');
+          const category = window.i18n ? window.i18n.getBlogLocalized(p, 'category') : (p.category || (p.en && p.en.category) || '');
+          return `
                         <div class="slide-item ${baseHeroClasses}" data-index="${index}">
-                            <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                            <img src="${p.image}" alt="${title}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-90"></div>
                             <div class="absolute bottom-0 left-0 w-full p-6 md:p-8 translate-y-4 opacity-0 group-[.active-slide]:translate-y-0 group-[.active-slide]:opacity-100 transition-all duration-500 delay-100">
-                                <span class="text-[#FF7E29] text-xs font-bold uppercase tracking-widest mb-2 block">${p.category}</span>
+                                <span class="text-[#FF7E29] text-xs font-bold uppercase tracking-widest mb-2 block">${category}</span>
                                 <a href="blog-detail.html?slug=${p.slug}">
-                                <h3 class="text-l md:text-xl font-serif text-white mb-2 leading-tight line-clamp-2">${p.title}</h3>
+                                <h3 class="text-l md:text-xl font-serif text-white mb-2 leading-tight line-clamp-2">${title}</h3>
                                 </a>
                             </div>
                         </div>
-                    `).join('');
+                    `;
+        }).join('');
 
         heroDotsContainer.innerHTML = heroProjects.map((_, i) => `
                         <button type="button" class="dot-indicator h-1.5 rounded-full transition-all duration-300 bg-white/30 hover:bg-[#FF7E29]" data-index="${i}"></button>
@@ -145,13 +151,16 @@
           });
         });
 
-        // Touch events
-        heroTrack.addEventListener('touchstart', handleTouchStart, { passive: true });
-        heroTrack.addEventListener('touchmove', handleTouchMove, { passive: false });
-        heroTrack.addEventListener('touchend', handleTouchEnd, { passive: true });
-
-        // Resize event
-        window.addEventListener('resize', updateHeroSlider);
+        if (!heroInitialized) {
+          // Touch events (only once)
+          heroTrack.addEventListener('touchstart', handleTouchStart, { passive: true });
+          heroTrack.addEventListener('touchmove', handleTouchMove, { passive: false });
+          heroTrack.addEventListener('touchend', handleTouchEnd, { passive: true });
+          window.addEventListener('resize', updateHeroSlider);
+          // Re-render slides on language change
+          window.addEventListener('langChange', initHeroSlider);
+          heroInitialized = true;
+        }
 
         setTimeout(() => {
           updateHeroSlider();
@@ -290,16 +299,25 @@
           </a>
         </div>
         <div class="hidden lg:flex items-center space-x-6 text-sm">
-          <a href="#" class="text-white hover:text-[#FF7E29] transition-colors">Overview</a>
-          <!-- Our Advisor -->
-          <a href="#our-people" class="text-white hover:text-[#FF7E29] transition-colors">Our Advisor</a>
-          <a href="#our-approach" class="text-white hover:text-[#FF7E29] transition-colors">Our
-            Approach</a>
-          <a href="#our-offer" class="text-white hover:text-[#FF7E29] transition-colors">Our Offer</a>
-          <a href="projects.html" class="text-white hover:text-[#FF7E29] transition-colors">Our
-            Projects</a>
-          <a href="#contact-us" class="text-white hover:text-[#FF7E29] transition-colors">Contact Us</a>
+          <a href="#" class="text-white hover:text-[#FF7E29] transition-colors" data-i18n="nav.overview">Overview</a>
+          <a href="#our-people" class="text-white hover:text-[#FF7E29] transition-colors" data-i18n="nav.ourAdvisor">Our
+            Advisor</a>
+          <a href="#our-approach" class="text-white hover:text-[#FF7E29] transition-colors"
+            data-i18n="nav.ourApproach">Our Approach</a>
+          <a href="#our-offer" class="text-white hover:text-[#FF7E29] transition-colors" data-i18n="nav.ourOffer">Our
+            Offer</a>
+          <a href="projects.html" class="text-white hover:text-[#FF7E29] transition-colors"
+            data-i18n="nav.ourProjects">Our Projects</a>
+          <a href="#contact-us" class="text-white hover:text-[#FF7E29] transition-colors"
+            data-i18n="nav.contactUs">Contact Us</a>
         </div>
+        <!-- Language Switch -->
+        <button onclick="window.i18n.toggleLang()"
+          class="flex items-center gap-1 border border-white/20 rounded-full px-3 py-1.5 hover:border-[#FF7E29]/60 transition-colors select-none text-sm ml-2">
+          <span id="lang-en" class="font-semibold text-white/40">EN</span>
+          <span class="text-white/30 text-xs">|</span>
+          <span id="lang-vi" class="font-bold text-[#FF7E29]">VI</span>
+        </button>
         <button id="mobile-menu-button" class="lg:hidden text-white focus:outline-none">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
@@ -313,13 +331,14 @@
       <!-- Hero Text -->
       <div class="container mx-auto text-center">
         <div class="inline-block mb-4  rounded-full border border-[#FF7E29]/30 bg-[#FF7E29]/10 backdrop-blur-sm">
-          <span class="text-[#FF7E29] text-xs font-bold tracking-[0.2em] uppercase">International training &
-            consulting</span>
+          <span class="text-[#FF7E29] text-xs font-bold tracking-[0.2em] uppercase" data-i18n="hero.badge">International
+            training &amp; consulting</span>
         </div>
 
         <h1 class="text-2xl md:text-3xl lg:text-4xl font-serif font-medium leading-tight text-white">
-          Your partner in<br>
-          <span class="italic text-white/90">strategic marketing advice and business improvement</span>
+          <span data-i18n="hero.tagline1">Your partner in</span><br>
+          <span class="italic text-white/90" data-i18n="hero.tagline2">strategic marketing advice and business
+            improvement</span>
         </h1>
       </div>
 
@@ -364,11 +383,10 @@
               </div>
 
               <div class="absolute bottom-2 left-0 border-l-2 border-[#FF7E29] pl-6 bg-[#111111]/40 p-2">
-                <p class="text-[#FF7E29] uppercase tracking-[0.2em] text-xs font-medium">INTERNATIONAL
-                  STRATEGIST
-                </p>
+                <p class="text-[#FF7E29] uppercase tracking-[0.2em] text-xs font-medium" data-i18n="people.role">
+                  INTERNATIONAL STRATEGIST</p>
                 <h3 class="text-white text-2xl md:text-3xl font-serif italic">Hugo Mooren</h3>
-                <p class="text-white/70 text-sm">Senior Expert</p>
+                <p class="text-white/70 text-sm" data-i18n="people.seniority">Senior Expert</p>
               </div>
             </div>
           </div>
@@ -377,14 +395,15 @@
             class="w-full md:w-1/2 bg-[#0a0a0a]/50 p-8 md:p-16 flex flex-col justify-center border-y md:border-y-0 md:border-r border-white/5">
             <div class="max-w-md">
               <div class="inline-block border border-[#FF7E29]/30 px-3 py-1 mb-8">
-                <span class="text-[#FF7E29] text-[10px] uppercase tracking-[0.3em]">MEET YOUR ADVISOR</span>
+                <span class="text-[#FF7E29] text-[10px] uppercase tracking-[0.3em]" data-i18n="people.sectionLabel">MEET
+                  YOUR ADVISOR</span>
               </div>
 
-              <h2 class="text-white text-3xl md:text-4xl font-serif leading-tight mb-8">
-                Mastering Food & Non-Food Business Strategy.
+              <h2 class="text-white text-3xl md:text-4xl font-serif leading-tight mb-8" data-i18n="people.headline">
+                Mastering Food &amp; Non-Food Business Strategy.
               </h2>
 
-              <p class="text-white/80 text-lg leading-relaxed mb-10 font-light">
+              <p class="text-white/80 text-lg leading-relaxed mb-10 font-light" data-i18n="people.bio">
                 35+ years. Four continents. Food and non-food industries. B2B and B2C. Hugo Mooren has built, turned
                 around, and scaled
                 businesses from start-ups to large business units — bringing European management standards to
@@ -402,7 +421,8 @@
     <!-- Our Approach Section -->
     <section id="our-approach" class="py-12 px-4 md:px-16 lg:px-32 xl:px-32 md:py-16 bg-[#111111]">
       <div class="relative container mx-auto px-4 md:px-8">
-        <h2 class="text-3xl md:text-4xl font-serif leading-tight text-center pb-8 text-[#FF7E29]">
+        <h2 class="text-3xl md:text-4xl font-serif leading-tight text-center pb-8 text-[#FF7E29]"
+          data-i18n="approach.title">
           Our Approach
         </h2>
 
@@ -413,7 +433,7 @@
                 class="w-full h-100 rounded-lg mb-4 object-cover object-center" />
             </div>
             <div>
-              <p class="text-white/80 text-xl mb-4 p-2">
+              <p class="text-white/80 text-xl mb-4 p-2" data-i18n="approach.body">
                 Bridging the critical gap between high-level management theory and on-the-ground operational reality, we
                 deliver
                 immersive training that implants a world-class management mindset first. But we go beyond theory. From
@@ -439,7 +459,7 @@
           <div class="absolute -top-5 left-1/2 h-0.5 w-12 -translate-x-1/2 bg-[#e8750a]"></div>
           <h2 class="text-3xl md:text-4xl font-serif leading-tight text-center pb-8 text-[#FF7E29]">Our Core
             Competencies</h2>
-          <p class="mx-auto max-w-[580px] text-lg leading-relaxed">
+          <p class="mx-auto max-w-[580px] text-lg leading-relaxed" data-i18n="competencies.subtitle">
             30+ years of international management expertise in food &amp; non-food industries, across B2B
             and B2C markets
           </p>
@@ -454,20 +474,25 @@
             <div
               class="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-transparent via-[#e8750a] to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
             </div>
-            <h4 class="mb-4 flex min-h-[2.6em] items-end font-serif text-[1.05rem] font-semibold text-[#e8750a]">
+            <h4 class="mb-4 flex min-h-[2.6em] items-end font-serif text-[1.05rem] font-semibold text-[#e8750a]"
+              data-i18n="competencies.card1.title">
               Strategic Marketing</h4>
             <ul class="flex flex-col gap-2.5">
               <li
-                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50">
+                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50"
+                data-i18n="competencies.card1.item1">
                 Global market entry strategy</li>
               <li
-                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50">
+                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50"
+                data-i18n="competencies.card1.item2">
                 USP definition &amp; branding</li>
               <li
-                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50">
+                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50"
+                data-i18n="competencies.card1.item3">
                 Competitor analysis</li>
               <li
-                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50">
+                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50"
+                data-i18n="competencies.card1.item4">
                 Product development &amp; market research</li>
             </ul>
           </div>
@@ -478,20 +503,25 @@
             <div
               class="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-transparent via-[#e8750a] to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
             </div>
-            <h4 class="mb-4 flex min-h-[2.6em] items-end font-serif text-[1.05rem] font-semibold text-[#e8750a]">
+            <h4 class="mb-4 flex min-h-[2.6em] items-end font-serif text-[1.05rem] font-semibold text-[#e8750a]"
+              data-i18n="competencies.card2.title">
               Sales Excellence &amp; Export</h4>
             <ul class="flex flex-col gap-2.5">
               <li
-                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50">
+                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50"
+                data-i18n="competencies.card2.item1">
                 B2B &amp; B2C sales strategy</li>
               <li
-                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50">
+                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50"
+                data-i18n="competencies.card2.item2">
                 Salesforce optimization</li>
               <li
-                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50">
+                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50"
+                data-i18n="competencies.card2.item3">
                 Export strategy for foreign markets</li>
               <li
-                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50">
+                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50"
+                data-i18n="competencies.card2.item4">
                 Commercial contract negotiation</li>
             </ul>
           </div>
@@ -502,17 +532,21 @@
             <div
               class="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-transparent via-[#e8750a] to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
             </div>
-            <h4 class="mb-4 flex min-h-[2.6em] items-end font-serif text-[1.05rem] font-semibold text-[#e8750a]">
+            <h4 class="mb-4 flex min-h-[2.6em] items-end font-serif text-[1.05rem] font-semibold text-[#e8750a]"
+              data-i18n="competencies.card3.title">
               Supply Chain Management</h4>
             <ul class="flex flex-col gap-2.5">
               <li
-                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50">
+                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50"
+                data-i18n="competencies.card3.item1">
                 End-to-end chain optimization</li>
               <li
-                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50">
+                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50"
+                data-i18n="competencies.card3.item2">
                 Sourcing &amp; supplier management</li>
               <li
-                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50">
+                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50"
+                data-i18n="competencies.card3.item3">
                 Export logistics &amp; Incoterms</li>
             </ul>
           </div>
@@ -523,17 +557,21 @@
             <div
               class="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-transparent via-[#e8750a] to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
             </div>
-            <h4 class="mb-4 flex min-h-[2.6em] items-end font-serif text-[1.05rem] font-semibold text-[#e8750a]">
+            <h4 class="mb-4 flex min-h-[2.6em] items-end font-serif text-[1.05rem] font-semibold text-[#e8750a]"
+              data-i18n="competencies.card4.title">
               Turnaround Management</h4>
             <ul class="flex flex-col gap-2.5">
               <li
-                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50">
+                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50"
+                data-i18n="competencies.card4.item1">
                 Crisis diagnosis &amp; recovery</li>
               <li
-                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50">
+                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50"
+                data-i18n="competencies.card4.item2">
                 Adapting to new market circumstances</li>
               <li
-                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50">
+                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50"
+                data-i18n="competencies.card4.item3">
                 Business restructuring</li>
             </ul>
           </div>
@@ -548,17 +586,21 @@
             <div
               class="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-transparent via-[#e8750a] to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
             </div>
-            <h4 class="mb-4 flex min-h-[2.6em] items-end font-serif text-[1.05rem] font-semibold text-[#e8750a]">
+            <h4 class="mb-4 flex min-h-[2.6em] items-end font-serif text-[1.05rem] font-semibold text-[#e8750a]"
+              data-i18n="competencies.card5.title">
               Human Resource Strategy</h4>
             <ul class="flex flex-col gap-2.5">
               <li
-                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50">
+                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50"
+                data-i18n="competencies.card5.item1">
                 Talent development &amp; retention</li>
               <li
-                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50">
+                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50"
+                data-i18n="competencies.card5.item2">
                 Leadership coaching</li>
               <li
-                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50">
+                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50"
+                data-i18n="competencies.card5.item3">
                 Getting the best out of your team</li>
             </ul>
           </div>
@@ -569,20 +611,25 @@
             <div
               class="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-transparent via-[#e8750a] to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
             </div>
-            <h4 class="mb-4 flex min-h-[2.6em] items-end font-serif text-[1.05rem] font-semibold text-[#e8750a]">
+            <h4 class="mb-4 flex min-h-[2.6em] items-end font-serif text-[1.05rem] font-semibold text-[#e8750a]"
+              data-i18n="competencies.card6.title">
               Operations &amp; Finance</h4>
             <ul class="flex flex-col gap-2.5">
               <li
-                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50">
+                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50"
+                data-i18n="competencies.card6.item1">
                 SOP &amp; quality control</li>
               <li
-                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50">
+                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50"
+                data-i18n="competencies.card6.item2">
                 Costing &amp; P&amp;L management</li>
               <li
-                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50">
+                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50"
+                data-i18n="competencies.card6.item3">
                 Key financials to run the business</li>
               <li
-                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50">
+                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50"
+                data-i18n="competencies.card6.item4">
                 Branding &amp; communication</li>
             </ul>
           </div>
@@ -593,20 +640,25 @@
             <div
               class="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-transparent via-[#e8750a] to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
             </div>
-            <h4 class="mb-4 flex min-h-[2.6em] items-end font-serif text-[1.05rem] font-semibold text-[#e8750a]">
+            <h4 class="mb-4 flex min-h-[2.6em] items-end font-serif text-[1.05rem] font-semibold text-[#e8750a]"
+              data-i18n="competencies.card7.title">
               AI-Driven Execution</h4>
             <ul class="flex flex-col gap-2.5">
               <li
-                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50">
+                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50"
+                data-i18n="competencies.card7.item1">
                 Digital transformation for SMEs</li>
               <li
-                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50">
+                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50"
+                data-i18n="competencies.card7.item2">
                 AI market research &amp; forecasting</li>
               <li
-                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50">
+                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50"
+                data-i18n="competencies.card7.item3">
                 Automated lead gen &amp; CRM workflow</li>
               <li
-                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50">
+                class="relative pl-5 text-lg leading-relaxed before:absolute before:left-0 before:top-[7px] before:h-2 before:w-2 before:rounded-full before:border before:border-[1.5px] before:border-[#e8750a] before:opacity-50"
+                data-i18n="competencies.card7.item4">
                 Hands-on implementation &amp; staff training</li>
             </ul>
           </div>
@@ -619,8 +671,9 @@
       <div class="relative overflow-hidden bg-[#0d0d0f]">
         <div class="relative pt-20 pb-5 px-6 text-center">
           <div class="absolute top-10 left-1/2 -translate-x-1/2 w-16 h-0.5 bg-[#e8750a]"></div>
-          <h2 class="text-3xl md:text-4xl font-serif leading-tight text-center pb-8 text-[#FF7E29]">Our Offer</h2>
-          <p class="mx-auto max-w-[560px] text-lg leading-relaxed text-[#9a968e]">
+          <h2 class="text-3xl md:text-4xl font-serif leading-tight text-center pb-8 text-[#FF7E29]"
+            data-i18n="offer.title">Our Offer</h2>
+          <p class="mx-auto max-w-[560px] text-lg leading-relaxed text-[#9a968e]" data-i18n="offer.subtitle">
             Two tailored pathways to transform your business — choose the format that fits your goals
           </p>
         </div>
@@ -633,16 +686,19 @@
             class="group relative overflow-hidden rounded-2xl border border-[rgba(255,140,20,0.15)] bg-[#141418] transition-all duration-400 hover:border-[rgba(255,140,20,0.6)] hover:shadow-[0_0_40px_rgba(232,117,10,0.12),0_20px_60px_rgba(0,0,0,0.4)]">
             <div class="px-8 pt-9 pb-6 border-b border-white/[0.04]">
               <div
-                class="inline-block mb-3.5 rounded-md border border-[#e8750a] px-3.5 py-1 text-[0.7rem] font-semibold uppercase tracking-widest text-[#e8750a]">
+                class="inline-block mb-3.5 rounded-md border border-[#e8750a] px-3.5 py-1 text-[0.7rem] font-semibold uppercase tracking-widest text-[#e8750a]"
+                data-i18n="offer.planA.label">
                 Plan A</div>
               <div class="mb-1.5 text-[1.55rem] font-semibold text-[#f0ece6]"
-                style="font-family: 'Playfair Display', serif;">
+                style="font-family: 'Playfair Display', serif;" data-i18n="offer.planA.title">
                 Interactive Training Class</div>
-              <div class="text-lg italic text-[#9a968e]">Best for CEOs, Directors &amp; Management Teams</div>
+              <div class="text-lg italic text-[#9a968e]" data-i18n="offer.planA.subtitle">Best for CEOs, Directors &amp;
+                Management Teams</div>
             </div>
 
             <div class="px-8 py-7">
-              <div class="mb-4 text-[0.72rem] font-semibold uppercase tracking-widest text-[#6b675f]">9
+              <div class="mb-4 text-[0.72rem] font-semibold uppercase tracking-widest text-[#6b675f]"
+                data-i18n="offer.planA.modulesLabel">9
                 Modules of Business Mastery</div>
               <ol class="flex flex-col">
                 <li
@@ -650,9 +706,10 @@
                   <div
                     class="mt-0.5 flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-full border border-[rgba(232,117,10,0.25)] bg-[rgba(232,117,10,0.1)] text-[0.72rem] font-bold text-[#ff9a2e]">
                     1</div>
-                  <div class="text-lg leading-relaxed text-[#f0ece6]"><strong class="font-semibold">Marketing
-                      Strategy</strong> <span class="font-light text-[#9a968e]">— Defining your strategy with proven
-                      marketing
+                  <div class="text-lg leading-relaxed text-[#f0ece6]"><strong class="font-semibold"
+                      data-i18n="offer.planA.mod1n">Marketing
+                      Strategy</strong> <span class="font-light text-[#9a968e]" data-i18n="offer.planA.mod1d">— Defining
+                      your strategy with proven marketing
                       models</span></div>
                 </li>
                 <li
@@ -660,8 +717,10 @@
                   <div
                     class="mt-0.5 flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-full border border-[rgba(232,117,10,0.25)] bg-[rgba(232,117,10,0.1)] text-[0.72rem] font-bold text-[#ff9a2e]">
                     2</div>
-                  <div class="text-lg leading-relaxed text-[#f0ece6]"><strong class="font-semibold">Sales
-                      Strategy</strong> <span class="font-light text-[#9a968e]">— How to increase
+                  <div class="text-lg leading-relaxed text-[#f0ece6]"><strong class="font-semibold"
+                      data-i18n="offer.planA.mod2n">Sales
+                      Strategy</strong> <span class="font-light text-[#9a968e]" data-i18n="offer.planA.mod2d">— How to
+                      increase
                       sales &amp; maximize your salesforce</span></div>
                 </li>
                 <li
@@ -669,8 +728,10 @@
                   <div
                     class="mt-0.5 flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-full border border-[rgba(232,117,10,0.25)] bg-[rgba(232,117,10,0.1)] text-[0.72rem] font-bold text-[#ff9a2e]">
                     3</div>
-                  <div class="text-lg leading-relaxed text-[#f0ece6]"><strong class="font-semibold">Human
-                      Resource Strategy</strong> <span class="font-light text-[#9a968e]">— Getting the
+                  <div class="text-lg leading-relaxed text-[#f0ece6]"><strong class="font-semibold"
+                      data-i18n="offer.planA.mod3n">Human
+                      Resource Strategy</strong> <span class="font-light text-[#9a968e]" data-i18n="offer.planA.mod3d">—
+                      Getting the
                       best out of your employees</span></div>
                 </li>
                 <li
@@ -678,8 +739,10 @@
                   <div
                     class="mt-0.5 flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-full border border-[rgba(232,117,10,0.25)] bg-[rgba(232,117,10,0.1)] text-[0.72rem] font-bold text-[#ff9a2e]">
                     4</div>
-                  <div class="text-lg leading-relaxed text-[#f0ece6]"><strong class="font-semibold">Turnaround
-                      Management</strong> <span class="font-light text-[#9a968e]">— Adapting to new market
+                  <div class="text-lg leading-relaxed text-[#f0ece6]"><strong class="font-semibold"
+                      data-i18n="offer.planA.mod4n">Turnaround
+                      Management</strong> <span class="font-light text-[#9a968e]" data-i18n="offer.planA.mod4d">—
+                      Adapting to new market
                       circumstances</span>
                   </div>
                 </li>
@@ -688,8 +751,10 @@
                   <div
                     class="mt-0.5 flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-full border border-[rgba(232,117,10,0.25)] bg-[rgba(232,117,10,0.1)] text-[0.72rem] font-bold text-[#ff9a2e]">
                     5</div>
-                  <div class="text-lg leading-relaxed text-[#f0ece6]"><strong class="font-semibold">Export
-                      Strategy</strong> <span class="font-light text-[#9a968e]">— How to increase
+                  <div class="text-lg leading-relaxed text-[#f0ece6]"><strong class="font-semibold"
+                      data-i18n="offer.planA.mod5n">Export
+                      Strategy</strong> <span class="font-light text-[#9a968e]" data-i18n="offer.planA.mod5d">— How to
+                      increase
                       sales to foreign markets</span></div>
                 </li>
                 <li
@@ -697,8 +762,10 @@
                   <div
                     class="mt-0.5 flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-full border border-[rgba(232,117,10,0.25)] bg-[rgba(232,117,10,0.1)] text-[0.72rem] font-bold text-[#ff9a2e]">
                     6</div>
-                  <div class="text-lg leading-relaxed text-[#f0ece6]"><strong class="font-semibold">Branding &amp;
-                      Communication</strong> <span class="font-light text-[#9a968e]">— Building a strong market
+                  <div class="text-lg leading-relaxed text-[#f0ece6]"><strong class="font-semibold"
+                      data-i18n="offer.planA.mod6n">Branding &amp;
+                      Communication</strong> <span class="font-light text-[#9a968e]" data-i18n="offer.planA.mod6d">—
+                      Building a strong market
                       identity</span>
                   </div>
                 </li>
@@ -707,8 +774,10 @@
                   <div
                     class="mt-0.5 flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-full border border-[rgba(232,117,10,0.25)] bg-[rgba(232,117,10,0.1)] text-[0.72rem] font-bold text-[#ff9a2e]">
                     7</div>
-                  <div class="text-lg leading-relaxed text-[#f0ece6]"><strong class="font-semibold">Supply
-                      Chain Strategy</strong> <span class="font-light text-[#9a968e]">— Optimization
+                  <div class="text-lg leading-relaxed text-[#f0ece6]"><strong class="font-semibold"
+                      data-i18n="offer.planA.mod7n">Supply
+                      Chain Strategy</strong> <span class="font-light text-[#9a968e]" data-i18n="offer.planA.mod7d">—
+                      Optimization
                       of the whole chain</span></div>
                 </li>
                 <li
@@ -716,9 +785,11 @@
                   <div
                     class="mt-0.5 flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-full border border-[rgba(232,117,10,0.25)] bg-[rgba(232,117,10,0.1)] text-[0.72rem] font-bold text-[#ff9a2e]">
                     8</div>
-                  <div class="text-lg leading-relaxed text-[#f0ece6]"><strong class="font-semibold">Product Development
+                  <div class="text-lg leading-relaxed text-[#f0ece6]"><strong class="font-semibold"
+                      data-i18n="offer.planA.mod8n">Product Development
                       &amp;
-                      Market Research</strong> <span class="font-light text-[#9a968e]">— Innovation driven by
+                      Market Research</strong> <span class="font-light text-[#9a968e]" data-i18n="offer.planA.mod8d">—
+                      Innovation driven by
                       data</span>
                   </div>
                 </li>
@@ -727,8 +798,10 @@
                   <div
                     class="mt-0.5 flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-full border border-[rgba(232,117,10,0.25)] bg-[rgba(232,117,10,0.1)] text-[0.72rem] font-bold text-[#ff9a2e]">
                     9</div>
-                  <div class="text-lg leading-relaxed text-[#f0ece6]"><strong class="font-semibold">Key
-                      Financials</strong> <span class="font-light text-[#9a968e]">— Essential numbers
+                  <div class="text-lg leading-relaxed text-[#f0ece6]"><strong class="font-semibold"
+                      data-i18n="offer.planA.mod9n">Key
+                      Financials</strong> <span class="font-light text-[#9a968e]" data-i18n="offer.planA.mod9d">—
+                      Essential numbers
                       to run your business</span></div>
                 </li>
               </ol>
@@ -738,22 +811,27 @@
 
             <div class="flex flex-wrap gap-2.5 px-8 py-6">
               <span
-                class="whitespace-nowrap rounded-full border border-white/[0.06] bg-white/[0.04] px-3 py-1 text-[0.75rem] text-[#9a968e]">Direct
+                class="whitespace-nowrap rounded-full border border-white/[0.06] bg-white/[0.04] px-3 py-1 text-[0.75rem] text-[#9a968e]"
+                data-i18n="offer.planA.tag1">Direct
                 Mentoring from Hugo Mooren</span>
               <span
-                class="whitespace-nowrap rounded-full border border-white/[0.06] bg-white/[0.04] px-3 py-1 text-[0.75rem] text-[#9a968e]">Hands-on
+                class="whitespace-nowrap rounded-full border border-white/[0.06] bg-white/[0.04] px-3 py-1 text-[0.75rem] text-[#9a968e]"
+                data-i18n="offer.planA.tag2">Hands-on
                 AI Tools Training</span>
               <span
-                class="whitespace-nowrap rounded-full border border-white/[0.06] bg-white/[0.04] px-3 py-1 text-[0.75rem] text-[#9a968e]">Group
+                class="whitespace-nowrap rounded-full border border-white/[0.06] bg-white/[0.04] px-3 py-1 text-[0.75rem] text-[#9a968e]"
+                data-i18n="offer.planA.tag3">Group
                 Brainstorming &amp; Case Studies</span>
               <span
-                class="whitespace-nowrap rounded-full border border-white/[0.06] bg-white/[0.04] px-3 py-1 text-[0.75rem] text-[#9a968e]">Min.
+                class="whitespace-nowrap rounded-full border border-white/[0.06] bg-white/[0.04] px-3 py-1 text-[0.75rem] text-[#9a968e]"
+                data-i18n="offer.planA.tag4">Min.
                 20 participants</span>
             </div>
 
             <div class="px-8 pb-8">
               <a href="#contact-us"
-                class="block w-full rounded-xl border border-white/[0.15] bg-transparent px-4 py-4 text-center text-lg font-semibold tracking-wide text-[#f0ece6] transition-all duration-300 hover:border-[#e8750a] hover:text-[#e8750a] hover:shadow-[0_0_20px_rgba(232,117,10,0.12)]">
+                class="block w-full rounded-xl border border-white/[0.15] bg-transparent px-4 py-4 text-center text-lg font-semibold tracking-wide text-[#f0ece6] transition-all duration-300 hover:border-[#e8750a] hover:text-[#e8750a] hover:shadow-[0_0_20px_rgba(232,117,10,0.12)]"
+                data-i18n="offer.planA.cta">
                 Request Training Program →
               </a>
             </div>
@@ -763,22 +841,26 @@
           <div
             class="group relative overflow-hidden rounded-2xl border border-[#e8750a] bg-[#141418] transition-all duration-400 hover:border-[rgba(255,140,20,0.6)] hover:shadow-[0_0_40px_rgba(232,117,10,0.12),0_20px_60px_rgba(0,0,0,0.4)]">
             <div
-              class="absolute top-0 right-0 rounded-tl-none rounded-tr-2xl rounded-br-none rounded-bl-xl bg-[#e8750a] px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-widest text-[#0d0d0f] z-10">
+              class="absolute top-0 right-0 rounded-tl-none rounded-tr-2xl rounded-br-none rounded-bl-xl bg-[#e8750a] px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-widest text-[#0d0d0f] z-10"
+              data-i18n="offer.recommended">
               RECOMMENDED</div>
 
             <div class="px-8 pt-9 pb-6 border-b border-white/[0.04]">
               <div
-                class="inline-block mb-3.5 rounded-md border border-[#e8750a] px-3.5 py-1 text-[0.7rem] font-semibold uppercase tracking-widest text-[#e8750a]">
+                class="inline-block mb-3.5 rounded-md border border-[#e8750a] px-3.5 py-1 text-[0.7rem] font-semibold uppercase tracking-widest text-[#e8750a]"
+                data-i18n="offer.planB.label">
                 Plan B</div>
               <div class="mb-1.5 text-[1.55rem] font-semibold text-[#f0ece6]"
-                style="font-family: 'Playfair Display', serif;">
+                style="font-family: 'Playfair Display', serif;" data-i18n="offer.planB.title">
                 In-house Consulting &amp; Strategy</div>
-              <div class="text-lg italic text-[#9a968e]">Recommended for SMEs seeking direct transformation
+              <div class="text-lg italic text-[#9a968e]" data-i18n="offer.planB.subtitle">Recommended for SMEs seeking
+                direct transformation
               </div>
             </div>
 
             <div class="px-8 py-7">
-              <div class="mb-4 text-[0.72rem] font-semibold uppercase tracking-widest text-[#6b675f]">Two
+              <div class="mb-4 text-[0.72rem] font-semibold uppercase tracking-widest text-[#6b675f]"
+                data-i18n="offer.planB.formatsLabel">Two
                 consulting formats</div>
               <ul class="flex flex-col gap-3.5">
                 <li class="flex items-start gap-3 text-lg leading-relaxed text-[#f0ece6]">
@@ -789,8 +871,10 @@
                     </svg>
                   </div>
                   <div>
-                    <strong class="font-semibold">Short-term consulting (1–2 days)</strong><br>
-                    <span class="text-lg text-[#9a968e]">Focused deep-dive on any single module from
+                    <strong class="font-semibold" data-i18n="offer.planB.fmt1n">Short-term consulting (1–2
+                      days)</strong><br>
+                    <span class="text-lg text-[#9a968e]" data-i18n="offer.planB.fmt1d">Focused deep-dive on any single
+                      module from
                       Plan A</span>
                   </div>
                 </li>
@@ -802,8 +886,10 @@
                     </svg>
                   </div>
                   <div>
-                    <strong class="font-semibold">Full Company Transformation (2 weeks)</strong><br>
-                    <span class="text-lg text-[#9a968e]">Complete strategic overhaul of your entire
+                    <strong class="font-semibold" data-i18n="offer.planB.fmt2n">Full Company Transformation (2
+                      weeks)</strong><br>
+                    <span class="text-lg text-[#9a968e]" data-i18n="offer.planB.fmt2d">Complete strategic overhaul of
+                      your entire
                       business</span>
                   </div>
                 </li>
@@ -830,7 +916,8 @@
             <div class="mx-8 h-px bg-white/[0.04]"></div>
 
             <div class="px-8 pt-6 pb-4">
-              <div class="mb-4 text-[0.72rem] font-semibold uppercase tracking-widest text-[#6b675f]">What's
+              <div class="mb-4 text-[0.72rem] font-semibold uppercase tracking-widest text-[#6b675f]"
+                data-i18n="offer.planB.includedLabel">What's
                 included</div>
               <ul class="flex flex-col gap-3.5">
                 <li class="flex items-start gap-3 text-lg leading-relaxed text-[#f0ece6]">
@@ -840,7 +927,7 @@
                       <polyline points="20 6 9 17 4 12" />
                     </svg>
                   </div>
-                  <span>Everything in Training Class — customized for your team</span>
+                  <span data-i18n="offer.planB.inc1">Everything in Training Class — customized for your team</span>
                 </li>
                 <li class="flex items-start gap-3 text-lg leading-relaxed text-[#f0ece6]">
                   <div
@@ -849,7 +936,7 @@
                       <polyline points="20 6 9 17 4 12" />
                     </svg>
                   </div>
-                  <span>Direct implementation of strategy on-site</span>
+                  <span data-i18n="offer.planB.inc2">Direct implementation of strategy on-site</span>
                 </li>
                 <li class="flex items-start gap-3 text-lg leading-relaxed text-[#f0ece6]">
                   <div
@@ -858,7 +945,7 @@
                       <polyline points="20 6 9 17 4 12" />
                     </svg>
                   </div>
-                  <span>AI System Integration: Setup &amp; Staff Training</span>
+                  <span data-i18n="offer.planB.inc3">AI System Integration: Setup &amp; Staff Training</span>
                 </li>
                 <li class="flex items-start gap-3 text-lg leading-relaxed text-[#f0ece6]">
                   <div
@@ -867,14 +954,15 @@
                       <polyline points="20 6 9 17 4 12" />
                     </svg>
                   </div>
-                  <span>Post-consulting support</span>
+                  <span data-i18n="offer.planB.inc4">Post-consulting support</span>
                 </li>
               </ul>
             </div>
 
             <div class="px-8 pb-8">
               <a href="#contact-us"
-                class="block w-full rounded-xl border border-[#e8750a] bg-[#e8750a] px-4 py-4 text-center text-lg font-semibold tracking-wide text-[#0d0d0f] transition-all duration-300 hover:bg-[#ff9a2e] hover:shadow-[0_4px_24px_rgba(232,117,10,0.35)]">
+                class="block w-full rounded-xl border border-[#e8750a] bg-[#e8750a] px-4 py-4 text-center text-lg font-semibold tracking-wide text-[#0d0d0f] transition-all duration-300 hover:bg-[#ff9a2e] hover:shadow-[0_4px_24px_rgba(232,117,10,0.35)]"
+                data-i18n="offer.planB.cta">
                 Book a Consultation →
               </a>
             </div>
@@ -882,7 +970,7 @@
         </div>
 
         <div class="mx-auto max-w-[700px] px-6 pb-20 text-center">
-          <p class="text-lg leading-[1.7] text-[#6b675f]">
+          <p class="text-lg leading-[1.7] text-[#6b675f]" data-i18n="offer.notSure">
             Not sure which plan is right for you?
             <a href="#contact-us"
               class="border-b border-[rgba(232,117,10,0.3)] text-[#e8750a] no-underline transition-all duration-200 hover:border-[#e8750a]">Get
@@ -897,8 +985,10 @@
     <section id="projects" class="py-8 bg-[#111111] relative overflow-hidden">
       <div class="container mx-auto px-6 lg:px-8">
         <div class="text-center mb-12">
-          <h2 class="text-3xl md:text-4xl font-serif mb-4 text-[#FF7E29]">Featured Projects</h2>
-          <p class="text-lg text-white/80">Latest work and insights on international consulting</p>
+          <h2 class="text-3xl md:text-4xl font-serif mb-4 text-[#FF7E29]" data-i18n="projects.title">Featured Projects
+          </h2>
+          <p class="text-lg text-white/80" data-i18n="projects.subtitle">Latest work and insights on international
+            consulting</p>
         </div>
 
         <div class="relative max-w-6xl mx-auto group">
@@ -920,7 +1010,8 @@
 
         <div class="text-center mt-12">
           <a href="projects.html"
-            class="inline-flex items-center gap-2 px-8 py-3 border-2 border-[#FF7E29] text-[#FF7E29] hover:bg-[#FF7E29] hover:text-[#111111] rounded-lg transition-all font-semibold group">
+            class="inline-flex items-center gap-2 px-8 py-3 border-2 border-[#FF7E29] text-[#FF7E29] hover:bg-[#FF7E29] hover:text-[#111111] rounded-lg transition-all font-semibold group"
+            data-i18n="projects.viewAll">
             View All Projects
             <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
           </a>
@@ -985,24 +1076,23 @@
       function renderProjects() {
         const track = document.getElementById('project-track');
         const dots = document.getElementById('project-dots');
+        const getLoc = (p, key) => window.i18n ? window.i18n.getBlogLocalized(p, key) : (p[key] || '');
 
         track.innerHTML = projects.map(p => `
             <a href="blog-detail.html?slug=${p.slug}" class="project-card rounded-2xl overflow-hidden block mx-2">
                 <div class="aspect-video overflow-hidden">
-                    <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover">
+                    <img src="${p.image}" alt="${getLoc(p, 'title')}" class="w-full h-full object-cover">
                 </div>
                 <div class="p-6">
                     <div class="flex items-center justify-between mb-3">
-                        <span class="text-xs px-3 py-1 rounded-full bg-[#FF7E29]/10 border border-[#FF7E29]/30 text-[#FF7E29] font-bold uppercase">${p.category}</span>
-                        <span class="text-xs text-white/50">${p.readTime}</span>
+                        <span class="text-xs px-3 py-1 rounded-full bg-[#FF7E29]/10 border border-[#FF7E29]/30 text-[#FF7E29] font-bold uppercase">${getLoc(p, 'category')}</span>
+                        <span class="text-xs text-white/50">${window.i18n ? window.i18n.formatReadTime(p.readTime) : p.readTime}</span>
                     </div>
-                    <h3 class="text-xl font-serif font-bold mb-3 text-white hover:text-[#FF7E29] transition-colors line-clamp-2">${p.title}</h3>
-                    <p class="text-white/60 text-sm line-clamp-2">${p.excerpt}</p>
+                    <h3 class="text-xl font-serif font-bold mb-3 text-white hover:text-[#FF7E29] transition-colors line-clamp-2">${getLoc(p, 'title')}</h3>
+                    <p class="text-white/60 text-sm line-clamp-2">${getLoc(p, 'excerpt')}</p>
                 </div>
             </a>
         `).join('');
-
-
 
         dots.innerHTML = Array.from({ length: dotCount }).map((_, i) =>
           `<button class="project-dot ${i === 0 ? 'active' : ''}" onclick="goToProject(${i})"></button>`
@@ -1040,17 +1130,23 @@
       }
 
       if (projects.length) renderProjects();
+
+      window.addEventListener('langChange', () => {
+        projectIndex = 0;
+        renderProjects();
+        updateSlider();
+      });
     </script>
     <section id="our-partners" class="relative overflow-hidden bg-[#0d0d0f] py-20">
       <div class="relative mx-auto max-w-[1200px] px-6">
 
         <div class="relative mb-16 text-center">
           <div class="absolute -top-10 left-1/2 h-0.5 w-16 -translate-x-1/2 bg-[#e8750a]"></div>
-          <h2 class="mb-5 text-3xl font-serif leading-tight text-[#FF7E29] md:text-4xl"
+          <h2 class="mb-5 text-3xl font-serif leading-tight text-[#FF7E29] md:text-4xl" data-i18n="partners.title"
             style="font-family: 'Playfair Display', serif;">
             Our Partners
           </h2>
-          <p class="mx-auto max-w-[620px] text-lg leading-relaxed text-[#9a968e]">
+          <p class="mx-auto max-w-[620px] text-lg leading-relaxed text-[#9a968e]" data-i18n="partners.subtitle">
             Collaborating with industry-leading companies to deliver strategic excellence and transformative growth.
           </p>
         </div>
@@ -1125,12 +1221,14 @@
               <img src="assets/media/logo-partner/thanh-dong.jpg" alt="Thanh Dong"
                 class="w-full object-contain transition-transform duration-300 group-hover:scale-105">
             </div>
-            <div class="group flex items-center justify-center bg-[#141418] p-8 transition-all duration-300 hover:bg-[#1a1a20]">
+            <div
+              class="group flex items-center justify-center bg-[#141418] p-8 transition-all duration-300 hover:bg-[#1a1a20]">
               <img src="assets/media/logo-partner/alta-motana.png" alt="Alta Montaña"
                 class="w-full object-contain transition-transform duration-300 group-hover:scale-105">
             </div>
-            
-            <div class="group flex items-center justify-center bg-[#141418] p-8 transition-all duration-300 hover:bg-[#1a1a20]">
+
+            <div
+              class="group flex items-center justify-center bg-[#141418] p-8 transition-all duration-300 hover:bg-[#1a1a20]">
               <img src="assets/media/logo-partner/devida.png" alt="Devida"
                 class="w-full object-contain transition-transform duration-300 group-hover:scale-105">
             </div>
@@ -1146,8 +1244,8 @@
     <section class="py-16 md:py-24 bg-[#111111]" id="contact-us">
       <div class="container mx-auto px-2 lg:px-8">
         <div class="max-w-4xl mx-auto text-center">
-          <h1 class="text-4xl md:text-5xl mb-4 text-[#FF7E29]">Contact Us</h1>
-          <p class="text-lg mb-12 text-white/80">
+          <h1 class="text-4xl md:text-5xl mb-4 text-[#FF7E29]" data-i18n="contact.title">Contact Us</h1>
+          <p class="text-lg mb-12 text-white/80" data-i18n="contact.subtitle">
             We'd love to hear from you. Please fill out the form below to get
             in touch.
           </p>
@@ -1193,15 +1291,16 @@
           </div>
         </div>
         <div class="flex-1 w-full max-w-md">
-          <h5 class="font-bold mb-2 text-white">Subscribe</h5>
-          <p class="text-sm text-white/60 mb-4">
+          <h5 class="font-bold mb-2 text-white" data-i18n="footer.subscribe">Subscribe</h5>
+          <p class="text-sm text-white/60 mb-4" data-i18n="footer.subscribeDesc">
             Select topics and stay current with our latest insights
           </p>
           <form class="flex items-center">
-            <input type="email" placeholder="Email address"
+            <input type="email" data-i18n-placeholder="footer.emailPlaceholder" placeholder="Email address"
               class="bg-transparent border border-white/30 py-2 px-3 w-full focus:outline-none focus:border-[#FF7E29] rounded-l-md text-white placeholder-white/40" />
             <button type="submit"
-              class="bg-[#FF7E29] hover:bg-[#ff974f] text-[#111111] font-bold py-2 px-6 rounded-r-md transition-colors">
+              class="bg-[#FF7E29] hover:bg-[#ff974f] text-[#111111] font-bold py-2 px-6 rounded-r-md transition-colors"
+              data-i18n="footer.submit">
               Submit
             </button>
           </form>
@@ -1209,7 +1308,7 @@
       </div>
       <div class="flex flex-col md:flex-row justify-between items-center text-sm text-white/50 mt-8">
         <div class="text-right mt-4 md:mt-0">
-          <p>
+          <p data-i18n="footer.copyright">
             HLG Mooren Consultancy is a registered trademark of HLG Mooren Consultancy, Inc. All rights
             reserved.
           </p>
