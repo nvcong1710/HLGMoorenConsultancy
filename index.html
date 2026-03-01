@@ -301,9 +301,9 @@
       class="absolute top-0 left-0 w-full h-full object-cover z-0 opacity-50">
       <source src="assets/media/splashvideo.mp4" type="video/mp4">
     </video>
-    <nav id="main-nav" class="container mx-auto px-6 py-4 lg:px-8 z-10">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center space-x-4">
+    <nav id="main-nav" class="relative w-full z-10">
+      <div class="container mx-auto px-6 py-4 lg:px-8 flex items-center justify-between">
+        <div class="flex items-center space-x-4 flex-1">
           <a href="#" class="flex items-center space-x-2">
             <img src="assets/media/HLG Mooren Consultancy.png" alt="Logo" class="h-20 w-38" />
           </a>
@@ -321,18 +321,45 @@
           <a href="#contact-us" class="text-white hover:text-[#FF7E29] transition-colors"
             data-i18n="nav.contactUs">Contact Us</a>
         </div>
-        <!-- Language Switch -->
-        <button onclick="window.i18n.toggleLang()"
-          class="flex items-center gap-1 border border-white/20 rounded-full px-3 py-1.5 hover:border-[#FF7E29]/60 transition-colors select-none text-sm ml-2">
-          <span id="lang-en" class="font-semibold text-white/40">EN</span>
-          <span class="text-white/30 text-xs">|</span>
-          <span id="lang-vi" class="font-bold text-[#FF7E29]">VI</span>
-        </button>
-        <button id="mobile-menu-button" class="lg:hidden text-white focus:outline-none">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-          </svg>
-        </button>
+        <!-- Language Switch + Mobile Menu -->
+        <div class="flex flex-1 justify-end items-center gap-2">
+          <button onclick="window.i18n.toggleLang()"
+            class="hidden lg:flex items-center gap-1 border border-white/20 rounded-full px-3 py-1.5 hover:border-[#FF7E29]/60 transition-colors select-none text-sm">
+            <span id="lang-en" class="font-bold text-[#FF7E29]">EN</span>
+            <span class="text-white/30 text-xs">|</span>
+            <span id="lang-vi" class="font-semibold text-white/40">VI</span>
+          </button>
+          <button id="mobile-menu-button" class="lg:hidden text-white focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu Dropdown -->
+      <div id="mobile-menu"
+        class="hidden lg:hidden absolute top-full left-0 w-full bg-[#050e13]/95 backdrop-blur-sm z-50 shadow-lg">
+        <div class="px-6 py-4 flex flex-col space-y-4 text-center text-sm text-white">
+          <a href="#" class="hover:text-[#FF7E29] transition-colors" data-i18n="nav.overview">Overview</a>
+          <a href="#our-people" class="hover:text-[#FF7E29] transition-colors" data-i18n="nav.ourAdvisor">Our
+            Advisor</a>
+          <a href="#our-approach" class="hover:text-[#FF7E29] transition-colors" data-i18n="nav.ourApproach">Our
+            Approach</a>
+          <a href="#our-offer" class="hover:text-[#FF7E29] transition-colors" data-i18n="nav.ourOffer">Our Offer</a>
+          <a href="projects.html" class="hover:text-[#FF7E29] transition-colors" data-i18n="nav.ourProjects">Our
+            Projects</a>
+          <a href="#contact-us" class="hover:text-[#FF7E29] transition-colors" data-i18n="nav.contactUs">Contact Us</a>
+          <div class="border-t border-white/10 pt-3">
+            <button onclick="window.i18n.toggleLang()"
+              class="inline-flex items-center gap-1 border border-white/20 rounded-full px-3 py-1.5 hover:border-[#FF7E29]/60 transition-colors select-none text-sm">
+              <span id="lang-en-mobile" class="font-bold text-[#FF7E29]">EN</span>
+              <span class="text-white/30 text-xs">|</span>
+              <span id="lang-vi-mobile" class="font-semibold text-white/40">VI</span>
+            </button>
+          </div>
+        </div>
       </div>
     </nav>
 
