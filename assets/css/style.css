@@ -4,7 +4,7 @@ h2,
 h3,
 h4,
 .font-serif {
-  font-family: "EB Garamond", serif;
+  font-family: "Inter", sans-serif;
 }
 /* Đảm bảo video nền bao phủ toàn bộ */
 .hero-video {
@@ -66,12 +66,11 @@ body {
   left: 0;
   right: 0;
   background-color: #050e13;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   z-index: 1000;
 }
 
 .chat-input textarea {
   width: 70%;
   margin: 4px;
-  
 }
