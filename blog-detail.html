@@ -44,7 +44,7 @@
   <!-- Navigation -->
   <nav id="main-nav" class="container mx-auto px-6 py-4 lg:px-8 z-10">
     <div class="flex items-center justify-between">
-      <div class="flex items-center space-x-4">
+      <div class="flex items-center space-x-4 flex-1">
         <a href="/HLGMoorenConsultancy/" class="flex items-center space-x-2">
           <img src="assets/media/HLG Mooren Consultancy.png" alt="Logo" class="h-20 w-38" />
         </a>
@@ -64,18 +64,21 @@
         <a href="/HLGMoorenConsultancy/#contact-us" class="text-white hover:text-[#FF7E29] transition-colors"
           data-i18n="nav.contactUs">Contact
           Us</a>
+      </div>
+      <!-- Language Switch + Mobile Menu -->
+      <div class="flex flex-1 justify-end items-center gap-2">
         <button onclick="window.i18n.toggleLang()"
-          class="flex items-center gap-1 border border-white/20 rounded-full px-3 py-1.5 text-sm hover:border-[#FF7E29]/50 transition-colors">
-          <span id="lang-en" class="font-semibold text-white/40">EN</span>
+          class="hidden lg:flex items-center gap-1 border border-white/20 rounded-full px-3 py-1.5 text-sm hover:border-[#FF7E29]/50 transition-colors">
+          <span id="lang-en" class="font-bold text-[#FF7E29]">EN</span>
           <span class="text-white/30 text-xs">|</span>
-          <span id="lang-vi" class="font-bold text-[#FF7E29]">VI</span>
+          <span id="lang-vi" class="font-semibold text-white/40">VI</span>
+        </button>
+        <button id="mobile-menu-button" class="lg:hidden text-white focus:outline-none">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+          </svg>
         </button>
       </div>
-      <button id="mobile-menu-button" class="lg:hidden text-white focus:outline-none">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-        </svg>
-      </button>
     </div>
   </nav>
 
@@ -101,7 +104,7 @@
     <div id="hero-image" class="hero-image mb-12"></div>
 
     <div class="container mx-auto px-6 lg:px-8 pb-20">
-      <div class="max-w-4xl mx-auto">
+      <div class="max-w-6xl mx-auto">
 
         <!-- Back Button -->
         <a href="projects.html"
@@ -380,7 +383,7 @@
     }
 
     .article-content {
-      max-width: 800px;
+      max-width: 1200px;
       margin: 0 auto;
       line-height: 1.8;
       font-size: 1.125rem;

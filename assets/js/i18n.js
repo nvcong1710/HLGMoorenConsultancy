@@ -378,7 +378,7 @@
   // ─── Core ──────────────────────────────────────────────────────────────────
 
   function getCurrentLang() {
-    return localStorage.getItem("hlg_lang") || "vi";
+    return localStorage.getItem("hlg_lang") || "en";
   }
 
   function setLang(lang) {
@@ -419,16 +419,23 @@
   }
 
   function _updateLangButton(lang) {
-    const enEl = document.getElementById("lang-en");
-    const viEl = document.getElementById("lang-vi");
-    if (!enEl || !viEl) return;
-    if (lang === "en") {
-      enEl.className = "font-bold text-[#FF7E29]";
-      viEl.className = "font-semibold text-white/40";
-    } else {
-      viEl.className = "font-bold text-[#FF7E29]";
-      enEl.className = "font-semibold text-white/40";
-    }
+    const pairs = [
+      [document.getElementById("lang-en"), document.getElementById("lang-vi")],
+      [
+        document.getElementById("lang-en-mobile"),
+        document.getElementById("lang-vi-mobile"),
+      ],
+    ];
+    pairs.forEach(function ([enEl, viEl]) {
+      if (!enEl || !viEl) return;
+      if (lang === "en") {
+        enEl.className = "font-bold text-[#FF7E29]";
+        viEl.className = "font-semibold text-white/40";
+      } else {
+        viEl.className = "font-bold text-[#FF7E29]";
+        enEl.className = "font-semibold text-white/40";
+      }
+    });
   }
 
   // ─── Blog helpers ──────────────────────────────────────────────────────────

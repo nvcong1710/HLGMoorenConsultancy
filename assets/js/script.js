@@ -2,9 +2,11 @@
 const mobileMenuButton = document.getElementById("mobile-menu-button");
 const mobileMenu = document.getElementById("mobile-menu");
 
-mobileMenuButton.addEventListener("click", () => {
-  mobileMenu.classList.toggle("hidden");
-});
+if (mobileMenuButton && mobileMenu) {
+  mobileMenuButton.addEventListener("click", () => {
+    mobileMenu.classList.toggle("hidden");
+  });
+}
 document.addEventListener("DOMContentLoaded", function () {
   const video = document.getElementById("fading-video");
 
@@ -29,16 +31,16 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // Sticky navigation
-document.addEventListener('DOMContentLoaded', (event) => {
-    const nav = document.getElementById('main-nav');
-    if (nav) {
-        const stickyPoint = nav.offsetTop;
-        window.onscroll = function() {
-            if (window.pageYOffset > stickyPoint) {
-                nav.classList.add("sticky-nav");
-            } else {
-                nav.classList.remove("sticky-nav");
-            }
-        };
-    }
+document.addEventListener("DOMContentLoaded", (event) => {
+  const nav = document.getElementById("main-nav");
+  if (nav) {
+    const stickyPoint = nav.offsetTop;
+    window.onscroll = function () {
+      if (window.pageYOffset > stickyPoint) {
+        nav.classList.add("sticky-nav");
+      } else {
+        nav.classList.remove("sticky-nav");
+      }
+    };
+  }
 });
