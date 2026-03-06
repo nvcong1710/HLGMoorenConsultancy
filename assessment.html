@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Training Customization Matrix — HLG Mooren Consultancy</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        body {
+            min-height: 100vh;
+            background: #F8F9FB;
+            font-family: 'Newsreader', Georgia, serif;
+            display: flex;
+            justify-content: center;
+            padding: 20px 14px
+        }
+
+        .sans {
+            font-family: 'DM Sans', Helvetica, sans-serif
+        }
+
+        .screen {
+            display: none;
+            width: 100%
+        }
+
+        .screen.active {
+            display: block
+        }
+
+        #intro-screen {
+            max-width: 520;
+            text-align: center;
+            margin: auto;
+            padding: 40px 20px
+        }
+
+        #quiz-screen {
+            max-width: 660px;
+            margin: auto
+        }
+
+        #result-screen {
+            max-width: 860px;
+            margin: auto
+        }
+
+        .badge {
+            font-size: 10px;
+            letter-spacing: 2.5px;
+            color: #1E3A5F;
+            font-weight: 700;
+            margin-bottom: 14px
+        }
+
+        h1.main-title {
+            font-size: 34px;
+            font-weight: 300;
+            color: #0F172A;
+            line-height: 1.15;
+            margin-bottom: 10px
+        }
+
+        .sub {
+            font-size: 12px;
+            color: #64748B;
+            line-height: 1.6;
+            max-width: 420px;
+            margin: 0 auto 16px
+        }
+
+        .tag-row {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 6px
+        }
+
+        .tag {
+            font-size: 9px;
+            background: #1E3A5F;
+            color: #fff;
+            padding: 3px 10px;
+            border-radius: 14px
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-width: 340px;
+            margin: 20px auto 0
+        }
+
+        .inp {
+            width: 100%;
+            padding: 11px 14px;
+            font-size: 13px;
+            border: 1.5px solid #E2E8F0;
+            border-radius: 5px;
+            outline: none;
+            background: #fff;
+            font-family: 'DM Sans', sans-serif
+        }
+
+        .inp:focus {
+            border-color: #1E3A5F
+        }
+
+        .row {
+            display: flex;
+            gap: 8px
+        }
+
+        .row select {
+            width: 72px;
+            flex-shrink: 0;
+            padding: 11px 6px
+        }
+
+        .btn {
+            padding: 11px 24px;
+            background: #1E3A5F;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            transition: opacity .2s
+        }
+
+        .btn:disabled {
+            opacity: .4;
+            cursor: not-allowed
+        }
+
+        .btn-s {
+            padding: 9px 18px;
+            background: #fff;
+            color: #1E3A5F;
+            border: 1.5px solid #1E3A5F;
+            border-radius: 5px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif
+        }
+
+        .hint {
+            font-size: 9px;
+            color: #94A3B8;
+            margin: 2px 0 0
+        }
+
+        .foot {
+            font-size: 9px;
+            color: #94A3B8;
+            margin-top: 20px
+        }
+
+        /* Progress */
+        .prog-bar {
+            height: 4px;
+            background: #E2E8F0;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 4px
+        }
+
+        .prog-fill {
+            height: 100%;
+            background: #1E3A5F;
+            border-radius: 2px;
+            transition: width .4s
+        }
+
+        .prog-text {
+            font-size: 10px;
+            color: #94A3B8;
+            display: block;
+            margin-bottom: 24px
+        }
+
+        /* Section */
+        .sec-badge {
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: #1E3A5F;
+            font-weight: 700
+        }
+
+        .sec-title {
+            font-size: 24px;
+            font-weight: 400;
+            color: #0F172A;
+            margin: 4px 0 2px
+        }
+
+        .sec-sub {
+            font-size: 12px;
+            color: #64748B;
+            margin-bottom: 20px
+        }
+
+        /* Questions */
+        .q-card {
+            background: #fff;
+            border-radius: 7px;
+            padding: 14px 16px;
+            border: 1px solid #E8ECF0;
+            margin-bottom: 14px
+        }
+
+        .q-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #1F2937;
+            display: block;
+            margin-bottom: 8px
+        }
+
+        .opt-btn {
+            display: block;
+            width: 100%;
+            padding: 8px 12px;
+            background: #F8FAFC;
+            border: 1.5px solid #E2E8F0;
+            border-radius: 4px;
+            font-size: 11px;
+            color: #475569;
+            cursor: pointer;
+            text-align: left;
+            font-family: 'DM Sans', sans-serif;
+            margin-bottom: 5px;
+            transition: all .15s
+        }
+
+        .opt-btn:hover {
+            border-color: #94A3B8
+        }
+
+        .opt-btn.sel {
+            background: #EFF6FF;
+            border-color: #1E3A5F;
+            color: #1E3A5F;
+            font-weight: 600
+        }
+
+        .nav-row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 24px
+        }
+
+        /* Dashboard */
+        .dash-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 12px
+        }
+
+        .dash-title {
+            font-size: 30px;
+            font-weight: 300;
+            color: #0F172A;
+            margin-top: 4px
+        }
+
+        .dash-meta {
+            font-size: 10px;
+            color: #94A3B8;
+            margin-top: 2px
+        }
+
+        .circle {
+            width: 74px;
+            height: 74px;
+            border-radius: 50%;
+            background: #1E3A5F;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column
+        }
+
+        .circle-n {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1
+        }
+
+        .circle-l {
+            font-size: 9px;
+            color: #94A3B8
+        }
+
+        .circle-c {
+            font-size: 8px;
+            color: #64748B;
+            margin-top: 3px;
+            letter-spacing: 1px
+        }
+
+        .vs {
+            background: linear-gradient(135deg, #1E3A5F, #2D5F8A);
+            border-radius: 8px;
+            padding: 18px 20px;
+            margin-bottom: 12px;
+            text-align: center
+        }
+
+        .vs-l {
+            font-size: 9px;
+            letter-spacing: 2px;
+            color: #94C5F0;
+            font-weight: 600
+        }
+
+        .vs-a {
+            font-size: 26px;
+            font-weight: 300;
+            color: #fff;
+            margin: 4px 0
+        }
+
+        .vs-n {
+            font-size: 9px;
+            color: #7FB3DE
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid #E8ECF0;
+            border-radius: 7px;
+            padding: 16px 18px;
+            margin-bottom: 12px
+        }
+
+        .card-h {
+            font-size: 10px;
+            font-weight: 700;
+            color: #1E3A5F;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px
+        }
+
+        .card-p {
+            font-size: 12px;
+            color: #475569;
+            line-height: 1.65;
+            margin: 0
+        }
+
+        .grid2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 12px
+        }
+
+        @media(max-width:640px) {
+            .grid2 {
+                grid-template-columns: 1fr
+            }
+        }
+
+        /* Module card */
+        .mod-card {
+            border-left: 4px solid;
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin-bottom: 10px
+        }
+
+        .mod-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 6px
+        }
+
+        .mod-info {
+            display: flex;
+            gap: 8px;
+            align-items: center
+        }
+
+        .mod-icon {
+            font-size: 20px
+        }
+
+        .mod-name {
+            font-size: 13px;
+            font-weight: 700;
+            color: #1F2937
+        }
+
+        .pri-badge {
+            font-size: 8px;
+            font-weight: 700;
+            color: #fff;
+            padding: 1px 7px;
+            border-radius: 3px;
+            letter-spacing: .8px;
+            display: inline-block;
+            margin-top: 2px
+        }
+
+        .mod-score {
+            font-size: 18px;
+            font-weight: 700;
+            text-align: right
+        }
+
+        .mod-score small {
+            font-size: 8px;
+            color: #6B7280;
+            display: block;
+            font-weight: 400
+        }
+
+        .mod-reason {
+            font-size: 11px;
+            color: #4B5563;
+            margin: 0 0 8px;
+            line-height: 1.5
+        }
+
+        /* ROI box */
+        .roi-box {
+            background: rgba(255, 255, 255, .7);
+            border-radius: 6px;
+            padding: 10px 12px;
+            border: 1px solid rgba(0, 0, 0, .06)
+        }
+
+        .roi-title {
+            font-size: 9px;
+            font-weight: 700;
+            color: #1E3A5F;
+            letter-spacing: 1.5px;
+            margin-bottom: 6px
+        }
+
+        .roi-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, .05)
+        }
+
+        .roi-row:last-of-type {
+            border-bottom: none
+        }
+
+        .roi-metric {
+            font-size: 11px;
+            font-weight: 600;
+            color: #1F2937
+        }
+
+        .roi-label {
+            font-size: 9px;
+            color: #6B7280
+        }
+
+        .roi-val {
+            font-size: 12px;
+            font-weight: 700;
+            color: #1E3A5F;
+            text-align: right;
+            white-space: nowrap
+        }
+
+        .roi-yr {
+            font-size: 8px;
+            color: #9CA3AF
+        }
+
+        .roi-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 6px;
+            padding-top: 6px;
+            border-top: 2px solid rgba(30, 58, 95, .15)
+        }
+
+        .roi-total-l {
+            font-size: 10px;
+            font-weight: 700;
+            color: #1E3A5F
+        }
+
+        .roi-total-v {
+            font-size: 14px;
+            font-weight: 800;
+            color: #1E3A5F
+        }
+
+        .roi-src {
+            font-size: 8px;
+            color: #9CA3AF;
+            margin-top: 5px;
+            line-height: 1.4
+        }
+
+        /* Dim bars */
+        .dim-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 6px
+        }
+
+        .dim-name {
+            width: 100px;
+            font-size: 10px;
+            color: #4B5563;
+            flex-shrink: 0
+        }
+
+        .dim-track {
+            flex: 1;
+            height: 16px;
+            background: #F3F4F6;
+            border-radius: 3px;
+            overflow: hidden
+        }
+
+        .dim-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width .6s
+        }
+
+        .dim-val {
+            width: 22px;
+            font-size: 11px;
+            font-weight: 700;
+            text-align: right
+        }
+
+        /* Sequence */
+        .seq {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center
+        }
+
+        .seq-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #F8FAFC;
+            border-radius: 6px;
+            padding: 8px 10px
+        }
+
+        .seq-num {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+
+        .seq-name {
+            font-size: 10px;
+            font-weight: 600;
+            color: #1F2937
+        }
+
+        .seq-val {
+            font-size: 8px;
+            color: #6B7280
+        }
+
+        .seq-arrow {
+            color: #CBD5E1;
+            font-size: 16px
+        }
+
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 14px;
+            border-top: 1px solid #E8ECF0;
+            font-size: 10px;
+            color: #94A3B8;
+            flex-wrap: wrap;
+            gap: 10px
+        }
+
+        .back-home {
+            position: fixed;
+            top: 18px;
+            left: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: #fff;
+            color: #1E3A5F;
+            border: 1.5px solid #1E3A5F;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 600;
+            font-family: 'DM Sans', sans-serif;
+            text-decoration: none;
+            letter-spacing: .3px;
+            transition: background .18s, color .18s;
+            z-index: 100;
+            box-shadow: 0 1px 6px rgba(30, 58, 95, .08)
+        }
+
+        .back-home:hover {
+            background: #1E3A5F;
+            color: #fff
+        }
+
+        @media print {
+            .back-home {
+                display: none !important
+            }
+
+            .no-print {
+                display: none !important
+            }
+
+            body {
+                padding: 0
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="/HLGMoorenConsultancy/" class="back-home">← Home</a>
+
+    <!-- ═══ INTRO ═══ -->
+    <div id="intro-screen" class="screen active">
+        <div class="badge sans">MOOREN × MARGIN AI</div>
+        <h1 class="main-title">Training Customization<br>Matrix</h1>
+        <p class="sub sans">8-dimension diagnostic → 9 training modules with estimated ROI using Phillips Methodology &
+            evidence-based benchmarks.</p>
+        <div class="tag-row sans"><span class="tag">Phillips ROI Level 5</span><span class="tag">Kirkpatrick
+                L4</span><span class="tag">35+ Years</span></div>
+        <div class="form-group">
+            <input class="inp" id="i-name" placeholder="Company name *">
+            <div class="row">
+                <select class="inp" id="i-cur">
+                    <option>€</option>
+                    <option>$</option>
+                    <option>£</option>
+                    <option>VND</option>
+                    <option>PKR</option>
+                    <option>COP</option>
+                    <option>BOB</option>
+                    <option>PHP</option>
+                </select>
+                <input class="inp" id="i-rev" placeholder="Annual revenue *" type="number">
+            </div>
+            <input class="inp" id="i-fte" placeholder="Number of employees (FTE) *" type="number">
+            <p class="hint sans">* Required for personalized ROI estimation</p>
+        </div>
+        <button class="btn" style="margin-top:16px" id="btn-start">Begin Assessment →</button>
+        <p class="foot sans">Methodology: Hugo Mooren (PUM Netherlands) · Phillips ROI Institute · McKinsey · BCG ·
+            Gallup · World Bank</p>
+    </div>
+
+    <!-- ═══ QUIZ ═══ -->
+    <div id="quiz-screen" class="screen">
+        <div class="prog-bar">
+            <div class="prog-fill" id="prog-fill"></div>
+        </div>
+        <span class="prog-text sans" id="prog-text"></span>
+        <div class="sec-badge sans" id="sec-badge"></div>
+        <h2 class="sec-title" id="sec-title"></h2>
+        <p class="sec-sub sans" id="sec-sub"></p>
+        <div id="questions-container"></div>
+        <div class="nav-row no-print">
+            <button class="btn-s" id="btn-back">← Back</button>
+            <button class="btn" id="btn-next" disabled>Next →</button>
+        </div>
+    </div>
+
+    <!-- ═══ RESULTS ═══ -->
+    <div id="result-screen" class="screen">
+        <div class="dash-head">
+            <div>
+                <div class="badge sans">TRAINING CUSTOMIZATION MATRIX</div>
+                <h1 class="dash-title" id="r-name"></h1>
+                <p class="dash-meta sans" id="r-meta"></p>
+            </div>
+            <div style="text-align:center">
+                <div class="circle"><span class="circle-n" id="r-score"></span><span class="circle-l">/100</span></div>
+                <div class="circle-c sans">Maturity</div>
+            </div>
+        </div>
+        <div class="vs">
+            <div class="vs-l sans">TOTAL VALUE AT STAKE · 12 MONTHS</div>
+            <div class="vs-a" id="r-value"></div>
+            <div class="vs-n sans">Conservative range · Phillips confidence-adjusted · First-year benefits only</div>
+        </div>
+        <div class="card">
+            <h3 class="card-h sans">Executive Summary</h3>
+            <p class="card-p sans" id="r-exec"></p>
+        </div>
+        <div class="grid2">
+            <div class="card">
+                <h3 class="card-h sans">Capability Radar</h3>
+                <div style="position:relative;height:270px"><canvas id="radar-chart"></canvas></div>
+            </div>
+            <div class="card">
+                <h3 class="card-h sans">Dimension Scores</h3>
+                <div id="r-dims"></div>
+                <div style="display:flex;gap:12px;margin-top:8px;font-size:9px;color:#9CA3AF" class="sans"><span>🔴
+                        0–3</span><span>🟡 4–6</span><span>🟢 7–10</span></div>
+            </div>
+        </div>
+        <div class="card">
+            <h3 class="card-h sans">Training Modules — Priority & Estimated Business Impact</h3>
+            <div id="r-modules"></div>
+        </div>
+        <div class="card">
+            <h3 class="card-h sans">Recommended Training Sequence</h3>
+            <div class="seq" id="r-seq"></div>
+        </div>
+        <div class="card" style="background:#F8FAFC">
+            <h3 class="card-h sans">Methodology & Disclaimer</h3>
+            <p class="card-p sans" style="font-size:10px;color:#64748B">ROI estimates use <b>Phillips ROI Methodology
+                    (Level 5)</b> with confidence adjustments. Benchmarks: <b>McKinsey</b> (2023), <b>BCG</b> (2021),
+                <b>Gallup</b> (employee engagement meta-analysis), <b>ATD</b> (2025), <b>World Bank</b> (McKenzie 2020
+                RCT meta-analysis), <b>Phillips ROI Institute</b> (5,000+ studies). Gap-weighted: higher urgency =
+                higher potential. First-year benefits only. These are indicative estimates, not guarantees.
+            </p>
+        </div>
+        <div class="footer sans no-print">
+            <div>Mooren Consulting × Margin AI · Confidential</div>
+            <div style="display:flex;gap:8px">
+                <button class="btn-s" id="btn-new">New Assessment</button>
+                <button class="btn" onclick="window.print()">Export PDF ↓</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ═══ DATA ═══════════════════════════════════════════════════════════
+        const MODULES = [{ id: "M1", name: "Marketing Strategy", icon: "📊" }, { id: "M2", name: "Sales Excellence", icon: "🎯" }, { id: "M3", name: "HR & People Strategy", icon: "👥" }, { id: "M4", name: "Turnaround Management", icon: "🔄" }, { id: "M5", name: "Export & Internationalization", icon: "🌍" }, { id: "M6", name: "Branding & Communication", icon: "💎" }, { id: "M7", name: "Supply Chain Optimization", icon: "🔗" }, { id: "M8", name: "Product Dev & Market Research", icon: "🧪" }, { id: "M9", name: "Financial Management", icon: "💰" }];
+        const DIMS = ["Company Scale", "Product Portfolio", "Pricing & Costs", "Competition", "Distribution", "Customers", "Promotion", "Key Figures"];
+        const PC = { HIGH: "#DC2626", MEDIUM: "#F59E0B", LOW: "#10B981" };
+        const PBG = { HIGH: "#FEF2F2", MEDIUM: "#FFFBEB", LOW: "#F0FDF4" };
+
+        const ROI_B = {
+            M1: { imps: [{ m: "Market positioning clarity", lo: .05, hi: .12, b: "rev", l: "Revenue uplift from strategic positioning" }, { m: "Customer acquisition efficiency", lo: .03, hi: .08, b: "rev", l: "Marketing spend optimization" }], src: "McKinsey: marketing investment improves ROI 10–20%. World Bank RCTs: +4.7% sales.", conf: .65 },
+            M2: { imps: [{ m: "Revenue per salesperson", lo: .08, hi: .17, b: "rev", l: "Sales team productivity increase" }, { m: "Sales cycle reduction", lo: .10, hi: .17, b: "rev", l: "Faster deal closure value" }, { m: "Win rate improvement", lo: .04, hi: .07, b: "rev", l: "Higher conversion rate impact" }], src: "Accenture: $4.53 per $1 (353% ROI). 20% deal size increase.", conf: .70 },
+            M3: { imps: [{ m: "Employee turnover reduction", lo: .02, hi: .05, b: "pay", l: "Retention savings (50–200% salary)" }, { m: "Workforce productivity gains", lo: .05, hi: .12, b: "pay", l: "Engagement-driven performance lift" }], src: "Gallup: engaged teams = 23% higher profitability. LinkedIn: 94% stay longer.", conf: .60 },
+            M4: { imps: [{ m: "Operational cost optimization", lo: .05, hi: .15, b: "rev", l: "Cost structure improvement" }, { m: "Revenue recovery", lo: .08, hi: .20, b: "rev", l: "Business model realignment value" }], src: "McKinsey: human capital → 30% higher revenue growth. World Bank: +50% employment.", conf: .55 },
+            M5: { imps: [{ m: "Export revenue growth", lo: .05, hi: .15, b: "rev", l: "New international market revenue" }, { m: "Cross-border deal success", lo: .03, hi: .08, b: "rev", l: "International transaction value" }], src: "World Bank RCTs: +11.3% sales. IFC Business Edge: 170K+ trained in 30+ countries.", conf: .55 },
+            M6: { imps: [{ m: "Brand pricing premium", lo: .03, hi: .10, b: "rev", l: "Price premium from brand equity" }, { m: "Brand-driven demand", lo: .05, hi: .12, b: "rev", l: "Customer acquisition through brand" }], src: "McKinsey: strong brands = 13% price premium. BCG: brand companies grow 2× faster.", conf: .60 },
+            M7: { imps: [{ m: "Logistics cost reduction", lo: .08, hi: .20, b: "rev", l: "Supply chain waste elimination" }, { m: "Output/throughput increase", lo: .10, hi: .25, b: "pay", l: "Process efficiency gains" }], src: "McKinsey: lean → 25% more output in 2mo. Six Sigma: $230K/project, 4.5–6× ROI.", conf: .65 },
+            M8: { imps: [{ m: "New product revenue pipeline", lo: .05, hi: .15, b: "rev", l: "Innovation contribution to revenue" }, { m: "Time-to-market acceleration", lo: .03, hi: .08, b: "rev", l: "Faster launch profit capture" }], src: "McKinsey: 6mo late = 33% less profit. ATD: trained cos = 218% higher income/emp.", conf: .55 },
+            M9: { imps: [{ m: "Pricing accuracy & margin recovery", lo: .03, hi: .08, b: "rev", l: "Revenue from correct pricing" }, { m: "Cost control via financial visibility", lo: .05, hi: .12, b: "rev", l: "Waste reduction via KPI tracking" }, { m: "Cash flow optimization", lo: .02, hi: .05, b: "rev", l: "Working capital efficiency" }], src: "ATD: training → 24% higher margins. Phillips: financial programs avg 258% ROI.", conf: .70 }
+        };
+
+        const SECS = [
+            { t: "Company Profile", s: "Understanding your business foundation", q: [{ id: "type", l: "What type of company are you?", o: ["Manufacturer", "Trader", "Service provider", "Hybrid (multiple types)"] }, { id: "revenue_trend", l: "Revenue trend past 3–5 years?", o: ["Strong growth (>15%/yr)", "Moderate growth (5–15%/yr)", "Stable (±5%)", "Declining", "Don't know"] }, { id: "profit_trend", l: "Profit trend past 3–5 years?", o: ["Growing margins", "Stable margins", "Shrinking margins", "Losses in recent years", "Don't know"] }, { id: "structure", l: "Is organizational structure clearly defined?", o: ["Yes, with org chart & clear roles", "Partially defined", "No, it's informal", "We're restructuring"] }, { id: "export", l: "Do you export to other countries?", o: ["Yes, >30% of revenue", "Yes, 10–30%", "Yes, <10%", "No, but planning to", "No, domestic only"] }] },
+            { t: "Product & Service", s: "Understanding your offering", q: [{ id: "product_type", l: "What do you primarily sell?", o: ["Physical products", "Services", "Digital products", "Combination"] }, { id: "assortment", l: "How many items/SKUs?", o: ["1–5 (very focused)", "6–20", "21–100", "100+", "Not tracked"] }, { id: "complexity", l: "Product composed of multiple components?", o: ["Yes, complex multi-component", "Moderate complexity", "Single/mono product", "Mix of both"] }, { id: "sourcing", l: "Source of raw materials/inputs?", o: ["Own production/farm", "Local suppliers", "Imported", "Mix of sources"] }, { id: "differentiation", l: "How differentiated is your product?", o: ["Highly unique", "Somewhat different", "Similar to competition", "Commodity/undifferentiated"] }] },
+            { t: "Pricing Strategy", s: "How you capture value", q: [{ id: "pricing_method", l: "How do you determine selling prices?", o: ["Detailed cost calc + margin", "Cost-plus (rough estimate)", "Match competition", "Intuition / historical", "Don't know our true costs"] }, { id: "cost_calc", l: "Accurate cost calculations per product?", o: ["Yes, detailed per SKU", "Yes, approximate", "Only for some products", "No"] }, { id: "competitor_pricing", l: "Know what competitors charge?", o: ["Yes, systematic tracking", "Yes, roughly", "Somewhat", "No idea"] }, { id: "margin_knowledge", l: "Know margins by product & customer?", o: ["Yes, both levels", "Product level only", "Overall margin only", "No"] }] },
+            { t: "Competitive Position", s: "Your market standing", q: [{ id: "competitors", l: "How many direct competitors?", o: ["None (blue ocean)", "1–3", "4–10", "10+", "Don't know"] }, { id: "usp", l: "Can you articulate your USP?", o: ["Yes, well-defined & communicated", "Yes, not well communicated", "Somewhat", "No, we struggle with this"] }, { id: "market_share", l: "Do you know your market share?", o: ["Yes, precisely", "Approximate estimate", "No, but major player", "No idea"] }] },
+            { t: "Distribution & Supply Chain", s: "How you deliver value", q: [{ id: "supply_chain", l: "How organized is your supply chain?", o: ["Highly optimized", "Well organized", "Basic/informal", "Chaotic/reactive"] }, { id: "delivery", l: "How is distribution organized?", o: ["Own fleet + 3PL, optimized", "Own delivery, basic", "Fully outsourced", "Customer picks up", "No system"] }, { id: "stock", l: "Manage inventory effectively?", o: ["Yes, inventory system", "Yes, manually tracked", "Somewhat", "No, stockouts/overstock"] }, { id: "lead_time", l: "Know and manage lead times?", o: ["Yes, optimized", "Yes, tracked", "Roughly", "No"] }] },
+            { t: "Customers", s: "Who you serve", q: [{ id: "customer_type", l: "Who are your customers?", o: ["Primarily B2B", "Primarily B2C", "Mix B2B & B2C", "Government/institutional"] }, { id: "customer_count", l: "How many active customers?", o: ["1–10", "11–50", "51–200", "200+", "Don't track"] }, { id: "ordering", l: "How do customers order?", o: ["Online/e-commerce", "Phone/email, organized", "Informal (walk-in, WhatsApp)", "Mix of channels"] }, { id: "segmentation", l: "Segment your customer base?", o: ["Yes, detailed", "Basic categorization", "No, all treated same", "Planning to start"] }] },
+            { t: "Marketing & Promotion", s: "How you reach your market", q: [{ id: "promotion", l: "How do you promote?", o: ["Multi-channel (digital + offline)", "Mostly digital", "Mostly traditional", "Word of mouth only", "Don't actively promote"] }, { id: "website", l: "Professional website?", o: ["Yes, modern & updated", "Yes, but outdated", "Under construction", "No"] }, { id: "brand", l: "Defined brand identity?", o: ["Yes, with guidelines", "Yes, basic logo", "Not really", "No"] }, { id: "advertising", l: "Do you advertise?", o: ["Yes, with measured ROI", "Yes, untracked", "Occasionally", "Never"] }] },
+            { t: "Key Performance Data", s: "The numbers that matter", q: [{ id: "top_products", l: "Know Top 10 products by sales AND profit?", o: ["Yes, both", "Sales only", "Roughly", "No"] }, { id: "top_customers", l: "Know Top 10 customers by sales AND profit?", o: ["Yes, both", "Sales only", "Roughly", "No"] }, { id: "portfolio_analysis", l: "Classified products (Stars, Cash Cows, Dogs)?", o: ["Yes, BCG or similar", "Informally", "Never heard of this", "No"] }, { id: "kpi_tracking", l: "Track KPIs regularly?", o: ["Yes, dashboards", "Yes, monthly reports", "Sporadically", "No"] }] }
+        ];
+
+        // Score maps
+        const SM = {};
+        SECS.forEach(sec => sec.q.forEach(q => { SM[q.id] = {}; q.o.forEach((o, i) => { SM[q.id][o] = Math.round(((q.o.length - 1 - i) / (q.o.length - 1)) * 4) }); }));
+        const totalQ = SECS.reduce((s, sec) => s + sec.q.length, 0);
+
+        // ═══ STATE ═══════════════════════════════════════════════════════════
+        let step = 0, ans = {}, companyName = "", revenue = 0, fte = 1, currency = "€";
+
+        // ═══ SCORING ENGINE ═════════════════════════════════════════════════
+        function computeAll() {
+            const g = id => SM[id]?.[ans[id]] ?? 0;
+            const d = [
+                Math.round(((g("type") + g("revenue_trend") + g("profit_trend") + g("structure") + g("export")) / 5) * 2.5),
+                Math.round(((g("product_type") + g("assortment") + g("complexity") + g("sourcing") + g("differentiation")) / 5) * 2.5),
+                Math.round(((g("pricing_method") + g("cost_calc") + g("competitor_pricing") + g("margin_knowledge")) / 4) * 2.5),
+                Math.round(((g("competitors") + g("usp") + g("market_share")) / 3) * 2.5),
+                Math.round(((g("supply_chain") + g("delivery") + g("stock") + g("lead_time")) / 4) * 2.5),
+                Math.round(((g("customer_type") + g("customer_count") + g("ordering") + g("segmentation")) / 4) * 2.5),
+                Math.round(((g("promotion") + g("website") + g("brand") + g("advertising")) / 4) * 2.5),
+                Math.round(((g("top_products") + g("top_customers") + g("portfolio_analysis") + g("kpi_tracking")) / 4) * 2.5)
+            ];
+            const gap = d.map(x => 10 - x);
+            const W = [[.2, .2, 0, .3, 0, 0, .3, 0], [0, 0, .2, .2, 0, .4, .2, 0], [.5, 0, 0, .3, 0, .2, 0, 0], [.3, 0, .2, .2, 0, 0, 0, .3], [.3, .2, 0, 0, .3, 0, .2, 0], [0, .15, 0, .2, 0, .15, .5, 0], [.15, .2, .15, 0, .5, 0, 0, 0], [0, .4, 0, .3, 0, .15, .15, 0], [.2, 0, .4, 0, 0, 0, 0, .4]];
+            const R = { M1: d[6] < 5 ? "Weak promotional strategy and unclear positioning." : d[3] < 5 ? "Competitive positioning needs strategic marketing." : "Marketing foundations exist — can be strengthened.", M2: d[5] < 5 ? "Customer management gaps need sales process improvement." : d[2] < 5 ? "Pricing weaknesses suggest sales value issues." : "Sales functional — optimization opportunities exist.", M3: d[0] < 5 ? "Organizational structure gaps require HR alignment." : "People strategy can support growth objectives.", M4: d[7] < 4 ? "Lack of KPI tracking creates risk of undetected decline." : d[2] < 4 ? "Margin pressure signals need for restructuring." : "Proactive change management supports adaptation.", M5: d[4] < 6 ? "Limited export with supply chain gaps — readiness needed." : "International expansion potential — strategy recommended.", M6: d[6] < 5 ? "No clear brand identity or communication strategy." : d[3] < 5 ? "Brand differentiation needed for competitive edge." : "Brand present — refinement recommended.", M7: d[4] < 5 ? "Supply chain and logistics show significant gaps." : "Supply chain functional — cost/speed optimization recommended.", M8: d[1] < 5 ? "Product portfolio underdeveloped or undifferentiated." : d[3] < 5 ? "Market research needed for competitive opportunities." : "Product solid — innovation pipeline recommended.", M9: d[7] < 5 ? "Critical: Lack of financial KPI tracking." : d[2] < 5 ? "Cost calculation and margins need immediate attention." : "Financial tracking exists — advanced analytics recommended." };
+
+            const pay = (revenue / Math.max(fte, 1)) * 0.35 * fte;
+            const mods = MODULES.map((m, i) => {
+                const sc = Math.round(W[i].reduce((sum, w, j) => sum + w * gap[j], 0));
+                const pri = sc >= 7 ? "HIGH" : sc >= 4 ? "MEDIUM" : "LOW";
+                const b = ROI_B[m.id];
+                const gm = Math.min(sc / 10, 1);
+                const imps = b.imps.map(imp => {
+                    const base = imp.b === "pay" ? pay : revenue;
+                    return { ...imp, loV: Math.round(base * imp.lo * gm * b.conf), hiV: Math.round(base * imp.hi * gm * b.conf) };
+                });
+                const tLo = imps.reduce((s, i) => s + i.loV, 0), tHi = imps.reduce((s, i) => s + i.hiV, 0);
+                return { ...m, score: sc, priority: pri, reason: R[m.id] || "", roi: { imps, tLo, tHi, conf: b.conf, src: b.src } };
+            }).sort((a, b) => b.score - a.score);
+            return { dims: d, modules: mods };
+        }
+
+        const fmt = n => n >= 1e6 ? (n / 1e6).toFixed(1) + "M" : n >= 1e3 ? (n / 1e3).toFixed(0) + "K" : n.toLocaleString();
+
+        // ═══ RENDER ═════════════════════════════════════════════════════════
+        function show(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
+
+        function renderQuiz() {
+            const sec = SECS[step - 1];
+            const answered = Object.keys(ans).length;
+            document.getElementById('prog-fill').style.width = (answered / totalQ * 100) + '%';
+            document.getElementById('prog-text').textContent = `${answered}/${totalQ} · Section ${step}/8`;
+            document.getElementById('sec-badge').textContent = 'SECTION ' + step;
+            document.getElementById('sec-title').textContent = sec.t;
+            document.getElementById('sec-sub').textContent = sec.s;
+            const c = document.getElementById('questions-container');
+            c.innerHTML = '';
+            sec.q.forEach(q => {
+                const div = document.createElement('div'); div.className = 'q-card';
+                div.innerHTML = `<label class="q-label sans">${q.l}</label>`;
+                q.o.forEach(o => {
+                    const btn = document.createElement('button');
+                    btn.className = 'opt-btn sans' + (ans[q.id] === o ? ' sel' : '');
+                    btn.textContent = (ans[q.id] === o ? '✓ ' : '') + o;
+                    btn.onclick = () => { ans[q.id] = o; renderQuiz(); };
+                    div.appendChild(btn);
+                });
+                c.appendChild(div);
+            });
+            const allAnswered = sec.q.every(q => ans[q.id]);
+            const nb = document.getElementById('btn-next');
+            nb.disabled = !allAnswered;
+            nb.textContent = step === 8 ? 'View Results →' : 'Next →';
+            show('quiz-screen');
+        }
+
+        function renderResults() {
+            const { dims, modules } = computeAll();
+            const os = Math.round(dims.reduce((a, b) => a + b, 0) / dims.length * 10);
+            const hi = modules.filter(m => m.priority === "HIGH"), md = modules.filter(m => m.priority === "MEDIUM");
+            const nonLow = modules.filter(m => m.priority !== "LOW");
+            const vLo = nonLow.reduce((s, m) => s + (m.roi ? m.roi.tLo : 0), 0);
+            const vHi = nonLow.reduce((s, m) => s + (m.roi ? m.roi.tHi : 0), 0);
+
+            document.getElementById('r-name').textContent = companyName;
+            document.getElementById('r-meta').textContent = `Revenue: ${currency}${fmt(revenue)} · ${fte} FTE · ${new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}`;
+            document.getElementById('r-score').textContent = os;
+            document.getElementById('r-value').textContent = `${currency}${fmt(vLo)} — ${currency}${fmt(vHi)}`;
+
+            let exec = `${companyName} scores <b>${os}/100</b> in business maturity.`;
+            if (hi.length) exec += ` <b style="color:#DC2626">${hi.length} critical area${hi.length > 1 ? 's' : ''}</b>: ${hi.map(m => m.name).join(', ')}.`;
+            if (md.length) exec += ` ${md.length} area${md.length > 1 ? 's' : ''} for strategic development.`;
+            exec += ` Estimated recoverable value: <b>${currency}${fmt(vLo)}</b> to <b>${currency}${fmt(vHi)}</b>/year through targeted training.`;
+            document.getElementById('r-exec').innerHTML = exec;
+
+            // Radar
+            const ctx = document.getElementById('radar-chart').getContext('2d');
+            if (window._radarChart) window._radarChart.destroy();
+            window._radarChart = new Chart(ctx, { type: 'radar', data: { labels: DIMS, datasets: [{ data: dims, borderColor: '#1E3A5F', backgroundColor: 'rgba(30,58,95,0.15)', borderWidth: 2, pointBackgroundColor: '#1E3A5F', pointRadius: 3 }] }, options: { responsive: true, maintainAspectRatio: false, scales: { r: { min: 0, max: 10, ticks: { stepSize: 2, font: { size: 8 }, backdropColor: 'transparent' }, grid: { color: '#E5E7EB' }, pointLabels: { font: { size: 9, family: 'DM Sans' }, color: '#6B7280' } } }, plugins: { legend: { display: false } } } });
+
+            // Dimension bars
+            const dc = document.getElementById('r-dims'); dc.innerHTML = '';
+            DIMS.forEach((d, i) => {
+                const col = dims[i] >= 7 ? '#10B981' : dims[i] >= 4 ? '#F59E0B' : '#DC2626';
+                dc.innerHTML += `<div class="dim-row"><span class="dim-name sans">${d}</span><div class="dim-track"><div class="dim-fill" style="width:${dims[i] * 10}%;background:${col}"></div></div><span class="dim-val sans" style="color:${col}">${dims[i]}</span></div>`;
+            });
+
+            // Module cards
+            const mc = document.getElementById('r-modules'); mc.innerHTML = '';
+            modules.forEach(m => {
+                let roiHTML = '';
+                if (m.roi && m.roi.tHi > 0) {
+                    let rows = m.roi.imps.map((imp, j) => `<div class="roi-row"><div><div class="roi-metric sans">${imp.m}</div><div class="roi-label sans">${imp.l}</div></div><div style="text-align:right;flex-shrink:0;margin-left:10px"><div class="roi-val sans">${currency}${fmt(imp.loV)} – ${currency}${fmt(imp.hiV)}</div><div class="roi-yr sans">/year</div></div></div>`).join('');
+                    roiHTML = `<div class="roi-box"><div class="roi-title sans">IF YOU TAKE THIS MODULE — ESTIMATED IMPACT</div>${rows}<div class="roi-total"><div class="roi-total-l sans">MODULE TOTAL VALUE</div><div class="roi-total-v sans">${currency}${fmt(m.roi.tLo)} – ${currency}${fmt(m.roi.tHi)}</div></div><div class="roi-src sans">Confidence: ${Math.round(m.roi.conf * 100)}% · ${m.roi.src}</div></div>`;
+                }
+                mc.innerHTML += `<div class="mod-card" style="border-left-color:${PC[m.priority]};background:${PBG[m.priority]}"><div class="mod-head"><div class="mod-info"><span class="mod-icon">${m.icon}</span><div><div class="mod-name sans">${m.name}</div><span class="pri-badge sans" style="background:${PC[m.priority]}">${m.priority}</span></div></div><div class="mod-score sans" style="color:${PC[m.priority]}">${m.score}/10<small>urgency</small></div></div><p class="mod-reason sans">${m.reason}</p>${roiHTML}</div>`;
+            });
+
+            // Sequence
+            const sc = document.getElementById('r-seq'); sc.innerHTML = '';
+            nonLow.forEach((m, i) => {
+                sc.innerHTML += `<div style="display:flex;align-items:center;gap:6px"><div class="seq-item"><div class="seq-num sans" style="background:${PC[m.priority]}">${i + 1}</div><div><div class="seq-name sans">${m.icon} ${m.name}</div><div class="seq-val sans">${m.roi ? currency + fmt(m.roi.tLo) + '–' + fmt(m.roi.tHi) : ''}</div></div></div>${i < nonLow.length - 1 ? '<span class="seq-arrow">→</span>' : ''}</div>`;
+            });
+
+            show('result-screen');
+            window.scrollTo(0, 0);
+        }
+
+        // ═══ EVENT HANDLERS ═════════════════════════════════════════════════
+        document.getElementById('btn-start').onclick = () => {
+            companyName = document.getElementById('i-name').value.trim();
+            revenue = parseFloat(document.getElementById('i-rev').value) || 0;
+            fte = parseInt(document.getElementById('i-fte').value) || 1;
+            currency = document.getElementById('i-cur').value;
+            if (!companyName || revenue <= 0 || fte <= 0) return;
+            step = 1; ans = {}; renderQuiz();
+        };
+        document.getElementById('btn-back').onclick = () => {
+            if (step <= 1) { step = 0; show('intro-screen'); } else { step--; renderQuiz(); }
+        };
+        document.getElementById('btn-next').onclick = () => {
+            if (step >= 8) { renderResults(); } else { step++; renderQuiz(); }
+        };
+        document.getElementById('btn-new').onclick = () => {
+            step = 0; ans = {}; show('intro-screen'); window.scrollTo(0, 0);
+        };
+        // Validate intro
+        ['i-name', 'i-rev', 'i-fte'].forEach(id => {
+            document.getElementById(id).addEventListener('input', () => {
+                const ok = document.getElementById('i-name').value.trim() && parseFloat(document.getElementById('i-rev').value) > 0 && parseInt(document.getElementById('i-fte').value) > 0;
+                document.getElementById('btn-start').disabled = !ok;
+            });
+        });
+        document.getElementById('btn-start').disabled = true;
+    </script>
+</body>
+
+</html>
