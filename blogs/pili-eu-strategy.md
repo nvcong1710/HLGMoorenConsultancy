@@ -9,7 +9,7 @@ Sứ mệnh “Food Philippines Outbound Business Mission” do Bộ Thương m�
 
 ## Bối cảnh dự án
 
-![alt text](../HLGMoorenConsultancy/assets/media/blog-img/pili-eu-strategy/img1.jpg)
+![alt text](../assets/media/blog-img/pili-eu-strategy/img1.jpg)
 
 - **Tổ chức chủ trì:** DTI Philippines (Region V Bicol)
 - **Hỗ trợ:** CITEM, DA Regional Field Office 5, PTIC Brussels
@@ -24,7 +24,7 @@ Trước đó, pili Philippines đã xuất khẩu sang Mỹ, Nhật Bản, Saud
 - Food safety & traceability
 - Labeling & allergen declaration
 - Sustainability & ESG compliance
-  ![alt text](../HLGMoorenConsultancy/assets/media/blog-img/pili-eu-strategy/img2.jpg)
+  ![alt text](../assets/media/blog-img/pili-eu-strategy/img2.jpg)
 
 Việc tiếp cận EU đòi hỏi chiến lược, không chỉ là cơ hội.
 
@@ -109,7 +109,7 @@ Từ mission này, các định hướng chiến lược được xác lập:
 - Tăng dần sản lượng thay vì push volume ngay từ đầu
 
 Thị trường EU ưu tiên ổn định & consistency hơn là tăng trưởng đột biến.
-![alt text](../HLGMoorenConsultancy/assets/media/blog-img/pili-eu-strategy/img3.jpg)
+![alt text](../assets/media/blog-img/pili-eu-strategy/img3.jpg)
 Giá trị mang lại
 
 ---

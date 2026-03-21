@@ -4,11 +4,11 @@ Bạn sở hữu dòng sản phẩm đạt mức điểm chất lượng xuất 
 
 **Bối Cảnh Dự Án: Viên Ngọc Thô Thiếu Bàn Tay Chế Tác** Hoạt động tại một khu vực có điều kiện thổ nhưỡng tuyệt vời nhưng nhiều bất ổn, doanh nghiệp này thu mua cà phê từ các nông hộ nhỏ lẻ với mục tiêu tạo ra tác động xã hội bền vững. Dù sở hữu chất lượng hạt nhân xanh được đánh giá cao, họ lại mắc kẹt trong hàng loạt điểm yếu chí mạng:Một bộ máy nhân sự mỏng (chỉ 1 người lo liệu mọi thứ) , thiếu vắng chiến lược marketing bài bản, và rào cản lớn nhất chính là sự thiếu đồng nhất về chất lượng. Do mỗi nông hộ sử dụng các giống cây và phương pháp lên men khác nhau, thành phẩm cuối cùng trở nên bấp bênh theo từng mẻ. Cùng lúc đó, họ phải đối diện với cái bóng khổng lồ của các Liên đoàn Cà phê Quốc gia mang tính độc quyền và các ông lớn chuỗi bán lẻ tại nội địa.
 
-![alt text](../HLGMoorenConsultancy/assets/media/blog-img/specialty-coffee-strategy/pipeline.png)
+![alt text](../assets/media/blog-img/specialty-coffee-strategy/pipeline.png)
 
 **Phương Pháp Tiếp Cận: Kiến Trúc Lại Toàn Bộ Chuỗi Giá Trị** Để giải bài toán này, chuyên gia Hugo Mooren không chỉ dừng lại ở việc làm marketing bề nổi. Chúng tôi thực hiện rà soát chuyên sâu toàn bộ hành trình của hạt cà phê từ nông trại đến ly thức uống (From Bean to Cup). Sử dụng các bộ công cụ phân tích chiến lược như Ma trận SWOT, Phân tích 5 áp lực cạnh tranh và Ma trận BCG, chúng tôi tái cấu trúc toàn diện từ khâu sản xuất đến định vị thị trường.
 
-![alt text](../HLGMoorenConsultancy/assets/media/blog-img/specialty-coffee-strategy/environment-forces.png)
+![alt text](../assets/media/blog-img/specialty-coffee-strategy/environment-forces.png)
 
 **Giải Pháp Chiến Lược Đã Triển Khai** HLG Mooren Consulting đã thiết lập một Kế hoạch Chiến lược 5 năm sắc bén, tập trung vào các trụ cột cốt lõi:
 

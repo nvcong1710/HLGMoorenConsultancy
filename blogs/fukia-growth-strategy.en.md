@@ -11,31 +11,31 @@ How can a local agricultural business evolve into a structured, profitable brand
 
 ## Project Background
 
-- **Country:** Vietnam  
-- **Location:** Thanh Binh – Da Nang  
-- **Industry:** Processing and trading of spices, teas, and local agricultural products  
-- **Portfolio:** 23 SKUs (spices, turmeric starch, perilla tea, dried fruit, nuts, etc.)  
+- **Country:** Vietnam
+- **Location:** Thanh Binh – Da Nang
+- **Industry:** Processing and trading of spices, teas, and local agricultural products
+- **Portfolio:** 23 SKUs (spices, turmeric starch, perilla tea, dried fruit, nuts, etc.)
 
 ### Key Challenges
 
 Internal assessment revealed:
 
-- Small operational scale  
-- No precise administrative system  
-- Inconsistent packaging design  
-- Limited financial management knowledge  
-- ISO 22000 certification existed, but without practical protocols  
-- Wide product range without strategic focus  
-- No clear B2B/B2C distribution strategy  
+- Small operational scale
+- No precise administrative system
+- Inconsistent packaging design
+- Limited financial management knowledge
+- ISO 22000 certification existed, but without practical protocols
+- Wide product range without strategic focus
+- No clear B2B/B2C distribution strategy
 
-![alt text](../HLGMoorenConsultancy/assets/media/blog-img/fukia-growth-strategy/production-area.png)
+![alt text](../assets/media/blog-img/fukia-growth-strategy/production-area.png)
 
 Meanwhile, the market presented significant opportunities:
 
-- Rapid growth of healthy food trends  
-- Expanding gift market  
-- Strong online sales growth  
-- Export potential to neighboring countries  
+- Rapid growth of healthy food trends
+- Expanding gift market
+- Strong online sales growth
+- Export potential to neighboring countries
 
 Fukia had strong local sourcing and sustainability values—but lacked strategic concentration.
 
@@ -43,7 +43,7 @@ Fukia had strong local sourcing and sustainability values—but lacked strategic
 
 ## HLG Mooren Consulting’s Approach
 
-![alt text](../HLGMoorenConsultancy/assets/media/blog-img/fukia-growth-strategy/BCG-matrix.png)
+![alt text](../assets/media/blog-img/fukia-growth-strategy/BCG-matrix.png)
 
 We structured the advisory around five strategic pillars:
 
@@ -51,7 +51,7 @@ We structured the advisory around five strategic pillars:
 2️⃣ Conduct SWOT analysis & strategic repositioning  
 3️⃣ Define product strategic focus  
 4️⃣ Build brand & distribution model  
-5️⃣ Establish KPI systems & financial planning  
+5️⃣ Establish KPI systems & financial planning
 
 Core expertise highlighted:  
 **Marketing Strategy + Brand Positioning + Distributor Strategy + Strategic Focus**
@@ -77,17 +77,17 @@ We repositioned Fukia from a “small-scale producer” to a
 
 Instead of spreading resources across 23 SKUs, we recommended focusing on:
 
-- **KB1: Turmeric Starch**  
+- **KB1: Turmeric Starch**
 - **KB2: Perilla Tea**
 
 These products offered higher margins and stronger scalability.
 
 Strategic measures included:
 
-- Made-to-stock production model  
-- Defined minimum & maximum stock levels  
-- Lead time optimization  
-- FIFO implementation  
+- Made-to-stock production model
+- Defined minimum & maximum stock levels
+- Lead time optimization
+- FIFO implementation
 
 Shift from “multi-product small batches” to “focused scalable production.”
 
@@ -95,20 +95,22 @@ Shift from “multi-product small batches” to “focused scalable production.�
 
 ### 3️⃣ Packaging Standardization & Brand Harmonization
 
-![alt text](../HLGMoorenConsultancy/assets/media/blog-img/fukia-growth-strategy/pkg1.png)
+![alt text](../assets/media/blog-img/fukia-growth-strategy/pkg1.png)
 
 **Current situation:**
-- Inconsistent packaging  
-- Excessive packaging SKUs  
+
+- Inconsistent packaging
+- Excessive packaging SKUs
 
 **Solutions:**
-- Reduce packaging SKU complexity  
-- Standardize and harmonize design  
-- Build a uniform brand identity  
-- Strengthen storytelling with origin branding:  
-  Vietnam – Da Nang – Thanh Binh – farm-specific sourcing  
 
-![alt text](../HLGMoorenConsultancy/assets/media/blog-img/fukia-growth-strategy/pkg2.png)
+- Reduce packaging SKU complexity
+- Standardize and harmonize design
+- Build a uniform brand identity
+- Strengthen storytelling with origin branding:  
+  Vietnam – Da Nang – Thanh Binh – farm-specific sourcing
+
+![alt text](../assets/media/blog-img/fukia-growth-strategy/pkg2.png)
 
 Branding principle:  
 **Trust → Consistency → Transparency → Repeat Buying**
@@ -120,18 +122,20 @@ Branding principle:
 We defined distinct channel characteristics:
 
 **B2C**
-- Emotional buying behavior  
-- Branding-driven  
-- Fixed pricing  
-- Pull strategy  
-- Social media & e-commerce (Shopee, TikTok, Instagram, etc.)  
+
+- Emotional buying behavior
+- Branding-driven
+- Fixed pricing
+- Pull strategy
+- Social media & e-commerce (Shopee, TikTok, Instagram, etc.)
 
 **B2B**
-- Relationship-driven  
-- Bulk packaging  
-- Contract-based pricing  
-- Push strategy  
-- LinkedIn, exhibitions, brochures  
+
+- Relationship-driven
+- Bulk packaging
+- Contract-based pricing
+- Push strategy
+- LinkedIn, exhibitions, brochures
 
 Critical principle: Avoid channel conflict between B2C and B2B.
 
@@ -142,10 +146,10 @@ We developed a professional distributor selection checklist based on:
 
 ### 5️⃣ KPI Implementation & Financial Discipline
 
-- Production KPIs (kg per batch, labor hours, units packed)  
-- Sales KPIs (visits per day, new customers per week, repeat purchase rate)  
-- 5-year strategic budgeting  
-- Monthly reporting: actual vs. budget  
+- Production KPIs (kg per batch, labor hours, units packed)
+- Sales KPIs (visits per day, new customers per week, repeat purchase rate)
+- 5-year strategic budgeting
+- Monthly reporting: actual vs. budget
 
 Shift from “intuition-based management” to “data-driven governance.”
 
@@ -155,10 +159,10 @@ Shift from “intuition-based management” to “data-driven governance.”
 
 Strategic preparation included:
 
-- Selecting farmers based on defined criteria  
-- Establishing production protocols  
-- Biannual inspections  
-- Agreement on volume and price range  
+- Selecting farmers based on defined criteria
+- Establishing production protocols
+- Biannual inspections
+- Agreement on volume and price range
 
 Organic positioning is not just certification—it is the foundation for export readiness.
 
@@ -168,11 +172,11 @@ Organic positioning is not just certification—it is the foundation for export 
 
 The strategy aimed to:
 
-- Concentrate resources on high-margin products  
-- Increase brand consistency  
-- Standardize financial management systems  
-- Expand B2C through online and retail channels  
-- Develop professional B2B distribution networks  
-- Prepare for organic certification and export markets  
+- Concentrate resources on high-margin products
+- Increase brand consistency
+- Standardize financial management systems
+- Expand B2C through online and retail channels
+- Develop professional B2B distribution networks
+- Prepare for organic certification and export markets
 
 From a diversified local enterprise, Fukia now has a structured roadmap to become a scalable, sustainable agricultural brand with long-term strategic direction.

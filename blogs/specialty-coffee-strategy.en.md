@@ -10,13 +10,13 @@ Operating in a region with exceptional terroir but structural instability, the c
 
 Although green bean quality was consistently rated high, the business was constrained by critical weaknesses:
 
-- Extremely lean organization (one person managing nearly all functions)  
-- No structured marketing strategy  
-- Major inconsistency in product quality  
+- Extremely lean organization (one person managing nearly all functions)
+- No structured marketing strategy
+- Major inconsistency in product quality
 
 Each farmer applied different varietals and fermentation methods, resulting in unstable batch-to-batch performance. Simultaneously, the company had to compete with dominant national coffee federations and powerful domestic retail chains.
 
-![alt text](../HLGMoorenConsultancy/assets/media/blog-img/specialty-coffee-strategy/pipeline.png)
+![alt text](../assets/media/blog-img/specialty-coffee-strategy/pipeline.png)
 
 The business had strong raw material quality—but no structural system to scale.
 
@@ -28,13 +28,13 @@ Rather than focusing on superficial marketing adjustments, consultant Hugo Moore
 
 We applied strategic tools including:
 
-- SWOT Analysis  
-- Porter’s Five Forces  
-- BCG Matrix  
+- SWOT Analysis
+- Porter’s Five Forces
+- BCG Matrix
 
 The objective was to redesign both operational foundations and market positioning.
 
-![alt text](../HLGMoorenConsultancy/assets/media/blog-img/specialty-coffee-strategy/environment-forces.png)
+![alt text](../assets/media/blog-img/specialty-coffee-strategy/environment-forces.png)
 
 ---
 
@@ -46,10 +46,10 @@ HLG Mooren Consulting developed a focused 5-year strategic roadmap built on core
 
 We established strict operational standards for partner farmers, covering:
 
-- Variety selection  
-- Water usage management  
-- Controlled fermentation methods  
-- Harvesting criteria  
+- Variety selection
+- Water usage management
+- Controlled fermentation methods
+- Harvesting criteria
 
 The goal was to create a signature blend capable of consistently delivering a premium positioning (80+ score minimum) with stable sensory performance across batches.
 
@@ -64,10 +64,10 @@ We recommended a strategic renaming to reduce academic or overly technical conno
 
 Actions included:
 
-- Complete redesign of logo and visual identity  
-- Modernized packaging system  
-- Strong origin storytelling (Cauca Valley)  
-- Clear articulation of social-impact mission  
+- Complete redesign of logo and visual identity
+- Modernized packaging system
+- Strong origin storytelling (Cauca Valley)
+- Clear articulation of social-impact mission
 
 The brand moved from niche supplier perception to structured premium identity.
 
@@ -77,8 +77,8 @@ The brand moved from niche supplier perception to structured premium identity.
 
 Instead of internally managing non-core functions, we advised:
 
-- Selective outsourcing of logistics and certain processing stages  
-- Concentration on quality control, brand building, and strategic partnerships  
+- Selective outsourcing of logistics and certain processing stages
+- Concentration on quality control, brand building, and strategic partnerships
 
 This allowed the company to free managerial bandwidth and improve operational discipline.
 
@@ -88,11 +88,11 @@ This allowed the company to free managerial bandwidth and improve operational di
 
 The transformation achieved:
 
-- Stabilized product quality across harvest cycles  
-- Reduced operational overload from a single-person structure  
-- Strengthened negotiation power with buyers  
-- Created a scalable brand platform  
-- Enabled positioning against larger commercial competitors  
+- Stabilized product quality across harvest cycles
+- Reduced operational overload from a single-person structure
+- Strengthened negotiation power with buyers
+- Created a scalable brand platform
+- Enabled positioning against larger commercial competitors
 
 From fragmented trading to structured specialty branding, the company now operates with a defined growth roadmap and competitive architecture.
 

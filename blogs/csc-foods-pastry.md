@@ -11,10 +11,10 @@ Tuy nhiên, tham vọng vươn ra thị trường nội địa và xuất khẩu
 **Giải pháp chiến lược đã triển khai** Chúng tôi đã cung cấp một bản thiết kế "chìa khóa trao tay" (turnkey) về mặt chiến lược cho hệ thống vận hành mới:
 
 - **Thiết kế Xưởng & Đồng bộ hóa Năng lực Sản xuất:** Xây dựng bản vẽ layout mặt bằng di chuyển một chiều (routing), bố trí hợp lý từ phòng chuẩn bị bột, khu vực tạo hình (với máy Rheon chuyên dụng), khu vực nướng (Oven) đến phòng làm mát và đóng gói . Chúng tôi tính toán chi tiết bài toán "nút thắt cổ chai" (bottleneck) để đảm bảo số lượng lò nướng đồng bộ hoàn hảo với tốc độ nhả bột của máy tạo hình tự động .
-  ![alt text](../HLGMoorenConsultancy/assets/media/blog-img/csc-foods-pastry/layout.png)
+  ![alt text](../assets/media/blog-img/csc-foods-pastry/layout.png)
 - **Nghiên cứu & Chuẩn hóa Công thức (R&D):** Phát triển nhiều biến thể công thức vỏ bánh (sử dụng bơ nguyên chất hoặc shortening) nhằm tối ưu hóa giá thành nhưng vẫn giữ được hương vị phù hợp với thị hiếu Châu Âu . Quan trọng nhất, chúng tôi thiết lập các thông số kiểm soát thời hạn bảo quản (shelf-life) lên tới 6 tháng thông qua việc quản lý độ pH và hoạt độ nước (AW: 0.6 - 0.7) của nhân mứt – yếu tố sống còn để phục vụ xuất khẩu .
 - **Chiến lược Giá & Bao bì Đa phân khúc:** Thiết lập chiến lược hai tầng rõ rệt: Bao bì tiêu chuẩn (Retail packaging) với trọng lượng 30g nhắm vào mức giá phổ thông, và Bao bì quà tặng cao cấp (Gift packaging) 50g với thiết kế sang trọng hướng đến biên lợi nhuận cao (premium margin) tại các điểm du lịch .
-  ![alt text](../HLGMoorenConsultancy/assets/media/blog-img/csc-foods-pastry/packaging.png)
+  ![alt text](../assets/media/blog-img/csc-foods-pastry/packaging.png)
 - **Xây dựng Mạng lưới Phân phối:** Cung cấp bộ công cụ đánh giá năng lực nhà phân phối (Distributor checklist) bài bản. Lên danh mục khách hàng chiến lược, tiếp cận trực tiếp vào các chuỗi cửa hàng tiện lợi lớn nhất quốc gia, siêu thị cao cấp và các hệ thống đại lý lữ hành .
 
 **Kết quả kỳ vọng: Chuyển đổi để Dẫn đầu** Với lộ trình thực thi bài bản từ HLG Mooren Consulting, CSC Foods đã được trang bị đầy đủ "vũ khí" để tham chiến ở một sân chơi mới . Từ một bảng cấu thành chi phí (costing) chi tiết cho từng chiếc bánh, đến một quy trình sản xuất đáp ứng tiêu chuẩn an toàn quốc tế (chuẩn bị tích hợp BRC), doanh nghiệp đã sẵn sàng tự tin giới thiệu sản phẩm ra thị trường Thái Lan và từng bước chinh phục các đối tác nhập khẩu toàn cầu.
