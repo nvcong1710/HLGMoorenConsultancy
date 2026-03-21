@@ -1,10 +1,10 @@
 ## From a Local Processing Workshop to a Standardized System: The Transformation Roadmap of Anvies Agricultural Brand
 
-![alt text](<../HLGMoorenConsultancy/assets/media/blog-img/anvies-operations-transformation/Screenshot 2026-02-28 130123.png>)
+![alt text](<../assets/media/blog-img/anvies-operations-transformation/Screenshot 2026-02-28 130123.png>)
 
 Owning a high-quality product yet struggling with sales execution, lacking standardized management systems, and operating without internationally recognized food safety certifications required to enter demanding markets—this is a common pain point for many SMEs in the F&B industry. It was also the core challenge Anvies faced before partnering with HLG Mooren Consulting.
 
-![alt text](<../HLGMoorenConsultancy/assets/media/blog-img/anvies-operations-transformation/Screenshot 2026-02-28 130242.png>)
+![alt text](<../assets/media/blog-img/anvies-operations-transformation/Screenshot 2026-02-28 130242.png>)
 
 **Project Background: A Gem in the Rough**  
 Headquartered in Ho Chi Minh City (Vietnam), Anvies is a passionate enterprise specializing in sustainable processing of vegetables and mushrooms using diverse technologies: freeze-drying, hot-air drying, and freezing. Their strongest advantage lies in superior product quality and tightly controlled raw material sourcing thanks to their proximity to cultivation areas (just a two-hour drive).
@@ -16,7 +16,7 @@ Under the leadership of consultant Hugo Mooren, HLG Mooren Consulting did not re
 
 Our consulting philosophy is pragmatic: Anvies cannot sell at high value if its internal production “lungs” do not meet international standards.
 
-![alt text](<../HLGMoorenConsultancy/assets/media/blog-img/anvies-operations-transformation/Screenshot 2026-02-28 130023.png>)
+![alt text](<../assets/media/blog-img/anvies-operations-transformation/Screenshot 2026-02-28 130023.png>)
 
 **Strategic Solutions Implemented**  
 Together with Anvies’ leadership team, we executed a comprehensive restructuring centered around key pillars:

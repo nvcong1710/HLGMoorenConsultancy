@@ -33,7 +33,7 @@ Phân tích SWOT cho thấy:
 - Không có production reporting
 - Không có quality control system
 
-![alt text](../HLGMoorenConsultancy/assets/media/blog-img/ebeston-bakery-haccp/building-2022.png)
+![alt text](../assets/media/blog-img/ebeston-bakery-haccp/building-2022.png)
 
 Điểm đáng chú ý nhất:Lò nướng handmade (chi phí ~400 euro), không cách nhiệt, không kiểm soát nhiệt độ, không có timer → dẫn đến **irregular baking quality**
 
@@ -70,7 +70,7 @@ Từ “làm bánh theo thói quen” → “làm bánh theo quy trình”.
 
 ### 2\. Chuẩn hóa Production Planning
 
-![alt text](../HLGMoorenConsultancy/assets/media/blog-img/ebeston-bakery-haccp/transport.png)
+![alt text](../assets/media/blog-img/ebeston-bakery-haccp/transport.png)
 
 - So sánh planning vs actual hàng ngày/tuần/tháng
 - Thiết lập production planning system
@@ -115,7 +115,7 @@ Giải pháp:
 
 ### 5\. Packaging & Branding
 
-![alt text](../HLGMoorenConsultancy/assets/media/blog-img/ebeston-bakery-haccp/packaging.png)
+![alt text](../assets/media/blog-img/ebeston-bakery-haccp/packaging.png)
 
 Packaging được tái định nghĩa như một công cụ marketing:
 
@@ -128,7 +128,7 @@ Packaging được tái định nghĩa như một công cụ marketing:
 
 ### 6\. Nhân sự & đào tạo
 
-![alt text](../HLGMoorenConsultancy/assets/media/blog-img/ebeston-bakery-haccp/consumer.png)
+![alt text](../assets/media/blog-img/ebeston-bakery-haccp/consumer.png)
 
 - Chương trình training on-the-job
 - Thiết lập KPI rõ ràng

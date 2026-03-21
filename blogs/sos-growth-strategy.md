@@ -3,7 +3,7 @@
 Khi một doanh nghiệp thực phẩm phụ thuộc 50% doanh thu vào một khách hàng và 90% hoạt động tập trung vào một phân khúc duy nhất, rủi ro không còn là giả định — mà là hiện hữu. Dulces Flower y Cia (SOS) tại Colombia đang tăng trưởng trong thị trường có tiềm năng, nhưng nền tảng vận hành và chiến lược chưa đủ vững để mở rộng quy mô.
 
 Bài toán đặt ra không chỉ là tăng doanh số — mà là xây dựng một cấu trúc tổ chức, hệ thống chất lượng và chiến lược thị trường đủ mạnh để phát triển toàn quốc.
-![alt text](../HLGMoorenConsultancy/assets/media/blog-img/sos-growth-strategy/site.png)
+![alt text](../assets/media/blog-img/sos-growth-strategy/site.png)
 Bối cảnh dự án
 
 ---
@@ -25,7 +25,7 @@ Bối cảnh dự án
 
       *   Vấn đề vệ sinh và an toàn nhà máy
 
-  ![alt text](../HLGMoorenConsultancy/assets/media/blog-img/sos-growth-strategy/site.png)
+  ![alt text](../assets/media/blog-img/sos-growth-strategy/site.png)
 
 ## Phương pháp tiếp cận của HLG Mooren Consulting
 
@@ -73,8 +73,8 @@ Chuyển nhà máy từ mức rủi ro cao sang chuẩn hóa theo GFSI framework
 
 ### 🔹 2. Xây dựng chiến lược danh mục sản phẩm (BCG Matrix)
 
-![alt text](../HLGMoorenConsultancy/assets/media/blog-img/sos-growth-strategy/product.png)
-![alt text](../HLGMoorenConsultancy/assets/media/blog-img/sos-growth-strategy/product2.png)
+![alt text](../assets/media/blog-img/sos-growth-strategy/product.png)
+![alt text](../assets/media/blog-img/sos-growth-strategy/product2.png)
 
 - Phân loại Cash cow / Star / Question mark / Dog
 - Đề xuất tạo “New Star”: Energy fruit gels

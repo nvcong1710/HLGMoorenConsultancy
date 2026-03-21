@@ -23,18 +23,18 @@ We delivered a strategic “turnkey blueprint” for the new operational system:
 ### 1️⃣ Factory Design & Production Capacity Synchronization
 
 - Designed a one-way production routing layout:
-  - Dough preparation room  
-  - Forming area (with specialized Rheon machine)  
-  - Baking area (Ovens)  
-  - Cooling and packaging room  
+  - Dough preparation room
+  - Forming area (with specialized Rheon machine)
+  - Baking area (Ovens)
+  - Cooling and packaging room
 
 - Conducted detailed bottleneck analysis to ensure the number of ovens was perfectly synchronized with the output speed of the automated forming machine.
 
-![alt text](../HLGMoorenConsultancy/assets/media/blog-img/csc-foods-pastry/layout.png)
+![alt text](../assets/media/blog-img/csc-foods-pastry/layout.png)
 
 ### 2️⃣ Recipe Development & Standardization (R&D)
 
-- Developed multiple crust formula variations (using either pure butter or shortening) to optimize cost while maintaining flavor preferences aligned with European taste profiles.  
+- Developed multiple crust formula variations (using either pure butter or shortening) to optimize cost while maintaining flavor preferences aligned with European taste profiles.
 - Established shelf-life control parameters up to 6 months by managing pH levels and water activity (AW: 0.6–0.7) in the pineapple filling—critical for export compliance and product stability.
 
 This ensured both cost efficiency and international market readiness.
@@ -49,17 +49,17 @@ A clear two-tier strategy was implemented:
 - **Premium Gift Packaging (50g)**  
   Designed with elevated aesthetics to capture higher margins at tourist destinations.
 
-![alt text](../HLGMoorenConsultancy/assets/media/blog-img/csc-foods-pastry/packaging.png)
+![alt text](../assets/media/blog-img/csc-foods-pastry/packaging.png)
 
 This segmentation allowed CSC Foods to serve both volume-driven and margin-driven channels simultaneously.
 
 ### 4️⃣ Distribution Network Development
 
-- Developed a structured Distributor Checklist to assess partner capability.  
+- Developed a structured Distributor Checklist to assess partner capability.
 - Identified strategic customer segments:
-  - Largest national convenience store chains  
-  - Premium supermarket chains  
-  - Travel agencies and tourism-related retail networks  
+  - Largest national convenience store chains
+  - Premium supermarket chains
+  - Travel agencies and tourism-related retail networks
 
 The model followed a B2B2C logic—leveraging intermediaries with strong consumer access.
 

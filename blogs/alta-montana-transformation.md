@@ -1,7 +1,7 @@
 # Từ hợp tác xã phân tán đến mô hình cà phê đặc sản có kiểm soát: Lộ trình chuyển đổi chiến lược của Alta Montaña
 
 Một hợp tác xã có 390 thành viên, sở hữu chứng nhận Organic và Fair Trade, có phòng lab thử nếm và thương hiệu nội địa — nhưng vẫn đối mặt với năng suất thấp, chi phí cao và biên lợi nhuận mỏng. Đó là thực tế của Alta Montaña tại vùng Amazonas, Peru.
-![alt text](../HLGMoorenConsultancy/assets/media/blog-img/alta-montana-transformation/meeting.jpg)
+![alt text](../assets/media/blog-img/alta-montana-transformation/meeting.jpg)
 Câu hỏi không phải là “có tiềm năng hay không” — mà là:**Làm thế nào để chuyển từ một hợp tác xã nông nghiệp truyền thống sang một mô hình doanh nghiệp cà phê đặc sản được quản trị bằng dữ liệu, quy trình và chiến lược dài hạn?**
 
 ## Bối cảnh dự án
@@ -12,7 +12,7 @@ Câu hỏi không phải là “có tiềm năng hay không” — mà là:**Là
 - **Thành viên:** ~390 nông dân
 - **Chứng nhận:** Organic, Fair Trade, Rainforest
 - **Thị trường:** Xuất khẩu cà phê xanh + nội địa (rang xay)
-  ![alt text](../HLGMoorenConsultancy/assets/media/blog-img/alta-montana-transformation/area.png)
+  ![alt text](../assets/media/blog-img/alta-montana-transformation/area.png)
   Alta Montaña có nhiều điểm mạnh:
 
 - 70% sản lượng của mỗi thành viên bán cho hợp tác xã
@@ -164,8 +164,8 @@ Thiết lập protocol chi tiết:
 - Value-based pricing
 
 Tùy phân khúc: xuất khẩu green bean vs rang xay nội địa.
-![alt text](../HLGMoorenConsultancy/assets/media/blog-img/alta-montana-transformation/product1.png)
-![alt text](../HLGMoorenConsultancy/assets/media/blog-img/alta-montana-transformation/product2.png)
+![alt text](../assets/media/blog-img/alta-montana-transformation/product1.png)
+![alt text](../assets/media/blog-img/alta-montana-transformation/product2.png)
 
 ### 🔹 4. Chiến lược B2C nội địa Peru
 

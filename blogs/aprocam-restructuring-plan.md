@@ -1,6 +1,6 @@
 # Từ sụt giảm 50% sản lượng đến lộ trình 350.000kg: Kế hoạch tái cấu trúc 5 năm của Hợp tác xã cacao Aprocam
 
-![alt text](../HLGMoorenConsultancy/assets/media/blog-img/aprocam-restructuring-plan/stock.png)
+![alt text](../assets/media/blog-img/aprocam-restructuring-plan/stock.png)
 Khi sản lượng bán ra giảm 50% chỉ trong một năm, đó không còn là biến động thị trường — mà là dấu hiệu của một khủng hoảng cấu trúc. Aprocam, hợp tác xã cacao tại Bagua, Peru, đứng trước ba thách thức lớn: phụ thuộc gần như hoàn toàn vào một khách hàng, mất nông dân vì thiếu dòng tiền, và suy giảm sản lượng nghiêm trọng.
 
 Nhưng thị trường cacao toàn cầu lại đang ở một bước ngoặt: giá cao kỷ lục, nhu cầu cacao chất lượng cao tăng mạnh, đặc biệt tại châu Âu. Câu hỏi đặt ra không phải là “có cơ hội hay không” — mà là **làm thế nào để nắm bắt cơ hội bằng một chiến lược dài hạn và bài bản**.
@@ -23,7 +23,7 @@ Nhưng thị trường cacao toàn cầu lại đang ở một bước ngoặt: 
 
       *   Không có chiến lược 5 năm rõ ràng
 
-  ![alt text](../HLGMoorenConsultancy/assets/media/blog-img/aprocam-restructuring-plan/farm.png)
+  ![alt text](../assets/media/blog-img/aprocam-restructuring-plan/farm.png)
 
 Tuy nhiên, Aprocam có nền tảng tốt:
 
@@ -48,7 +48,7 @@ Phân tích thị trường cho thấy:
 - Sản phẩm không khác biệt sẽ bị loại khỏi chuỗi giá trị
 
 Kết luận chiến lược:👉 Tập trung vào **cacao premium, truy xuất nguồn gốc rõ ràng, chất lượng ổn định**
-![alt text](../HLGMoorenConsultancy/assets/media/blog-img/aprocam-restructuring-plan/room.png)
+![alt text](../assets/media/blog-img/aprocam-restructuring-plan/room.png)
 
 ### 2️⃣ Chuẩn hóa quy trình chế biến tập trung
 
@@ -58,7 +58,7 @@ Rủi ro khi mở trái cacao tại nông trại:
 - Nguy cơ mốc, acid hóa
 - Giảm giá trị thương mại
 
-![alt text](../HLGMoorenConsultancy/assets/media/blog-img/aprocam-restructuring-plan/product.png)
+![alt text](../assets/media/blog-img/aprocam-restructuring-plan/product.png)
 
 Giải pháp:
 
